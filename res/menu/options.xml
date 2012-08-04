@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Frex - a fractal image generator for Android mobile devices
+  ~
+  ~ Copyright (C) 2012 by Norman Fomferra
+  ~
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/zoom_all"
+          android:icon="@drawable/ic_action_locate"
+          android:showAsAction="always"
+          android:title="@string/zoom_all"/>
+    <item android:id="@+id/zoom_in"
+          android:icon="@drawable/frex_action_zoom_in"
+          android:showAsAction="always"
+          android:title="@string/zoom_in"/>
+    <item android:id="@+id/zoom_out"
+          android:icon="@drawable/frex_action_zoom_out"
+          android:showAsAction="always"
+          android:title="@string/zoom_out"/>
+    <item android:id="@+id/properties"
+          android:showAsAction="never"
+          android:title="@string/properties"/>
+    <item android:id="@+id/colors"
+          android:showAsAction="never"
+          android:title="@string/colors"/>
+    <item android:id="@+id/decorations"
+          android:showAsAction="never"
+          android:title="@string/decorations"/>
+    <item android:id="@+id/open_fractal"
+          android:icon="@drawable/ic_action_star"
+          android:showAsAction="ifRoom"
+          android:title="@string/open_fractal"/>
+    <item android:id="@+id/save_fractal"
+          android:showAsAction="never"
+          android:title="@string/safe_fractal"/>
+    <item android:id="@+id/save_image"
+          android:showAsAction="never"
+          android:title="@string/save_image"/>
+    <item android:id="@+id/share_image"
+          android:icon="@drawable/ic_action_share"
+          android:showAsAction="ifRoom"
+          android:title="@string/share_image"
+          android:actionProviderClass="android.widget.ShareActionProvider"/>
+    <item android:id="@+id/delete_all_fractals"
+          android:showAsAction="never"
+          android:title="@string/delete_saved_fractals"/>
+    <item android:id="@+id/set_wallpaper"
+          android:showAsAction="never"
+          android:title="@string/set_wallpaper"/>
+    <item android:id="@+id/about_frex"
+          android:showAsAction="never"
+          android:title="@string/about_frex"/>
+</menu>

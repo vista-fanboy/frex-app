@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Frex - a fractal image generator for Android mobile devices
+  ~
+  ~ Copyright (C) 2012 by Norman Fomferra
+  ~
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<resources>
+    <string name="app_name">Frex</string>
+    <string name="random">Zufällig</string>
+    <string name="decorations">Dekorationen</string>
+    <string name="properties">Eigenschaften</string>
+    <string name="distance_function">Abstands-Funktion</string>
+    <string name="dilation">Streckung</string>
+    <string name="translation_x">Horizontaler Versatz</string>
+    <string name="translation_y">Vertikaler Versatz</string>
+    <string name="colors">Farben</string>
+    <string name="color_scheme">Farbschema</string>
+    <string name="color_gain">Farbverstärkung</string>
+    <string name="color_offset">Farbverschiebung</string>
+    <string name="color_repeat">Farben wiederholen</string>
+    <string name="num_iterations">Detailierungsgrad</string>
+    <string name="open_fractal">Fraktal öffnen</string>
+    <string name="safe_fractal">Fraktal speichern</string>
+    <string name="delete_saved_fractals">Fraktale löschen</string>
+    <string name="select_fractal">Fraktal auswählen</string>
+    <string name="fractal_name">Name des Fraktals</string>
+    <string name="fractal_type">Typ des Fraktals</string>
+    <string name="zoom_all">Ganze Region</string>
+    <string name="zoom_in">Reinzoomen</string>
+    <string name="zoom_out">Rauszoomen</string>
+    <string name="decorated_fractal">Dekoriertes Fraktal</string>
+    <string name="julia_mode_fractal">Modus \'Julia-Menge\'</string>
+    <string name="about_frex">Über Frex</string>
+    <string name="about_frex_text">
+        Frex version %s\nCopyright © 2012 by Norman Fomferra.\n\nFür dieses Programm besteht KEINERLEI GARANTIE;\nFrex ist freie Software und wird unter der GNU Public Licence (GPL v3) verteilt.
+    </string>
+    <string name="fractal_saved">Fraktal gespeichert.</string>
+    <string name="error_msg">Fehler: {0}</string>
+    <string name="no_fractals_found">Keine gespeicherten Fractals gefunden.</string>
+    <string name="set_wallpaper">Als Hintergrundbild setzen</string>
+    <string name="out_of_memory">Speicher voll.</string>
+    <string name="wallpaper_msg">Ein neues Hintergrundbild (%1$dx%2$d px) wird für dein Gerät berechnet. Je nach Hardware kann das zwischen mehreren Sekunden oder Minuten dauern.\nMöchtest du den Hintergrund jetzt austauschen?
+    </string>
+    <string name="wallpaper_set_msg">Hintergrundbild gesetzt.</string>
+    <string name="save_image">Bild speichern</string>
+    <string name="share_image">Bild senden</string>
+    <string name="email_subject">Ein neues Fraktal für dich</string>
+    <string name="image_saved_msg">Bild gespeichert in\n%s</string>
+    <string name="image_save_failed_msg">Bild konnte nicht gespeichert werden</string>
+</resources>

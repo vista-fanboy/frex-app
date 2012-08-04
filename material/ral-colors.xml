@@ -1,0 +1,5153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="ral-colors.xsl"?>
+
+<!--
+  ~ Frex - a fractal image generator for Android mobile devices
+  ~
+  ~ Copyright (C) 2012 by Norman Fomferra
+  ~
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<table>
+    <thead>
+        <tr>
+            <th>R,G,B</th>
+            <th>RAL</th>
+            <th>de</th>
+            <th>en</th>
+            <th>fr</th>
+            <th>es</th>
+            <th>it</th>
+            <th>nl</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>202,191,142</td>
+            <td>
+                RAL 1000
+            </td>
+            <td>
+                Grünbeige
+            </td>
+            <td>
+                Green beige
+            </td>
+            <td>
+                Beige vert
+            </td>
+            <td>
+                Beige verdoso
+            </td>
+            <td>
+                Beige verdastro
+            </td>
+            <td>
+                Groenbeige
+            </td>
+        </tr>
+        <tr>
+            <td>205,180,138</td>
+            <td>
+                RAL 1001
+            </td>
+            <td>
+                Beige
+            </td>
+            <td>
+                Beige
+            </td>
+            <td>
+                Beige
+            </td>
+            <td>
+                Beige
+            </td>
+            <td>
+                Beige
+            </td>
+            <td>
+                Beige
+            </td>
+        </tr>
+        <tr>
+            <td>207,174,117</td>
+            <td>
+                RAL 1002
+            </td>
+            <td>
+                Sandgelb
+            </td>
+            <td>
+                Sand yellow
+            </td>
+            <td>
+                Jaune sable
+            </td>
+            <td>
+                Amarillo arena
+            </td>
+            <td>
+                Giallo sabbia
+            </td>
+            <td>
+                Zandgeel
+            </td>
+        </tr>
+        <tr>
+            <td>243,173,30</td>
+            <td>
+                RAL 1003
+            </td>
+            <td>
+                Signalgelb
+            </td>
+            <td>
+                Signal yellow
+            </td>
+            <td>
+                Jaune de sécurité
+            </td>
+            <td>
+                Amarillo señales
+            </td>
+            <td>
+                Giallo segnale
+            </td>
+            <td>
+                Signaalgeel
+            </td>
+        </tr>
+        <tr>
+            <td>222,163,27</td>
+            <td>
+                RAL 1004
+            </td>
+            <td>
+                Goldgelb
+            </td>
+            <td>
+                Golden yellow
+            </td>
+            <td>
+                Jaune or
+            </td>
+            <td>
+                Amarillo oro
+            </td>
+            <td>
+                Giallo oro
+            </td>
+            <td>
+                Goudgeel
+            </td>
+        </tr>
+        <tr>
+            <td>199,149,31</td>
+            <td>
+                RAL 1005
+            </td>
+            <td>
+                Honiggelb
+            </td>
+            <td>
+                Honey yellow
+            </td>
+            <td>
+                Jaune miel
+            </td>
+            <td>
+                Amarillo miel
+            </td>
+            <td>
+                Giallo miele
+            </td>
+            <td>
+                Honinggeel
+            </td>
+        </tr>
+        <tr>
+            <td>222,151,30</td>
+            <td>
+                RAL 1006
+            </td>
+            <td>
+                Maisgelb
+            </td>
+            <td>
+                Maize yellow
+            </td>
+            <td>
+                Jaune maïs
+            </td>
+            <td>
+                Amarillo maiz
+            </td>
+            <td>
+                Giallo polenta
+            </td>
+            <td>
+                Maisgeel
+            </td>
+        </tr>
+        <tr>
+            <td>227,147,28</td>
+            <td>
+                RAL 1007
+            </td>
+            <td>
+                Narzissengelb
+            </td>
+            <td>
+                Daffodil yellow
+            </td>
+            <td>
+                Jaune narcisse
+            </td>
+            <td>
+                Amarillo narciso
+            </td>
+            <td>
+                Giallo narciso
+            </td>
+            <td>
+                Narcissengeel
+            </td>
+        </tr>
+        <tr>
+            <td>174,136,92</td>
+            <td>
+                RAL 1011
+            </td>
+            <td>
+                Braunbeige
+            </td>
+            <td>
+                Brown beige
+            </td>
+            <td>
+                Beige brun
+            </td>
+            <td>
+                Beige pardo
+            </td>
+            <td>
+                Beige marrone
+            </td>
+            <td>
+                Bruinbeige
+            </td>
+        </tr>
+        <tr>
+            <td>216,180,62</td>
+            <td>
+                RAL 1012
+            </td>
+            <td>
+                Zitronengelb
+            </td>
+            <td>
+                Lemon yellow
+            </td>
+            <td>
+                Jaune citron
+            </td>
+            <td>
+                Amarillo limón
+            </td>
+            <td>
+                Giallo limone
+            </td>
+            <td>
+                Citroengeel
+            </td>
+        </tr>
+        <tr>
+            <td>226,221,202</td>
+            <td>
+                RAL 1013
+            </td>
+            <td>
+                Perlweiß
+            </td>
+            <td>
+                Oyster white
+            </td>
+            <td>
+                Blanc perlé
+            </td>
+            <td>
+                Blanco perla
+            </td>
+            <td>
+                Bianco perla
+            </td>
+            <td>
+                Parelwit
+            </td>
+        </tr>
+        <tr>
+            <td>217,200,158</td>
+            <td>
+                RAL 1014
+            </td>
+            <td>
+                Elfenbein
+            </td>
+            <td>
+                Ivory
+            </td>
+            <td>
+                Ivoire
+            </td>
+            <td>
+                Marfil
+            </td>
+            <td>
+                Avorio
+            </td>
+            <td>
+                Ivoorkleurig
+            </td>
+        </tr>
+        <tr>
+            <td>227,214,187</td>
+            <td>
+                RAL 1015
+            </td>
+            <td>
+                Hellelfenbein
+            </td>
+            <td>
+                Light ivory
+            </td>
+            <td>
+                Ivoire clair
+            </td>
+            <td>
+                Marfil claro
+            </td>
+            <td>
+                Avorio chiaro
+            </td>
+            <td>
+                Licht ivoorkleurig
+            </td>
+        </tr>
+        <tr>
+            <td>231,225,70</td>
+            <td>
+                RAL 1016
+            </td>
+            <td>
+                Schwefelgelb
+            </td>
+            <td>
+                Sulfur yellow
+            </td>
+            <td>
+                Jaune soufre
+            </td>
+            <td>
+                Amarillo azufre
+            </td>
+            <td>
+                Giallo zolfo
+            </td>
+            <td>
+                Zwavelgeel
+            </td>
+        </tr>
+        <tr>
+            <td>241,174,92</td>
+            <td>
+                RAL 1017
+            </td>
+            <td>
+                Safrangelb
+            </td>
+            <td>
+                Saffron yellow
+            </td>
+            <td>
+                Jaune safran
+            </td>
+            <td>
+                Amarillo azafrán
+            </td>
+            <td>
+                Giallo zafferano
+            </td>
+            <td>
+                Saffraangeel
+            </td>
+        </tr>
+        <tr>
+            <td>241,207,68</td>
+            <td>
+                RAL 1018
+            </td>
+            <td>
+                Zinkgelb
+            </td>
+            <td>
+                Zinc yellow
+            </td>
+            <td>
+                Jaune zinc
+            </td>
+            <td>
+                Amarillo de zinc
+            </td>
+            <td>
+                Giallo zinco
+            </td>
+            <td>
+                Zinkgeel
+            </td>
+        </tr>
+        <tr>
+            <td>165,149,129</td>
+            <td>
+                RAL 1019
+            </td>
+            <td>
+                Graubeige
+            </td>
+            <td>
+                Grey beige
+            </td>
+            <td>
+                Beige gris
+            </td>
+            <td>
+                Beige agrisado
+            </td>
+            <td>
+                Beige grigiastro
+            </td>
+            <td>
+                Grijsbeige
+            </td>
+        </tr>
+        <tr>
+            <td>160,149,109</td>
+            <td>
+                RAL 1020
+            </td>
+            <td>
+                Olivgelb
+            </td>
+            <td>
+                Olive yellow
+            </td>
+            <td>
+                Jaune olive
+            </td>
+            <td>
+                Amarillo oliva
+            </td>
+            <td>
+                Giallo olivastro
+            </td>
+            <td>
+                Olijfgeel
+            </td>
+        </tr>
+        <tr>
+            <td>239,187,4</td>
+            <td>
+                RAL 1021
+            </td>
+            <td>
+                Rapsgelb
+            </td>
+            <td>
+                Colza yellow
+            </td>
+            <td>
+                Jaune colza
+            </td>
+            <td>
+                Amarillo colza
+            </td>
+            <td>
+                Giallo navone
+            </td>
+            <td>
+                Koolzaadgeel
+            </td>
+        </tr>
+        <tr>
+            <td>239,187,8</td>
+            <td>
+                RAL 1023
+            </td>
+            <td>
+                Verkehrsgelb
+            </td>
+            <td>
+                Traffic yellow
+            </td>
+            <td>
+                Jaune signalisation
+            </td>
+            <td>
+                Amarillo tráfico
+            </td>
+            <td>
+                Giallo traffico
+            </td>
+            <td>
+                Verkeersgeel
+            </td>
+        </tr>
+        <tr>
+            <td>184,150,88</td>
+            <td>
+                RAL 1024
+            </td>
+            <td>
+                Ockergelb
+            </td>
+            <td>
+                Ochre yellow
+            </td>
+            <td>
+                Jaune ocre
+            </td>
+            <td>
+                Amarillo ocre
+            </td>
+            <td>
+                Giallo ocra
+            </td>
+            <td>
+                Okergeel
+            </td>
+        </tr>
+        <tr>
+            <td>239,251,0</td>
+            <td>
+                RAL 1026
+            </td>
+            <td>
+                Leuchtgelb
+            </td>
+            <td>
+                Luminous yellow
+            </td>
+            <td>
+                Jaune brillant
+            </td>
+            <td>
+                Amarillo brillante
+            </td>
+            <td>
+                Giallo brillante
+            </td>
+            <td>
+                Briljantgeel
+            </td>
+        </tr>
+        <tr>
+            <td>166,134,49</td>
+            <td>
+                RAL 1027
+            </td>
+            <td>
+                Currygelb
+            </td>
+            <td>
+                Curry
+            </td>
+            <td>
+                Jaune curry
+            </td>
+            <td>
+                Amarillo curry
+            </td>
+            <td>
+                Giallo curry
+            </td>
+            <td>
+                Kerriegeel
+            </td>
+        </tr>
+        <tr>
+            <td>251,161,2</td>
+            <td>
+                RAL 1028
+            </td>
+            <td>
+                Melonengelb
+            </td>
+            <td>
+                Melon yellow
+            </td>
+            <td>
+                Jaune melon
+            </td>
+            <td>
+                Amarillo melón
+            </td>
+            <td>
+                Giallo melone
+            </td>
+            <td>
+                Meloengeel
+            </td>
+        </tr>
+        <tr>
+            <td>220,168,38</td>
+            <td>
+                RAL 1032
+            </td>
+            <td>
+                Ginstergelb
+            </td>
+            <td>
+                Broom yellow
+            </td>
+            <td>
+                Jaune genêt
+            </td>
+            <td>
+                Amarillo retama
+            </td>
+            <td>
+                Giallo scopa
+            </td>
+            <td>
+                Bremgeel
+            </td>
+        </tr>
+        <tr>
+            <td>245,159,57</td>
+            <td>
+                RAL 1033
+            </td>
+            <td>
+                Dahliengelb
+            </td>
+            <td>
+                Dahlia yellow
+            </td>
+            <td>
+                Jaune dahlia
+            </td>
+            <td>
+                Amarillo dalia
+            </td>
+            <td>
+                Giallo dahlien
+            </td>
+            <td>
+                Dahliageel
+            </td>
+        </tr>
+        <tr>
+            <td>231,163,95</td>
+            <td>
+                RAL 1034
+            </td>
+            <td>
+                Pastellgelb
+            </td>
+            <td>
+                Pastel yellow
+            </td>
+            <td>
+                Jaune pastel
+            </td>
+            <td>
+                Amarillo pastel
+            </td>
+            <td>
+                Giallo pastello
+            </td>
+            <td>
+                Pastelgeel
+            </td>
+        </tr>
+        <tr>
+            <td>136,130,110</td>
+            <td>
+                RAL 1035
+            </td>
+            <td>
+                Perlbeige
+            </td>
+            <td>
+                Pearl beige
+            </td>
+            <td>
+                Beige nacré
+            </td>
+            <td>
+                Beige perlado
+            </td>
+            <td>
+                Beige perlato
+            </td>
+            <td>
+                Parelmoer grijs
+            </td>
+        </tr>
+        <tr>
+            <td>134,112,69</td>
+            <td>
+                RAL 1036
+            </td>
+            <td>
+                Perlgold
+            </td>
+            <td>
+                Pearl gold
+            </td>
+            <td>
+                Or nacré
+            </td>
+            <td>
+                Oro perlado
+            </td>
+            <td>
+                Oro perlato
+            </td>
+            <td>
+                Parelmoer goud
+            </td>
+        </tr>
+        <tr>
+            <td>234,152,41</td>
+            <td>
+                RAL 1037
+            </td>
+            <td>
+                Sonnengelb
+            </td>
+            <td>
+                Sun yellow
+            </td>
+            <td>
+                Jaune soleil
+            </td>
+            <td>
+                Amarillo sol
+            </td>
+            <td>
+                Giallo sole
+            </td>
+            <td>
+                Zonnegeel
+            </td>
+        </tr>
+        <tr>
+            <td>216,118,43</td>
+            <td>
+                RAL 2000
+            </td>
+            <td>
+                Gelborange
+            </td>
+            <td>
+                Yellow orange
+            </td>
+            <td>
+                Orangé jaune
+            </td>
+            <td>
+                Amarillo naranja
+            </td>
+            <td>
+                Arancio giallastro
+            </td>
+            <td>
+                Geeloranje
+            </td>
+        </tr>
+        <tr>
+            <td>186,85,59</td>
+            <td>
+                RAL 2001
+            </td>
+            <td>
+                Rotorange
+            </td>
+            <td>
+                Red orange
+            </td>
+            <td>
+                Orangé rouge
+            </td>
+            <td>
+                Rojo anaranjado
+            </td>
+            <td>
+                Arancio rossastro
+            </td>
+            <td>
+                Roodoranje
+            </td>
+        </tr>
+        <tr>
+            <td>191,71,59</td>
+            <td>
+                RAL 2002
+            </td>
+            <td>
+                Blutorange
+            </td>
+            <td>
+                Vermilion
+            </td>
+            <td>
+                Orangé sang
+            </td>
+            <td>
+                Naranja sanguineo
+            </td>
+            <td>
+                Arancio sanguigno
+            </td>
+            <td>
+                Vermiljoen
+            </td>
+        </tr>
+        <tr>
+            <td>240,127,65</td>
+            <td>
+                RAL 2003
+            </td>
+            <td>
+                Pastellorange
+            </td>
+            <td>
+                Pastel orange
+            </td>
+            <td>
+                Orangé pastel
+            </td>
+            <td>
+                Naranja pálido
+            </td>
+            <td>
+                Arancio pastello
+            </td>
+            <td>
+                Pasteloranje
+            </td>
+        </tr>
+        <tr>
+            <td>224,93,49</td>
+            <td>
+                RAL 2004
+            </td>
+            <td>
+                Reinorange
+            </td>
+            <td>
+                Pure orange
+            </td>
+            <td>
+                Orangé pur
+            </td>
+            <td>
+                Naranja puro
+            </td>
+            <td>
+                Arancio puro
+            </td>
+            <td>
+                Zuiver oranje
+            </td>
+        </tr>
+        <tr>
+            <td>255,19,0</td>
+            <td>
+                RAL 2005
+            </td>
+            <td>
+                Leuchtorange
+            </td>
+            <td>
+                Luminous orange
+            </td>
+            <td>
+                Orangé brillant
+            </td>
+            <td>
+                Naranja brillante
+            </td>
+            <td>
+                Arancio brillante
+            </td>
+            <td>
+                Briljantoranje
+            </td>
+        </tr>
+        <tr>
+            <td>255,149,0</td>
+            <td>
+                RAL 2007
+            </td>
+            <td>
+                Leuchthell orange
+            </td>
+            <td>
+                Luminous bright orange
+            </td>
+            <td>
+                Orangé clair brillant
+            </td>
+            <td>
+                Naranja claro brillante
+            </td>
+            <td>
+                Arancio chiaro brillante
+            </td>
+            <td>
+                Briljant lichtoranje
+            </td>
+        </tr>
+        <tr>
+            <td>233,112,56</td>
+            <td>
+                RAL 2008
+            </td>
+            <td>
+                Hellrotorange
+            </td>
+            <td>
+                Bright red orange
+            </td>
+            <td>
+                Orangé rouge clair
+            </td>
+            <td>
+                Rojo claro anaranjado
+            </td>
+            <td>
+                Rosso arancio chiaro
+            </td>
+            <td>
+                Licht roodoranje
+            </td>
+        </tr>
+        <tr>
+            <td>217,92,48</td>
+            <td>
+                RAL 2009
+            </td>
+            <td>
+                Verkehrs-orange
+            </td>
+            <td>
+                Traffic orange
+            </td>
+            <td>
+                Orangé signalisation
+            </td>
+            <td>
+                Naranja tráfico
+            </td>
+            <td>
+                Arancio traffico
+            </td>
+            <td>
+                Verkeersoranje
+            </td>
+        </tr>
+        <tr>
+            <td>205,100,60</td>
+            <td>
+                RAL 2010
+            </td>
+            <td>
+                Signalorange
+            </td>
+            <td>
+                Signal orange
+            </td>
+            <td>
+                Orangé de sécurité
+            </td>
+            <td>
+                Naranja señales
+            </td>
+            <td>
+                Arancio segnale
+            </td>
+            <td>
+                Signaaloranje
+            </td>
+        </tr>
+        <tr>
+            <td>223,119,54</td>
+            <td>
+                RAL 2011
+            </td>
+            <td>
+                Tieforange
+            </td>
+            <td>
+                Deep orange
+            </td>
+            <td>
+                Orangé foncé
+            </td>
+            <td>
+                Naranja intenso
+            </td>
+            <td>
+                Arancio profondo
+            </td>
+            <td>
+                Dieporanje
+            </td>
+        </tr>
+        <tr>
+            <td>210,106,86</td>
+            <td>
+                RAL 2012
+            </td>
+            <td>
+                Lachsorange
+            </td>
+            <td>
+                Salmon orange
+            </td>
+            <td>
+                Orangé saumon
+            </td>
+            <td>
+                Naranja salmón
+            </td>
+            <td>
+                Arancio salmone
+            </td>
+            <td>
+                Zalmoranje
+            </td>
+        </tr>
+        <tr>
+            <td>150,71,38</td>
+            <td>
+                RAL 2013
+            </td>
+            <td>
+                Perlorange
+            </td>
+            <td>
+                Pearl orange
+            </td>
+            <td>
+                Orangé nacré
+            </td>
+            <td>
+                Naranja perlado
+            </td>
+            <td>
+                Arancio perlato
+            </td>
+            <td>
+                Parelmoer oranje
+            </td>
+        </tr>
+        <tr>
+            <td>167,63,61</td>
+            <td>
+                RAL 3000
+            </td>
+            <td>
+                Feuerrot
+            </td>
+            <td>
+                Flame red
+            </td>
+            <td>
+                Rouge feu
+            </td>
+            <td>
+                Rojo vivo
+            </td>
+            <td>
+                Rosso fuoco
+            </td>
+            <td>
+                Vuurrood
+            </td>
+        </tr>
+        <tr>
+            <td>158,60,60</td>
+            <td>
+                RAL 3001
+            </td>
+            <td>
+                Signalrot
+            </td>
+            <td>
+                Signal red
+            </td>
+            <td>
+                Rouge de sécurité
+            </td>
+            <td>
+                Rojo señales
+            </td>
+            <td>
+                Rosso segnale
+            </td>
+            <td>
+                Signaalrood
+            </td>
+        </tr>
+        <tr>
+            <td>159,59,60</td>
+            <td>
+                RAL 3002
+            </td>
+            <td>
+                Karminrot
+            </td>
+            <td>
+                Carmine red
+            </td>
+            <td>
+                Rouge carmin
+            </td>
+            <td>
+                Rojo carmin
+            </td>
+            <td>
+                Rosso carminio
+            </td>
+            <td>
+                Karmijnrood
+            </td>
+        </tr>
+        <tr>
+            <td>138,55,60</td>
+            <td>
+                RAL 3003
+            </td>
+            <td>
+                Rubinrot
+            </td>
+            <td>
+                Ruby red
+            </td>
+            <td>
+                Rouge rubis
+            </td>
+            <td>
+                Rojo rubí
+            </td>
+            <td>
+                Rosso rubino
+            </td>
+            <td>
+                Robijnrood
+            </td>
+        </tr>
+        <tr>
+            <td>117,59,65</td>
+            <td>
+                RAL 3004
+            </td>
+            <td>
+                Purpurrot
+            </td>
+            <td>
+                Purple red
+            </td>
+            <td>
+                Rouge pourpre
+            </td>
+            <td>
+                Rojo púrpura
+            </td>
+            <td>
+                Rosso porpora
+            </td>
+            <td>
+                Purperrood
+            </td>
+        </tr>
+        <tr>
+            <td>100,61,65</td>
+            <td>
+                RAL 3005
+            </td>
+            <td>
+                Weinrot
+            </td>
+            <td>
+                Wine red
+            </td>
+            <td>
+                Rouge vin
+            </td>
+            <td>
+                Rojo vino
+            </td>
+            <td>
+                Rosso vino
+            </td>
+            <td>
+                Wijnrood
+            </td>
+        </tr>
+        <tr>
+            <td>78,62,64</td>
+            <td>
+                RAL 3007
+            </td>
+            <td>
+                Schwarzrot
+            </td>
+            <td>
+                Black red
+            </td>
+            <td>
+                Rouge noir
+            </td>
+            <td>
+                Rojo negruzco
+            </td>
+            <td>
+                Rosso nerastro
+            </td>
+            <td>
+                Zwartrood
+            </td>
+        </tr>
+        <tr>
+            <td>115,69,64</td>
+            <td>
+                RAL 3009
+            </td>
+            <td>
+                Oxidrot
+            </td>
+            <td>
+                Oxide red
+            </td>
+            <td>
+                Rouge oxyde
+            </td>
+            <td>
+                Rojo óxido
+            </td>
+            <td>
+                Rosso ossido
+            </td>
+            <td>
+                Oxyderood
+            </td>
+        </tr>
+        <tr>
+            <td>125,59,61</td>
+            <td>
+                RAL 3011
+            </td>
+            <td>
+                Braunrot
+            </td>
+            <td>
+                Brown red
+            </td>
+            <td>
+                Rouge brun
+            </td>
+            <td>
+                Rojo pardo
+            </td>
+            <td>
+                Rosso marrone
+            </td>
+            <td>
+                Bruinrood
+            </td>
+        </tr>
+        <tr>
+            <td>198,140,120</td>
+            <td>
+                RAL 3012
+            </td>
+            <td>
+                Beigerot
+            </td>
+            <td>
+                Beige red
+            </td>
+            <td>
+                Rouge beige
+            </td>
+            <td>
+                Rojo beige
+            </td>
+            <td>
+                Rosso beige
+            </td>
+            <td>
+                Beigerood
+            </td>
+        </tr>
+        <tr>
+            <td>154,66,63</td>
+            <td>
+                RAL 3013
+            </td>
+            <td>
+                Tomatenrot
+            </td>
+            <td>
+                Tomato red
+            </td>
+            <td>
+                Rouge tomate
+            </td>
+            <td>
+                Rojo tomate
+            </td>
+            <td>
+                Rosso pomodoro
+            </td>
+            <td>
+                Tomaatrood
+            </td>
+        </tr>
+        <tr>
+            <td>201,121,123</td>
+            <td>
+                RAL 3014
+            </td>
+            <td>
+                Altrosa
+            </td>
+            <td>
+                Antique pink
+            </td>
+            <td>
+                Vieux rose
+            </td>
+            <td>
+                Rojo viejo
+            </td>
+            <td>
+                Rosa antico
+            </td>
+            <td>
+                Oudroze
+            </td>
+        </tr>
+        <tr>
+            <td>215,165,172</td>
+            <td>
+                RAL 3015
+            </td>
+            <td>
+                Hellrosa
+            </td>
+            <td>
+                Light pink
+            </td>
+            <td>
+                Rose clair
+            </td>
+            <td>
+                Rosa claro
+            </td>
+            <td>
+                Rosa chiaro
+            </td>
+            <td>
+                Lichtroze
+            </td>
+        </tr>
+        <tr>
+            <td>168,75,67</td>
+            <td>
+                RAL 3016
+            </td>
+            <td>
+                Korallenrot
+            </td>
+            <td>
+                Coral red
+            </td>
+            <td>
+                Rouge corail
+            </td>
+            <td>
+                Rojo coral
+            </td>
+            <td>
+                Rosso corallo
+            </td>
+            <td>
+                Koraalrood
+            </td>
+        </tr>
+        <tr>
+            <td>202,93,102</td>
+            <td>
+                RAL 3017
+            </td>
+            <td>
+                Rosé
+            </td>
+            <td>
+                Rose
+            </td>
+            <td>
+                Rosé
+            </td>
+            <td>
+                Rosa
+            </td>
+            <td>
+                Rosato
+            </td>
+            <td>
+                Bleekrood
+            </td>
+        </tr>
+        <tr>
+            <td>198,78,89</td>
+            <td>
+                RAL 3018
+            </td>
+            <td>
+                Erdbeerrot
+            </td>
+            <td>
+                Strawberry red
+            </td>
+            <td>
+                Rouge fraise
+            </td>
+            <td>
+                Rojo fresa
+            </td>
+            <td>
+                Rosso fragola
+            </td>
+            <td>
+                Aardbeirood
+            </td>
+        </tr>
+        <tr>
+            <td>186,56,55</td>
+            <td>
+                RAL 3020
+            </td>
+            <td>
+                Verkehrsrot
+            </td>
+            <td>
+                Traffic red
+            </td>
+            <td>
+                Rouge signalisation
+            </td>
+            <td>
+                Rojo tráfico
+            </td>
+            <td>
+                Rosso traffico
+            </td>
+            <td>
+                Verkeersrood
+            </td>
+        </tr>
+        <tr>
+            <td>205,112,94</td>
+            <td>
+                RAL 3022
+            </td>
+            <td>
+                Lachsrot
+            </td>
+            <td>
+                Salmon pink
+            </td>
+            <td>
+                Rouge saumon
+            </td>
+            <td>
+                Rojo salmón
+            </td>
+            <td>
+                Rosso salmone
+            </td>
+            <td>
+                Zalmrood
+            </td>
+        </tr>
+        <tr>
+            <td>247,0,0</td>
+            <td>
+                RAL 3024
+            </td>
+            <td>
+                Leuchtrot
+            </td>
+            <td>
+                Luminous red
+            </td>
+            <td>
+                Rouge brillant
+            </td>
+            <td>
+                Rojo brillante
+            </td>
+            <td>
+                Rosso brillante
+            </td>
+            <td>
+                Briljantrood
+            </td>
+        </tr>
+        <tr>
+            <td>255,0,0</td>
+            <td>
+                RAL 3026
+            </td>
+            <td>
+                Leuchthellrot
+            </td>
+            <td>
+                Luminous bright red
+            </td>
+            <td>
+                Rouge clair brillant
+            </td>
+            <td>
+                Rojo claro brillante
+            </td>
+            <td>
+                Rosso chiaro brillante
+            </td>
+            <td>
+                Briljant lichtrood
+            </td>
+        </tr>
+        <tr>
+            <td>173,60,78</td>
+            <td>
+                RAL 3027
+            </td>
+            <td>
+                Himbeerrot
+            </td>
+            <td>
+                Raspberry red
+            </td>
+            <td>
+                Rouge framboise
+            </td>
+            <td>
+                Rojo frambuesa
+            </td>
+            <td>
+                Rosso lampone
+            </td>
+            <td>
+                Framboosrood
+            </td>
+        </tr>
+        <tr>
+            <td>203,50,52</td>
+            <td>
+                RAL 3028
+            </td>
+            <td>
+                Reinrot
+            </td>
+            <td>
+                Pure red
+            </td>
+            <td>
+                Rouge pu
+            </td>
+            <td>
+                Rojo puro
+            </td>
+            <td>
+                Rosso puro
+            </td>
+            <td>
+                Zuiver rood
+            </td>
+        </tr>
+        <tr>
+            <td>168,70,76</td>
+            <td>
+                RAL 3031
+            </td>
+            <td>
+                Orientrot
+            </td>
+            <td>
+                Orient red
+            </td>
+            <td>
+                Rouge oriental
+            </td>
+            <td>
+                Rojo oriente
+            </td>
+            <td>
+                Rosso oriente
+            </td>
+            <td>
+                Oriëntrood
+            </td>
+        </tr>
+        <tr>
+            <td>121,25,37</td>
+            <td>
+                RAL 3032
+            </td>
+            <td>
+                Perlrubinrot
+            </td>
+            <td>
+                Pearl ruby red
+            </td>
+            <td>
+                Rouge rubis nacré
+            </td>
+            <td>
+                Rojo rubí perlado
+            </td>
+            <td>
+                Rosso rubino perlato
+            </td>
+            <td>
+                Parelmoer donkerrood
+            </td>
+        </tr>
+        <tr>
+            <td>176,66,59</td>
+            <td>
+                RAL 3033
+            </td>
+            <td>
+                Perlrosa
+            </td>
+            <td>
+                Pearl pink
+            </td>
+            <td>
+                Rose nacré
+            </td>
+            <td>
+                Rosa perlado
+            </td>
+            <td>
+                Rosa perlato
+            </td>
+            <td>
+                Parelmoer lichtrood
+            </td>
+        </tr>
+        <tr>
+            <td>136,106,139</td>
+            <td>
+                RAL 4001
+            </td>
+            <td>
+                Rotlila
+            </td>
+            <td>
+                Red lilac
+            </td>
+            <td>
+                Lilas rouge
+            </td>
+            <td>
+                Rojo lila
+            </td>
+            <td>
+                Lilla rossastro
+            </td>
+            <td>
+                Roodlila
+            </td>
+        </tr>
+        <tr>
+            <td>145,77,91</td>
+            <td>
+                RAL 4002
+            </td>
+            <td>
+                Rotviolett
+            </td>
+            <td>
+                Red violet
+            </td>
+            <td>
+                Violet rouge
+            </td>
+            <td>
+                Rojo violeta
+            </td>
+            <td>
+                Viola rossastro
+            </td>
+            <td>
+                Roodpaars
+            </td>
+        </tr>
+        <tr>
+            <td>198,105,149</td>
+            <td>
+                RAL 4003
+            </td>
+            <td>
+                Erikaviolett
+            </td>
+            <td>
+                Heather violet
+            </td>
+            <td>
+                Violet bruyère
+            </td>
+            <td>
+                Violeta érica
+            </td>
+            <td>
+                Viola erica
+            </td>
+            <td>
+                Heidepaars
+            </td>
+        </tr>
+        <tr>
+            <td>111,59,77</td>
+            <td>
+                RAL 4004
+            </td>
+            <td>
+                Bordeaux-violett
+            </td>
+            <td>
+                Claret violet
+            </td>
+            <td>
+                Violet bordeaux
+            </td>
+            <td>
+                Burdeos
+            </td>
+            <td>
+                Viola bordeaux
+            </td>
+            <td>
+                Bordeuaxpaars
+            </td>
+        </tr>
+        <tr>
+            <td>130,112,161</td>
+            <td>
+                RAL 4005
+            </td>
+            <td>
+                Blaulila
+            </td>
+            <td>
+                Blue lilac
+            </td>
+            <td>
+                Lilas bleu
+            </td>
+            <td>
+                Lila azulado
+            </td>
+            <td>
+                Lilla bluastro
+            </td>
+            <td>
+                Blauwlila
+            </td>
+        </tr>
+        <tr>
+            <td>150,70,126</td>
+            <td>
+                RAL 4006
+            </td>
+            <td>
+                Verkehrs-purpur
+            </td>
+            <td>
+                Traffic purple
+            </td>
+            <td>
+                Pourpre signalisation
+            </td>
+            <td>
+                Púrpurá tráfico
+            </td>
+            <td>
+                Porpora traffico
+            </td>
+            <td>
+                Verkeerspurper
+            </td>
+        </tr>
+        <tr>
+            <td>87,64,80</td>
+            <td>
+                RAL 4007
+            </td>
+            <td>
+                Purpurviolett
+            </td>
+            <td>
+                Purple violet
+            </td>
+            <td>
+                Violet pourpre
+            </td>
+            <td>
+                Violeta púrpura
+            </td>
+            <td>
+                Porpora violetto
+            </td>
+            <td>
+                Purperviolet
+            </td>
+        </tr>
+        <tr>
+            <td>140,86,138</td>
+            <td>
+                RAL 4008
+            </td>
+            <td>
+                Signalviolett
+            </td>
+            <td>
+                Signal violet
+            </td>
+            <td>
+                Violet de sécurité
+            </td>
+            <td>
+                Violeta señales
+            </td>
+            <td>
+                Violetto segnale
+            </td>
+            <td>
+                Signaalviolet
+            </td>
+        </tr>
+        <tr>
+            <td>161,141,153</td>
+            <td>
+                RAL 4009
+            </td>
+            <td>
+                Pastellviolett
+            </td>
+            <td>
+                Pastel violet
+            </td>
+            <td>
+                Violet pastel
+            </td>
+            <td>
+                Violeta pastel
+            </td>
+            <td>
+                Violetto pastello
+            </td>
+            <td>
+                Pastelviolet
+            </td>
+        </tr>
+        <tr>
+            <td>190,78,128</td>
+            <td>
+                RAL 4010
+            </td>
+            <td>
+                Telemagenta
+            </td>
+            <td>
+                Telemagenta
+            </td>
+            <td>
+                Telemagenta
+            </td>
+            <td>
+                Magenta tele
+            </td>
+            <td>
+                Tele Magenta
+            </td>
+            <td>
+                Telemagenta
+            </td>
+        </tr>
+        <tr>
+            <td>131,102,149</td>
+            <td>
+                RAL 4011
+            </td>
+            <td>
+                Perlviolett
+            </td>
+            <td>
+                Pearl violet
+            </td>
+            <td>
+                Violet nacré
+            </td>
+            <td>
+                Violeta perlado
+            </td>
+            <td>
+                Violetto perlato
+            </td>
+            <td>
+                Parelmoer donkerviolet
+            </td>
+        </tr>
+        <tr>
+            <td>112,106,130</td>
+            <td>
+                RAL 4012
+            </td>
+            <td>
+                Perlbrombeer
+            </td>
+            <td>
+                Pearl blackberry
+            </td>
+            <td>
+                Mûre nacré
+            </td>
+            <td>
+                Morado perlado
+            </td>
+            <td>
+                Mora perlato
+            </td>
+            <td>
+                Parelmoer lichtviolet
+            </td>
+        </tr>
+        <tr>
+            <td>68,92,121</td>
+            <td>
+                RAL 5000
+            </td>
+            <td>
+                Violettblau
+            </td>
+            <td>
+                Violet blue
+            </td>
+            <td>
+                Bleu violet
+            </td>
+            <td>
+                Azul violeta
+            </td>
+            <td>
+                Blu violaceo
+            </td>
+            <td>
+                Paarsblauw
+            </td>
+        </tr>
+        <tr>
+            <td>48,87,110</td>
+            <td>
+                RAL 5001
+            </td>
+            <td>
+                Grünblau
+            </td>
+            <td>
+                Green blue
+            </td>
+            <td>
+                Bleu vert
+            </td>
+            <td>
+                Azul verdoso
+            </td>
+            <td>
+                Blu verdastro
+            </td>
+            <td>
+                Groenblauw
+            </td>
+        </tr>
+        <tr>
+            <td>57,75,133</td>
+            <td>
+                RAL 5002
+            </td>
+            <td>
+                Ultramarin-blau
+            </td>
+            <td>
+                Ultramarine blue
+            </td>
+            <td>
+                Bleu outremer
+            </td>
+            <td>
+                Azul ultramar
+            </td>
+            <td>
+                Blu oltremare
+            </td>
+            <td>
+                Ultramarijn blauw
+            </td>
+        </tr>
+        <tr>
+            <td>56,72,98</td>
+            <td>
+                RAL 5003
+            </td>
+            <td>
+                Saphirblau
+            </td>
+            <td>
+                Sapphire blue
+            </td>
+            <td>
+                Bleu saphir
+            </td>
+            <td>
+                Azul zafiro
+            </td>
+            <td>
+                Blu zaffiro
+            </td>
+            <td>
+                Saffierblauw
+            </td>
+        </tr>
+        <tr>
+            <td>59,63,69</td>
+            <td>
+                RAL 5004
+            </td>
+            <td>
+                Schwarzblau
+            </td>
+            <td>
+                Black blue
+            </td>
+            <td>
+                Bleu noir
+            </td>
+            <td>
+                Azul negruzco
+            </td>
+            <td>
+                Blu nerastro
+            </td>
+            <td>
+                Zwartblauw
+            </td>
+        </tr>
+        <tr>
+            <td>33,94,143</td>
+            <td>
+                RAL 5005
+            </td>
+            <td>
+                Signalblau
+            </td>
+            <td>
+                Signal blue
+            </td>
+            <td>
+                Bleu de sécurité
+            </td>
+            <td>
+                Azul señales
+            </td>
+            <td>
+                Blu segnale
+            </td>
+            <td>
+                Signaalblauw
+            </td>
+        </tr>
+        <tr>
+            <td>75,113,146</td>
+            <td>
+                RAL 5007
+            </td>
+            <td>
+                Brillantblau
+            </td>
+            <td>
+                Brilliant blue
+            </td>
+            <td>
+                Bleu brillant
+            </td>
+            <td>
+                Azul brillante
+            </td>
+            <td>
+                Blu brillante
+            </td>
+            <td>
+                Briljantblauw
+            </td>
+        </tr>
+        <tr>
+            <td>66,76,85</td>
+            <td>
+                RAL 5008
+            </td>
+            <td>
+                Graublau
+            </td>
+            <td>
+                Grey blue
+            </td>
+            <td>
+                Bleu gris
+            </td>
+            <td>
+                Azul grisáceo
+            </td>
+            <td>
+                Blu grigiastro
+            </td>
+            <td>
+                Grijsblauw
+            </td>
+        </tr>
+        <tr>
+            <td>53,102,126</td>
+            <td>
+                RAL 5009
+            </td>
+            <td>
+                Azurblau
+            </td>
+            <td>
+                Azure blue
+            </td>
+            <td>
+                Bleu azur
+            </td>
+            <td>
+                Azul azur
+            </td>
+            <td>
+                Blu azzurro
+            </td>
+            <td>
+                Azuurblauw
+            </td>
+        </tr>
+        <tr>
+            <td>32,90,133</td>
+            <td>
+                RAL 5010
+            </td>
+            <td>
+                Enzianblau
+            </td>
+            <td>
+                Gentian blue
+            </td>
+            <td>
+                Bleu gentiane
+            </td>
+            <td>
+                Azul genciana
+            </td>
+            <td>
+                Blu genziana
+            </td>
+            <td>
+                Gentiaanblauw
+            </td>
+        </tr>
+        <tr>
+            <td>56,67,80</td>
+            <td>
+                RAL 5011
+            </td>
+            <td>
+                Stahlblau
+            </td>
+            <td>
+                Steel blue
+            </td>
+            <td>
+                Bleu acier
+            </td>
+            <td>
+                Azul acero
+            </td>
+            <td>
+                Blu acciaio
+            </td>
+            <td>
+                Staalblauw
+            </td>
+        </tr>
+        <tr>
+            <td>59,142,187</td>
+            <td>
+                RAL 5012
+            </td>
+            <td>
+                Lichtblau
+            </td>
+            <td>
+                Light blue
+            </td>
+            <td>
+                Bleu clair
+            </td>
+            <td>
+                Azul luminoso
+            </td>
+            <td>
+                Blu luce
+            </td>
+            <td>
+                Lichtblauw
+            </td>
+        </tr>
+        <tr>
+            <td>59,70,97</td>
+            <td>
+                RAL 5013
+            </td>
+            <td>
+                Kobaltblau
+            </td>
+            <td>
+                Cobalt blue
+            </td>
+            <td>
+                Bleu cobalt
+            </td>
+            <td>
+                Azul cobalto
+            </td>
+            <td>
+                Blu cobalto
+            </td>
+            <td>
+                Kobaltblauw
+            </td>
+        </tr>
+        <tr>
+            <td>108,131,156</td>
+            <td>
+                RAL 5014
+            </td>
+            <td>
+                Taubenblau
+            </td>
+            <td>
+                Pigeon blue
+            </td>
+            <td>
+                Bleu pigeon
+            </td>
+            <td>
+                Azul colombino
+            </td>
+            <td>
+                Blu colomba
+            </td>
+            <td>
+                Duifblauw
+            </td>
+        </tr>
+        <tr>
+            <td>34,128,178</td>
+            <td>
+                RAL 5015
+            </td>
+            <td>
+                Himmelblau
+            </td>
+            <td>
+                Sky blue
+            </td>
+            <td>
+                Bleu ciel
+            </td>
+            <td>
+                Azul celeste
+            </td>
+            <td>
+                Blu cielo
+            </td>
+            <td>
+                Hemelsblauw
+            </td>
+        </tr>
+        <tr>
+            <td>22,102,147</td>
+            <td>
+                RAL 5017
+            </td>
+            <td>
+                Verkehrsblau
+            </td>
+            <td>
+                Traffic blue
+            </td>
+            <td>
+                Bleu signalisation
+            </td>
+            <td>
+                Azul tráfico
+            </td>
+            <td>
+                Blu traffico
+            </td>
+            <td>
+                Verkeersblauw
+            </td>
+        </tr>
+        <tr>
+            <td>50,145,145</td>
+            <td>
+                RAL 5018
+            </td>
+            <td>
+                Türkisblau
+            </td>
+            <td>
+                Turquoise blue
+            </td>
+            <td>
+                Bleu turquoise
+            </td>
+            <td>
+                Azul turquesa
+            </td>
+            <td>
+                Blu turchese
+            </td>
+            <td>
+                Turkooisblauw
+            </td>
+        </tr>
+        <tr>
+            <td>40,103,140</td>
+            <td>
+                RAL 5019
+            </td>
+            <td>
+                Capriblau
+            </td>
+            <td>
+                Capri blue
+            </td>
+            <td>
+                Bleu capri
+            </td>
+            <td>
+                Azul capri
+            </td>
+            <td>
+                Blu Capri
+            </td>
+            <td>
+                Capriblauw
+            </td>
+        </tr>
+        <tr>
+            <td>37,82,90</td>
+            <td>
+                RAL 5020
+            </td>
+            <td>
+                Ozeanblau
+            </td>
+            <td>
+                Ocean blue
+            </td>
+            <td>
+                Bleu océan
+            </td>
+            <td>
+                Azul oceano
+            </td>
+            <td>
+                Blu oceano
+            </td>
+            <td>
+                Oceaanblauw
+            </td>
+        </tr>
+        <tr>
+            <td>15,124,125</td>
+            <td>
+                RAL 5021
+            </td>
+            <td>
+                Wasserblau
+            </td>
+            <td>
+                Water blue
+            </td>
+            <td>
+                Bleu d’eau
+            </td>
+            <td>
+                Azul agua
+            </td>
+            <td>
+                Blu acqua
+            </td>
+            <td>
+                Waterblauw
+            </td>
+        </tr>
+        <tr>
+            <td>67,67,103</td>
+            <td>
+                RAL 5022
+            </td>
+            <td>
+                Nachtblau
+            </td>
+            <td>
+                Night blue
+            </td>
+            <td>
+                Bleu nocturne
+            </td>
+            <td>
+                Azul noche
+            </td>
+            <td>
+                Blu notte
+            </td>
+            <td>
+                Nachtblauw
+            </td>
+        </tr>
+        <tr>
+            <td>86,115,148</td>
+            <td>
+                RAL 5023
+            </td>
+            <td>
+                Fernblau
+            </td>
+            <td>
+                Distant blue
+            </td>
+            <td>
+                Bleu distant
+            </td>
+            <td>
+                Azul lejanía
+            </td>
+            <td>
+                Blu distante
+            </td>
+            <td>
+                Verblauw
+            </td>
+        </tr>
+        <tr>
+            <td>108,151,175</td>
+            <td>
+                RAL 5024
+            </td>
+            <td>
+                Pastellblau
+            </td>
+            <td>
+                Pastel blue
+            </td>
+            <td>
+                Bleu pastel
+            </td>
+            <td>
+                Azul pastel
+            </td>
+            <td>
+                Blu pastello
+            </td>
+            <td>
+                Pastelblauw
+            </td>
+        </tr>
+        <tr>
+            <td>38,90,110</td>
+            <td>
+                RAL 5025
+            </td>
+            <td>
+                Perlenzian
+            </td>
+            <td>
+                Pearl gentian blue
+            </td>
+            <td>
+                Gentiane nacré
+            </td>
+            <td>
+                Gencian perlado
+            </td>
+            <td>
+                Blu genziana perlato
+            </td>
+            <td>
+                Parelmoer blauw
+            </td>
+        </tr>
+        <tr>
+            <td>25,38,82</td>
+            <td>
+                RAL 5026
+            </td>
+            <td>
+                Perlnachtblau
+            </td>
+            <td>
+                Pearl night blue
+            </td>
+            <td>
+                Bleu nuit nacré
+            </td>
+            <td>
+                Azul noche perlado
+            </td>
+            <td>
+                Blu notte perlato
+            </td>
+            <td>
+                Parelmoer nachtblauw
+            </td>
+        </tr>
+        <tr>
+            <td>73,125,106</td>
+            <td>
+                RAL 6000
+            </td>
+            <td>
+                Patinagrün
+            </td>
+            <td>
+                Patina green
+            </td>
+            <td>
+                Vert patine
+            </td>
+            <td>
+                Verde patina
+            </td>
+            <td>
+                Verde patina
+            </td>
+            <td>
+                Patinagroen
+            </td>
+        </tr>
+        <tr>
+            <td>65,113,71</td>
+            <td>
+                RAL 6001
+            </td>
+            <td>
+                Smaragdgrün
+            </td>
+            <td>
+                Emerald green
+            </td>
+            <td>
+                Vert émeraude
+            </td>
+            <td>
+                Verde esmeralda
+            </td>
+            <td>
+                Verde smeraldo
+            </td>
+            <td>
+                Smaragdgroen
+            </td>
+        </tr>
+        <tr>
+            <td>66,102,64</td>
+            <td>
+                RAL 6002
+            </td>
+            <td>
+                Laubgrün
+            </td>
+            <td>
+                Leaf green
+            </td>
+            <td>
+                Vert feuillage
+            </td>
+            <td>
+                Verde hoja
+            </td>
+            <td>
+                Verde foglia
+            </td>
+            <td>
+                Loofgroen
+            </td>
+        </tr>
+        <tr>
+            <td>89,94,76</td>
+            <td>
+                RAL 6003
+            </td>
+            <td>
+                Olivgrün
+            </td>
+            <td>
+                Olive green
+            </td>
+            <td>
+                Vert olive
+            </td>
+            <td>
+                Verde oliva
+            </td>
+            <td>
+                Verde oliva
+            </td>
+            <td>
+                Olijfgroen
+            </td>
+        </tr>
+        <tr>
+            <td>47,84,83</td>
+            <td>
+                RAL 6004
+            </td>
+            <td>
+                Blaugrün
+            </td>
+            <td>
+                Blue green
+            </td>
+            <td>
+                Vert bleu
+            </td>
+            <td>
+                Verde azulado
+            </td>
+            <td>
+                Verde bluastro
+            </td>
+            <td>
+                Blauwgroen
+            </td>
+        </tr>
+        <tr>
+            <td>49,82,71</td>
+            <td>
+                RAL 6005
+            </td>
+            <td>
+                Moosgrün
+            </td>
+            <td>
+                Moss green
+            </td>
+            <td>
+                Vert mousse
+            </td>
+            <td>
+                Verde musgo
+            </td>
+            <td>
+                Verde muschio
+            </td>
+            <td>
+                Mosgroen
+            </td>
+        </tr>
+        <tr>
+            <td>76,77,71</td>
+            <td>
+                RAL 6006
+            </td>
+            <td>
+                Grauoliv
+            </td>
+            <td>
+                Grey olive
+            </td>
+            <td>
+                Olive gris
+            </td>
+            <td>
+                Oliva grisáceo
+            </td>
+            <td>
+                Oliva grigiastro
+            </td>
+            <td>
+                Grijs olijfgroen
+            </td>
+        </tr>
+        <tr>
+            <td>66,73,64</td>
+            <td>
+                RAL 6007
+            </td>
+            <td>
+                Flaschengrün
+            </td>
+            <td>
+                Bottle green
+            </td>
+            <td>
+                Vert bouteille
+            </td>
+            <td>
+                Verde botella
+            </td>
+            <td>
+                Verde bottiglia
+            </td>
+            <td>
+                Flessengroen
+            </td>
+        </tr>
+        <tr>
+            <td>69,70,64</td>
+            <td>
+                RAL 6008
+            </td>
+            <td>
+                Braungrün
+            </td>
+            <td>
+                Brown green
+            </td>
+            <td>
+                Vert brun
+            </td>
+            <td>
+                Verde parduzco
+            </td>
+            <td>
+                Verde brunastro
+            </td>
+            <td>
+                Bruingroen
+            </td>
+        </tr>
+        <tr>
+            <td>60,73,65</td>
+            <td>
+                RAL 6009
+            </td>
+            <td>
+                Tannengrün
+            </td>
+            <td>
+                Fir green
+            </td>
+            <td>
+                Vert sapin
+            </td>
+            <td>
+                Verde abeto
+            </td>
+            <td>
+                Verde abete
+            </td>
+            <td>
+                Dennengroen
+            </td>
+        </tr>
+        <tr>
+            <td>80,116,69</td>
+            <td>
+                RAL 6010
+            </td>
+            <td>
+                Grasgrün
+            </td>
+            <td>
+                Grass green
+            </td>
+            <td>
+                Vert herbe
+            </td>
+            <td>
+                Verde hierba
+            </td>
+            <td>
+                Verde erba
+            </td>
+            <td>
+                Grasgroen
+            </td>
+        </tr>
+        <tr>
+            <td>111,132,102</td>
+            <td>
+                RAL 6011
+            </td>
+            <td>
+                Resedagrün
+            </td>
+            <td>
+                Reseda green
+            </td>
+            <td>
+                Vert réséda
+            </td>
+            <td>
+                Verde reseda
+            </td>
+            <td>
+                Verde reseda
+            </td>
+            <td>
+                Resedagroen
+            </td>
+        </tr>
+        <tr>
+            <td>66,76,75</td>
+            <td>
+                RAL 6012
+            </td>
+            <td>
+                Schwarzgrün
+            </td>
+            <td>
+                Black green
+            </td>
+            <td>
+                Vert noir
+            </td>
+            <td>
+                Verde negruzco
+            </td>
+            <td>
+                Verde nerastro
+            </td>
+            <td>
+                Zwartgroen
+            </td>
+        </tr>
+        <tr>
+            <td>126,124,99</td>
+            <td>
+                RAL 6013
+            </td>
+            <td>
+                Schilfgrün
+            </td>
+            <td>
+                Reed green
+            </td>
+            <td>
+                Vert jonc
+            </td>
+            <td>
+                Verde caña
+            </td>
+            <td>
+                Verde canna
+            </td>
+            <td>
+                Rietgroen
+            </td>
+        </tr>
+        <tr>
+            <td>81,79,70</td>
+            <td>
+                RAL 6014
+            </td>
+            <td>
+                Gelboliv
+            </td>
+            <td>
+                Yellow olive
+            </td>
+            <td>
+                Olive jaune
+            </td>
+            <td>
+                Amarillo oliva
+            </td>
+            <td>
+                Oliva giallastro
+            </td>
+            <td>
+                Geel olijfgroen
+            </td>
+        </tr>
+        <tr>
+            <td>72,74,70</td>
+            <td>
+                RAL 6015
+            </td>
+            <td>
+                Schwarzoliv
+            </td>
+            <td>
+                Black olive
+            </td>
+            <td>
+                Olive noir
+            </td>
+            <td>
+                Oliva negruzco
+            </td>
+            <td>
+                Oliva nerastro
+            </td>
+            <td>
+                Zwart olijfgroen
+            </td>
+        </tr>
+        <tr>
+            <td>22,114,88</td>
+            <td>
+                RAL 6016
+            </td>
+            <td>
+                Türkisgrün
+            </td>
+            <td>
+                Turquoise green
+            </td>
+            <td>
+                Vert turquoise
+            </td>
+            <td>
+                Verde turquesa
+            </td>
+            <td>
+                Verde turchese
+            </td>
+            <td>
+                Turkooisgroen
+            </td>
+        </tr>
+        <tr>
+            <td>93,134,77</td>
+            <td>
+                RAL 6017
+            </td>
+            <td>
+                Maigrün
+            </td>
+            <td>
+                May green
+            </td>
+            <td>
+                Vert mai
+            </td>
+            <td>
+                Verde mayo
+            </td>
+            <td>
+                Verde maggio
+            </td>
+            <td>
+                Meigroen
+            </td>
+        </tr>
+        <tr>
+            <td>96,159,71</td>
+            <td>
+                RAL 6018
+            </td>
+            <td>
+                Gelbgrün
+            </td>
+            <td>
+                Yellow green
+            </td>
+            <td>
+                Vert jaune
+            </td>
+            <td>
+                Verde amarillento
+            </td>
+            <td>
+                Verde giallastro
+            </td>
+            <td>
+                Geelgroen
+            </td>
+        </tr>
+        <tr>
+            <td>184,210,176</td>
+            <td>
+                RAL 6019
+            </td>
+            <td>
+                Weißgrün
+            </td>
+            <td>
+                Pastel green
+            </td>
+            <td>
+                Vert blanc
+            </td>
+            <td>
+                Verde blanquecino
+            </td>
+            <td>
+                Verde biancastro
+            </td>
+            <td>
+                Witgroen
+            </td>
+        </tr>
+        <tr>
+            <td>73,84,72</td>
+            <td>
+                RAL 6020
+            </td>
+            <td>
+                Chromoxid-grün
+
+            </td>
+            <td>
+                Chrome green
+            </td>
+            <td>
+                Vert oxyde chromique
+            </td>
+            <td>
+                Verde cromo
+            </td>
+            <td>
+                Verde cromo
+            </td>
+            <td>
+                Chroomoxyde groen
+            </td>
+        </tr>
+        <tr>
+            <td>140,159,128</td>
+            <td>
+                RAL 6021
+            </td>
+            <td>
+                Blaßgrün
+            </td>
+            <td>
+                Pale green
+            </td>
+            <td>
+                Vert pâle
+            </td>
+            <td>
+                Verde pálido
+            </td>
+            <td>
+                Verde pallido
+            </td>
+            <td>
+                Bleekgroen
+            </td>
+        </tr>
+        <tr>
+            <td>74,71,62</td>
+            <td>
+                RAL 6022
+            </td>
+            <td>
+                Braunoliv
+            </td>
+            <td>
+                Olive drab
+            </td>
+            <td>
+                Olive brun
+            </td>
+            <td>
+                Oliva parduzco
+            </td>
+            <td>
+                Oliva brunastro
+            </td>
+            <td>
+                Bruin olijfgroen
+            </td>
+        </tr>
+        <tr>
+            <td>34,139,94</td>
+            <td>
+                RAL 6024
+            </td>
+            <td>
+                Verkehrsgrün
+            </td>
+            <td>
+                Traffic green
+            </td>
+            <td>
+                Vert signalisation
+            </td>
+            <td>
+                Verde tráfico
+            </td>
+            <td>
+                Verde traffico
+            </td>
+            <td>
+                Verkeersgroen
+            </td>
+        </tr>
+        <tr>
+            <td>98,117,75</td>
+            <td>
+                RAL 6025
+            </td>
+            <td>
+                Farngrün
+            </td>
+            <td>
+                Fern green
+            </td>
+            <td>
+                Vert fougère
+            </td>
+            <td>
+                Verde helecho
+            </td>
+            <td>
+                Verde felce
+            </td>
+            <td>
+                Varengroen
+            </td>
+        </tr>
+        <tr>
+            <td>14,105,90</td>
+            <td>
+                RAL 6026
+            </td>
+            <td>
+                Opalgrün
+            </td>
+            <td>
+                Opal green
+            </td>
+            <td>
+                Vert opale
+            </td>
+            <td>
+                Verde opalo
+            </td>
+            <td>
+                Verde opale
+            </td>
+            <td>
+                Opaalgroen
+            </td>
+        </tr>
+        <tr>
+            <td>130,190,186</td>
+            <td>
+                RAL 6027
+            </td>
+            <td>
+                Lichtgrün
+            </td>
+            <td>
+                Light green
+            </td>
+            <td>
+                Vert clair
+            </td>
+            <td>
+                Verde luminoso
+            </td>
+            <td>
+                Verde chiaro
+            </td>
+            <td>
+                Lichtgroen
+            </td>
+        </tr>
+        <tr>
+            <td>65,95,82</td>
+            <td>
+                RAL 6028
+            </td>
+            <td>
+                Kieferngrün
+            </td>
+            <td>
+                Pine green
+            </td>
+            <td>
+                Vert pin
+            </td>
+            <td>
+                Verde pino
+            </td>
+            <td>
+                Verde pino
+            </td>
+            <td>
+                Pijnboomgroen
+            </td>
+        </tr>
+        <tr>
+            <td>4,119,75</td>
+            <td>
+                RAL 6029
+            </td>
+            <td>
+                Minzgrün
+            </td>
+            <td>
+                Mint green
+            </td>
+            <td>
+                Vert menthe
+            </td>
+            <td>
+                Verde menta
+            </td>
+            <td>
+                Verde menta
+            </td>
+            <td>
+                Mintgroen
+            </td>
+        </tr>
+        <tr>
+            <td>49,134,92</td>
+            <td>
+                RAL 6032
+            </td>
+            <td>
+                Signalgrün
+            </td>
+            <td>
+                Signal green
+            </td>
+            <td>
+                Vert de sécurité
+            </td>
+            <td>
+                Verde señales
+            </td>
+            <td>
+                Verde segnale
+            </td>
+            <td>
+                Signaalgroen
+            </td>
+        </tr>
+        <tr>
+            <td>84,141,134</td>
+            <td>
+                RAL 6033
+            </td>
+            <td>
+                Minttürkis
+            </td>
+            <td>
+                Mint turquoise
+            </td>
+            <td>
+                Turquoise menthe
+            </td>
+            <td>
+                Turquesa menta
+            </td>
+            <td>
+                Turchese menta
+            </td>
+            <td>
+                Mintturquoise
+            </td>
+        </tr>
+        <tr>
+            <td>129,177,177</td>
+            <td>
+                RAL 6034
+            </td>
+            <td>
+                Pastelltürkis
+            </td>
+            <td>
+                Pastel turquoise
+            </td>
+            <td>
+                Turquoise pastel
+            </td>
+            <td>
+                Turquesa pastel
+            </td>
+            <td>
+                Turchese pastello
+            </td>
+            <td>
+                Pastelturquoise
+            </td>
+        </tr>
+        <tr>
+            <td>10,78,41</td>
+            <td>
+                RAL 6035
+            </td>
+            <td>
+                Perlgrün
+            </td>
+            <td>
+                Pearl green
+            </td>
+            <td>
+                Vert nacré
+            </td>
+            <td>
+                Verde perlado
+            </td>
+            <td>
+                Verde perlato
+            </td>
+            <td>
+                Parelmoer donkergroen
+            </td>
+        </tr>
+        <tr>
+            <td>8,92,78</td>
+            <td>
+                RAL 6036
+            </td>
+            <td>
+                Perlopalgrün
+            </td>
+            <td>
+                Pearl opal green
+            </td>
+            <td>
+                Vert opal nacré
+            </td>
+            <td>
+                Verde ópalo perlado
+            </td>
+            <td>
+                Verde opalo perlato
+            </td>
+            <td>
+                Parelmoer lichtgroen
+            </td>
+        </tr>
+        <tr>
+            <td>0,143,57</td>
+            <td>
+                RAL 6037
+            </td>
+            <td>
+                Reingrün
+            </td>
+            <td>
+                Pure green
+            </td>
+            <td>
+                Vert pur
+            </td>
+            <td>
+                Verde puro
+            </td>
+            <td>
+                Verde puro
+            </td>
+            <td>
+                Zuiver groen
+            </td>
+        </tr>
+        <tr>
+            <td>0,187,45</td>
+            <td>
+                RAL 6038
+            </td>
+            <td>
+                Leuchtgrün
+            </td>
+            <td>
+                Luminous green
+            </td>
+            <td>
+                Vert brillant
+            </td>
+            <td>
+                Verde brillante
+            </td>
+            <td>
+                Verde brillante
+            </td>
+            <td>
+                Briljantgroen
+            </td>
+        </tr>
+        <tr>
+            <td>129,142,149</td>
+            <td>
+                RAL 7000
+            </td>
+            <td>
+                Fehgrau
+            </td>
+            <td>
+                Squirrel grey
+            </td>
+            <td>
+                Gris petit-gris
+            </td>
+            <td>
+                Gris ardilla
+            </td>
+            <td>
+                Grigio vaio
+            </td>
+            <td>
+                Pelsgrijs
+            </td>
+        </tr>
+        <tr>
+            <td>147,156,163</td>
+            <td>
+                RAL 7001
+            </td>
+            <td>
+                Silbergrau
+            </td>
+            <td>
+                Silver grey
+            </td>
+            <td>
+                Gris argent
+            </td>
+            <td>
+                Gris plata
+            </td>
+            <td>
+                Grigio argento
+            </td>
+            <td>
+                Zilvergrijs
+            </td>
+        </tr>
+        <tr>
+            <td>134,129,111</td>
+            <td>
+                RAL 7002
+            </td>
+            <td>
+                Olivgrau
+            </td>
+            <td>
+                Olive grey
+            </td>
+            <td>
+                Gris olive
+            </td>
+            <td>
+                Gris oliva
+            </td>
+            <td>
+                Grigio olivastro
+            </td>
+            <td>
+                Olijfgrijs
+            </td>
+        </tr>
+        <tr>
+            <td>125,124,112</td>
+            <td>
+                RAL 7003
+            </td>
+            <td>
+                Moosgrau
+            </td>
+            <td>
+                Moss grey
+            </td>
+            <td>
+                Gris mousse
+            </td>
+            <td>
+                Gris musgo
+            </td>
+            <td>
+                Grigio muschio
+            </td>
+            <td>
+                Mosgrijs
+            </td>
+        </tr>
+        <tr>
+            <td>158,160,162</td>
+            <td>
+                RAL 7004
+            </td>
+            <td>
+                Signalgrau
+            </td>
+            <td>
+                Signal grey
+            </td>
+            <td>
+                Gris de sécurité
+            </td>
+            <td>
+                Gris señales
+            </td>
+            <td>
+                Grigio segnale
+            </td>
+            <td>
+                Signaalgrijs
+            </td>
+        </tr>
+        <tr>
+            <td>114,120,117</td>
+            <td>
+                RAL 7005
+            </td>
+            <td>
+                Mausgrau
+            </td>
+            <td>
+                Mouse grey
+            </td>
+            <td>
+                Gris souris
+            </td>
+            <td>
+                Gris ratón
+            </td>
+            <td>
+                Grigio topo
+            </td>
+            <td>
+                Muisgrijs
+            </td>
+        </tr>
+        <tr>
+            <td>121,113,102</td>
+            <td>
+                RAL 7006
+            </td>
+            <td>
+                Beigegrau
+            </td>
+            <td>
+                Beige grey
+            </td>
+            <td>
+                Gris beige
+            </td>
+            <td>
+                Gris beige
+            </td>
+            <td>
+                Grigio beige
+            </td>
+            <td>
+                Beigegrijs
+            </td>
+        </tr>
+        <tr>
+            <td>120,106,78</td>
+            <td>
+                RAL 7008
+            </td>
+            <td>
+                Khakigrau
+            </td>
+            <td>
+                Khaki grey
+            </td>
+            <td>
+                Gris kaki
+            </td>
+            <td>
+                Gris caqui
+            </td>
+            <td>
+                Grigio kaki
+            </td>
+            <td>
+                Kakigrijs
+            </td>
+        </tr>
+        <tr>
+            <td>98,102,95</td>
+            <td>
+                RAL 7009
+            </td>
+            <td>
+                Grüngrau
+            </td>
+            <td>
+                Green grey
+            </td>
+            <td>
+                Gris vert
+            </td>
+            <td>
+                Gris verdoso
+            </td>
+            <td>
+                Grigio verdastro
+            </td>
+            <td>
+                Groengrijs
+            </td>
+        </tr>
+        <tr>
+            <td>96,101,98</td>
+            <td>
+                RAL 7010
+            </td>
+            <td>
+                Zeltgrau
+            </td>
+            <td>
+                Tarpaulin grey
+            </td>
+            <td>
+                Gris tente
+            </td>
+            <td>
+                Gris lona
+            </td>
+            <td>
+                Grigio tenda
+            </td>
+            <td>
+                Zeildoekgrijs
+            </td>
+        </tr>
+        <tr>
+            <td>90,98,102</td>
+            <td>
+                RAL 7011
+            </td>
+            <td>
+                Eisengrau
+            </td>
+            <td>
+                Iron grey
+            </td>
+            <td>
+                Gris fer
+            </td>
+            <td>
+                Gris hierro
+            </td>
+            <td>
+                Grigio ferro
+            </td>
+            <td>
+                IJzergrijs
+            </td>
+        </tr>
+        <tr>
+            <td>97,105,108</td>
+            <td>
+                RAL 7012
+            </td>
+            <td>
+                Basaltgrau
+            </td>
+            <td>
+                Basalt grey
+            </td>
+            <td>
+                Gris basalte
+            </td>
+            <td>
+                Gris basalto
+            </td>
+            <td>
+                Grigio basalto
+            </td>
+            <td>
+                Bazaltgrijs
+            </td>
+        </tr>
+        <tr>
+            <td>95,91,82</td>
+            <td>
+                RAL 7013
+            </td>
+            <td>
+                Braungrau
+            </td>
+            <td>
+                Brown grey
+            </td>
+            <td>
+                Gris brun
+            </td>
+            <td>
+                Gris parduzco
+            </td>
+            <td>
+                Grigio brunastro
+            </td>
+            <td>
+                Bruingrijs
+            </td>
+        </tr>
+        <tr>
+            <td>91,95,100</td>
+            <td>
+                RAL 7015
+            </td>
+            <td>
+                Schiefergrau
+            </td>
+            <td>
+                Slate grey
+            </td>
+            <td>
+                Gris ardoise
+            </td>
+            <td>
+                Gris pizarra
+            </td>
+            <td>
+                Grigio ardesia
+            </td>
+            <td>
+                Leigrijs
+            </td>
+        </tr>
+        <tr>
+            <td>74,80,84</td>
+            <td>
+                RAL 7016
+            </td>
+            <td>
+                Anthrazitgrau
+            </td>
+            <td>
+                Anthracite grey
+            </td>
+            <td>
+                Gris anthracite
+            </td>
+            <td>
+                Gris antracita
+            </td>
+            <td>
+                Grigio antracite
+            </td>
+            <td>
+                Antracietgrijs
+            </td>
+        </tr>
+        <tr>
+            <td>70,72,74</td>
+            <td>
+                RAL 7021
+            </td>
+            <td>
+                Schwarzgrau
+            </td>
+            <td>
+                Black grey
+            </td>
+            <td>
+                Gris noir
+            </td>
+            <td>
+                Gris negruzco
+            </td>
+            <td>
+                Grigio nerastro
+            </td>
+            <td>
+                Zwartgrijs
+            </td>
+        </tr>
+        <tr>
+            <td>88,88,85</td>
+            <td>
+                RAL 7022
+            </td>
+            <td>
+                Umbragrau
+            </td>
+            <td>
+                Umbra grey
+            </td>
+            <td>
+                Gris terre d’ombre
+            </td>
+            <td>
+                Gris sombra
+            </td>
+            <td>
+                Grigio ombra
+            </td>
+            <td>
+                Ombergrijs
+            </td>
+        </tr>
+        <tr>
+            <td>132,133,124</td>
+            <td>
+                RAL 7023
+            </td>
+            <td>
+                Betongrau
+            </td>
+            <td>
+                Concrete grey
+            </td>
+            <td>
+                Gris béton
+            </td>
+            <td>
+                Gris hormigón
+            </td>
+            <td>
+                Grigio calcestruzzo
+            </td>
+            <td>
+                Betongrijs
+            </td>
+        </tr>
+        <tr>
+            <td>83,86,91</td>
+            <td>
+                RAL 7024
+            </td>
+            <td>
+                Graphitgrau
+            </td>
+            <td>
+                Graphite grey
+            </td>
+            <td>
+                Gris graphite
+            </td>
+            <td>
+                Gris grafita
+            </td>
+            <td>
+                Grigio grafite
+            </td>
+            <td>
+                Grafietgrijs
+            </td>
+        </tr>
+        <tr>
+            <td>74,83,85</td>
+            <td>
+                RAL 7026
+            </td>
+            <td>
+                Granitgrau
+            </td>
+            <td>
+                Granite grey
+            </td>
+            <td>
+                Gris granit
+            </td>
+            <td>
+                Gris granito
+            </td>
+            <td>
+                Grigio granito
+            </td>
+            <td>
+                Granietgrijs
+            </td>
+        </tr>
+        <tr>
+            <td>149,148,139</td>
+            <td>
+                RAL 7030
+            </td>
+            <td>
+                Steingrau
+            </td>
+            <td>
+                Stone grey
+            </td>
+            <td>
+                Gris pierre
+            </td>
+            <td>
+                Gris piedra
+            </td>
+            <td>
+                Grigio pietra
+            </td>
+            <td>
+                Steengrijs
+            </td>
+        </tr>
+        <tr>
+            <td>103,115,120</td>
+            <td>
+                RAL 7031
+            </td>
+            <td>
+                Blaugrau
+            </td>
+            <td>
+                Blue grey
+            </td>
+            <td>
+                Gris bleu
+            </td>
+            <td>
+                Gris azulado
+            </td>
+            <td>
+                Grigio bluastro
+            </td>
+            <td>
+                Blauwgrijs
+            </td>
+        </tr>
+        <tr>
+            <td>182,181,166</td>
+            <td>
+                RAL 7032
+            </td>
+            <td>
+                Kieselgrau
+            </td>
+            <td>
+                Pebble grey
+            </td>
+            <td>
+                Gris silex
+            </td>
+            <td>
+                Gris guijarro
+            </td>
+            <td>
+                Grigio ghiaia
+            </td>
+            <td>
+                Kiezelgrijs
+            </td>
+        </tr>
+        <tr>
+            <td>133,138,126</td>
+            <td>
+                RAL 7033
+            </td>
+            <td>
+                Zementgrau
+            </td>
+            <td>
+                Cement grey
+            </td>
+            <td>
+                Gris ciment
+            </td>
+            <td>
+                Gris cemento
+            </td>
+            <td>
+                Grigio cemento
+            </td>
+            <td>
+                Cementgrijs
+            </td>
+        </tr>
+        <tr>
+            <td>149,143,121</td>
+            <td>
+                RAL 7034
+            </td>
+            <td>
+                Gelbgrau
+            </td>
+            <td>
+                Yellow grey
+            </td>
+            <td>
+                Gris jaune
+            </td>
+            <td>
+                Gris amarillento
+            </td>
+            <td>
+                Grigio giallastro
+            </td>
+            <td>
+                Geelgrijs
+            </td>
+        </tr>
+        <tr>
+            <td>199,203,201</td>
+            <td>
+                RAL 7035
+            </td>
+            <td>
+                Lichtgrau
+            </td>
+            <td>
+                Light grey
+            </td>
+            <td>
+                Gris clair
+            </td>
+            <td>
+                Gris luminoso
+            </td>
+            <td>
+                Grigio luce
+            </td>
+            <td>
+                Lichtgrijs
+            </td>
+        </tr>
+        <tr>
+            <td>155,154,153</td>
+            <td>
+                RAL 7036
+            </td>
+            <td>
+                Platingrau
+            </td>
+            <td>
+                Platinum grey
+            </td>
+            <td>
+                Gris platine
+            </td>
+            <td>
+                Gris platino
+            </td>
+            <td>
+                Grigio platino
+            </td>
+            <td>
+                Platinagrijs
+            </td>
+        </tr>
+        <tr>
+            <td>131,132,133</td>
+            <td>
+                RAL 7037
+            </td>
+            <td>
+                Staubgrau
+            </td>
+            <td>
+                Dusty grey
+            </td>
+            <td>
+                Gris poussière
+            </td>
+            <td>
+                Gris polvo
+            </td>
+            <td>
+                Grigio polvere
+            </td>
+            <td>
+                Stofgrijs
+            </td>
+        </tr>
+        <tr>
+            <td>177,180,174</td>
+            <td>
+                RAL 7038
+            </td>
+            <td>
+                Achatgrau
+            </td>
+            <td>
+                Agate grey
+            </td>
+            <td>
+                Gris agate
+            </td>
+            <td>
+                Gris ágata
+            </td>
+            <td>
+                Grigio agata
+            </td>
+            <td>
+                Agaatgrijs
+            </td>
+        </tr>
+        <tr>
+            <td>114,113,107</td>
+            <td>
+                RAL 7039
+            </td>
+            <td>
+                Quarzgrau
+            </td>
+            <td>
+                Quartz grey
+            </td>
+            <td>
+                Gris quartz
+            </td>
+            <td>
+                Gris cuarzo
+            </td>
+            <td>
+                Grigio quarzo
+            </td>
+            <td>
+                Kwartsgrijs
+            </td>
+        </tr>
+        <tr>
+            <td>157,163,168</td>
+            <td>
+                RAL 7040
+            </td>
+            <td>
+                Fenstergrau
+            </td>
+            <td>
+                Window grey
+            </td>
+            <td>
+                Gris fenêtre
+            </td>
+            <td>
+                Gris ventana
+            </td>
+            <td>
+                Grigio finestra
+            </td>
+            <td>
+                Venstergrijs
+            </td>
+        </tr>
+        <tr>
+            <td>146,152,152</td>
+            <td>
+                RAL 7042
+            </td>
+            <td>
+                Verkehrsgrau A
+            </td>
+            <td>
+                Traffic grey A
+            </td>
+            <td>
+                Gris signalisation A
+            </td>
+            <td>
+                Gris tráfico A
+            </td>
+            <td>
+                Grigio traffico A
+            </td>
+            <td>
+                Verkeersgrijs A
+            </td>
+        </tr>
+        <tr>
+            <td>91,95,95</td>
+            <td>
+                RAL 7043
+            </td>
+            <td>
+                Verkehrsgrau B
+            </td>
+            <td>
+                Traffic grey B
+            </td>
+            <td>
+                Gris signalisation B
+            </td>
+            <td>
+                Gris tráfico B
+            </td>
+            <td>
+                Grigio traffico B
+            </td>
+            <td>
+                Verkeersgrijs B
+            </td>
+        </tr>
+        <tr>
+            <td>185,184,175</td>
+            <td>
+                RAL 7044
+            </td>
+            <td>
+                Seidengrau
+            </td>
+            <td>
+                Silk grey
+            </td>
+            <td>
+                Gris soie
+            </td>
+            <td>
+                Gris seda
+            </td>
+            <td>
+                Grigio seta
+            </td>
+            <td>
+                Zijdegrijs
+            </td>
+        </tr>
+        <tr>
+            <td>147,152,156</td>
+            <td>
+                RAL 7045
+            </td>
+            <td>
+                Telegrau 1
+            </td>
+            <td>
+                Telegrey 1
+            </td>
+            <td>
+                Telegris 1
+            </td>
+            <td>
+                Gris tele 1
+            </td>
+            <td>
+                Grigio tele 1
+            </td>
+            <td>
+                Telegrijs 1
+            </td>
+        </tr>
+        <tr>
+            <td>131,139,144</td>
+            <td>
+                RAL 7046
+            </td>
+            <td>
+                Telegrau 2
+            </td>
+            <td>
+                Telegrey 2
+            </td>
+            <td>
+                Telegris 2
+            </td>
+            <td>
+                Gris tele 2
+            </td>
+            <td>
+                Grigio tele 2
+            </td>
+            <td>
+                Telegrijs 2
+            </td>
+        </tr>
+        <tr>
+            <td>201,203,203</td>
+            <td>
+                RAL 7047
+            </td>
+            <td>
+                Telegrau 4
+            </td>
+            <td>
+                Telegrey 4
+            </td>
+            <td>
+                Telegris 4
+            </td>
+            <td>
+                Gris tele 4
+            </td>
+            <td>
+                Grigio tele 4
+            </td>
+            <td>
+                Telegrijs 4
+            </td>
+        </tr>
+        <tr>
+            <td>133,130,116</td>
+            <td>
+                RAL 7048
+            </td>
+            <td>
+                Perlmausgrau
+            </td>
+            <td>
+                Pearl mouse grey
+            </td>
+            <td>
+                Gris souris nacré
+            </td>
+            <td>
+                Gris musgo perlado
+            </td>
+            <td>
+                Grigio topo perlato
+            </td>
+            <td>
+                Parelmoer muisgrijs
+            </td>
+        </tr>
+        <tr>
+            <td>139,113,77</td>
+            <td>
+                RAL 8000
+            </td>
+            <td>
+                Grünbraun
+            </td>
+            <td>
+                Green brown
+            </td>
+            <td>
+                Brun vert
+            </td>
+            <td>
+                Pardo verdoso
+            </td>
+            <td>
+                Marrone verdastro
+            </td>
+            <td>
+                Groenbruin
+            </td>
+        </tr>
+        <tr>
+            <td>158,108,67</td>
+            <td>
+                RAL 8001
+            </td>
+            <td>
+                Ockerbraun
+            </td>
+            <td>
+                Ochre brown
+            </td>
+            <td>
+                Brun terre de Sienne
+            </td>
+            <td>
+                Pardo ocre
+            </td>
+            <td>
+                Marrone ocra
+            </td>
+            <td>
+                Okerbruin
+            </td>
+        </tr>
+        <tr>
+            <td>125,89,78</td>
+            <td>
+                RAL 8002
+            </td>
+            <td>
+                Signalbraun
+            </td>
+            <td>
+                Signal brown
+            </td>
+            <td>
+                Brun de sécurité
+            </td>
+            <td>
+                Marrón señales
+            </td>
+            <td>
+                Marrone segnale
+            </td>
+            <td>
+                Signaalbruin
+            </td>
+        </tr>
+        <tr>
+            <td>133,90,64</td>
+            <td>
+                RAL 8003
+            </td>
+            <td>
+                Lehmbraun
+            </td>
+            <td>
+                Clay brown
+            </td>
+            <td>
+                Brun argile
+            </td>
+            <td>
+                Pardo arcilla
+            </td>
+            <td>
+                Marrone fango
+            </td>
+            <td>
+                Leembruin
+            </td>
+        </tr>
+        <tr>
+            <td>144,87,71</td>
+            <td>
+                RAL 8004
+            </td>
+            <td>
+                Kupferbraun
+            </td>
+            <td>
+                Copper brown
+            </td>
+            <td>
+                Brun cuivré
+            </td>
+            <td>
+                Pardo cobre
+            </td>
+            <td>
+                Marrone rame
+            </td>
+            <td>
+                Koperbruin
+            </td>
+        </tr>
+        <tr>
+            <td>117,82,64</td>
+            <td>
+                RAL 8007
+            </td>
+            <td>
+                Rehbraun
+            </td>
+            <td>
+                Fawn brown
+            </td>
+            <td>
+                Brun fauve
+            </td>
+            <td>
+                Pardo corzo
+            </td>
+            <td>
+                Marrone capriolo
+            </td>
+            <td>
+                Reebruin
+            </td>
+        </tr>
+        <tr>
+            <td>119,90,65</td>
+            <td>
+                RAL 8008
+            </td>
+            <td>
+                Olivbraun
+            </td>
+            <td>
+                Olive brown
+            </td>
+            <td>
+                Brun olive
+            </td>
+            <td>
+                Pardo oliva
+            </td>
+            <td>
+                Marrone oliva
+            </td>
+            <td>
+                Olijfbruin
+            </td>
+        </tr>
+        <tr>
+            <td>99,74,63</td>
+            <td>
+                RAL 8011
+            </td>
+            <td>
+                Nußbraun
+            </td>
+            <td>
+                Nut brown
+            </td>
+            <td>
+                Brun noisette
+            </td>
+            <td>
+                Pardo nuez
+            </td>
+            <td>
+                Marrone noce
+            </td>
+            <td>
+                Notenbruin
+            </td>
+        </tr>
+        <tr>
+            <td>109,69,65</td>
+            <td>
+                RAL 8012
+            </td>
+            <td>
+                Rotbraun
+            </td>
+            <td>
+                Red brown
+            </td>
+            <td>
+                Brun rouge
+            </td>
+            <td>
+                Pardo rojo
+            </td>
+            <td>
+                Marrone rossiccio
+            </td>
+            <td>
+                Roodbruin
+            </td>
+        </tr>
+        <tr>
+            <td>86,72,63</td>
+            <td>
+                RAL 8014
+            </td>
+            <td>
+                Sepiabraun
+            </td>
+            <td>
+                Sepia brown
+            </td>
+            <td>
+                Brun sépia
+            </td>
+            <td>
+                Sepia
+            </td>
+            <td>
+                Marrone seppia
+            </td>
+            <td>
+                Sepiabruin
+            </td>
+        </tr>
+        <tr>
+            <td>103,68,64</td>
+            <td>
+                RAL 8015
+            </td>
+            <td>
+                Kastanien-braun
+
+            </td>
+            <td>
+                Chestnut brown
+            </td>
+            <td>
+                Marron
+            </td>
+            <td>
+                Castaño
+            </td>
+            <td>
+                Marrone castagna
+            </td>
+            <td>
+                Kastanjebruin
+            </td>
+        </tr>
+        <tr>
+            <td>91,68,62</td>
+            <td>
+                RAL 8016
+            </td>
+            <td>
+                Mahagoni-braun
+
+            </td>
+            <td>
+                Mahogany brown
+            </td>
+            <td>
+                Brun acajou
+            </td>
+            <td>
+                Caoba
+            </td>
+            <td>
+                Marrone mogano
+            </td>
+            <td>
+                Mahoniebruin
+            </td>
+        </tr>
+        <tr>
+            <td>82,69,66</td>
+            <td>
+                RAL 8017
+            </td>
+            <td>
+                Schokoladen-braun
+            </td>
+            <td>
+                Chocolate brown
+            </td>
+            <td>
+                Brun chocolat
+            </td>
+            <td>
+                Chocolate
+            </td>
+            <td>
+                Marrone cioccolata
+            </td>
+            <td>
+                Chocoladebruin
+            </td>
+        </tr>
+        <tr>
+            <td>76,72,72</td>
+            <td>
+                RAL 8019
+            </td>
+            <td>
+                Graubraun
+            </td>
+            <td>
+                Grey brown
+            </td>
+            <td>
+                Brun gris
+            </td>
+            <td>
+                Pardo grisáceo
+            </td>
+            <td>
+                Marrone grigiastro
+            </td>
+            <td>
+                Grijsbruin
+            </td>
+        </tr>
+        <tr>
+            <td>60,59,58</td>
+            <td>
+                RAL 8022
+            </td>
+            <td>
+                Schwarzbraun
+            </td>
+            <td>
+                Black brown
+            </td>
+            <td>
+                Brun noir
+            </td>
+            <td>
+                Pardo negruzco
+            </td>
+            <td>
+                Marrone nerastro
+            </td>
+            <td>
+                Zwartbruin
+            </td>
+        </tr>
+        <tr>
+            <td>165,99,66</td>
+            <td>
+                RAL 8023
+            </td>
+            <td>
+                Orangebraun
+            </td>
+            <td>
+                Orange brown
+            </td>
+            <td>
+                Brun orangé
+            </td>
+            <td>
+                Pardo anaranjado
+            </td>
+            <td>
+                Marrone arancio
+            </td>
+            <td>
+                Oranjebruin
+            </td>
+        </tr>
+        <tr>
+            <td>125,92,74</td>
+            <td>
+                RAL 8024
+            </td>
+            <td>
+                Beigebraun
+            </td>
+            <td>
+                Beige brown
+            </td>
+            <td>
+                Brun beige
+            </td>
+            <td>
+                Pardo beige
+            </td>
+            <td>
+                Marrone beige
+            </td>
+            <td>
+                Beigebruin
+            </td>
+        </tr>
+        <tr>
+            <td>121,98,84</td>
+            <td>
+                RAL 8025
+            </td>
+            <td>
+                Blaßbraun
+            </td>
+            <td>
+                Pale brown
+            </td>
+            <td>
+                Brun pâle
+            </td>
+            <td>
+                Pardo pálido
+            </td>
+            <td>
+                Marrone pallido
+            </td>
+            <td>
+                Bleekbruin
+            </td>
+        </tr>
+        <tr>
+            <td>92,76,66</td>
+            <td>
+                RAL 8028
+            </td>
+            <td>
+                Terrabraun
+            </td>
+            <td>
+                Terra brown
+            </td>
+            <td>
+                Brun terre
+            </td>
+            <td>
+                Marrón tierra
+            </td>
+            <td>
+                Marrone terra
+            </td>
+            <td>
+                Terrabruin
+            </td>
+        </tr>
+        <tr>
+            <td>126,63,39</td>
+            <td>
+                RAL 8029
+            </td>
+            <td>
+                Perlkupfer
+            </td>
+            <td>
+                Pearl copper
+            </td>
+            <td>
+                Cuivre nacré
+            </td>
+            <td>
+                Cobre perlado
+            </td>
+            <td>
+                Rame perlato
+            </td>
+            <td>
+                Parelmoer koper
+            </td>
+        </tr>
+        <tr>
+            <td>233,227,215</td>
+            <td>
+                RAL 9001
+            </td>
+            <td>
+                Cremeweiß
+            </td>
+            <td>
+                Cream
+            </td>
+            <td>
+                Blanc crème
+            </td>
+            <td>
+                Blanco crema
+            </td>
+            <td>
+                Bianco crema
+            </td>
+            <td>
+                Crèmewit
+            </td>
+        </tr>
+        <tr>
+            <td>214,216,208</td>
+            <td>
+                RAL 9002
+            </td>
+            <td>
+                Grauweiß
+            </td>
+            <td>
+                Grey white
+            </td>
+            <td>
+                Blanc gris
+            </td>
+            <td>
+                Blanco grisáceo
+            </td>
+            <td>
+                Bianco grigiastro
+            </td>
+            <td>
+                Grijswit
+            </td>
+        </tr>
+        <tr>
+            <td>235,238,236</td>
+            <td>
+                RAL 9003
+            </td>
+            <td>
+                Signalweiß
+            </td>
+            <td>
+                Signal white
+            </td>
+            <td>
+                Blanc de sécurité
+            </td>
+            <td>
+                Blanco señales
+            </td>
+            <td>
+                Bianco segnale
+            </td>
+            <td>
+                Signaalwit
+            </td>
+        </tr>
+        <tr>
+            <td>65,68,70</td>
+            <td>
+                RAL 9004
+            </td>
+            <td>
+                Signalschwarz
+            </td>
+            <td>
+                Signal black
+            </td>
+            <td>
+                Noir de sécurité
+            </td>
+            <td>
+                Negro señales
+            </td>
+            <td>
+                Nero segnale
+            </td>
+            <td>
+                Signaalzwart
+            </td>
+        </tr>
+        <tr>
+            <td>59,61,61</td>
+            <td>
+                RAL 9005
+            </td>
+            <td>
+                Tiefschwarz
+            </td>
+            <td>
+                Jet black
+            </td>
+            <td>
+                Noir foncé
+            </td>
+            <td>
+                Negro intenso
+            </td>
+            <td>
+                Nero intenso
+            </td>
+            <td>
+                Gitzwart
+            </td>
+        </tr>
+        <tr>
+            <td>162,166,164</td>
+            <td>
+                RAL 9006
+            </td>
+            <td>
+                Weiß-aluminium
+            </td>
+            <td>
+                White aluminium
+            </td>
+            <td>
+                Aluminium blanc
+            </td>
+            <td>
+                Aluminio blanco
+            </td>
+            <td>
+                Alluminio brillante
+            </td>
+            <td>
+                Blank aluminium-kleurig
+            </td>
+        </tr>
+        <tr>
+            <td>142,142,139</td>
+            <td>
+                RAL 9007
+            </td>
+            <td>
+                Grau-aluminium
+            </td>
+            <td>
+                Grey aluminium
+            </td>
+            <td>
+                Aluminium gris
+            </td>
+            <td>
+                Aluminio gris
+            </td>
+            <td>
+                Alluminio grigiastro
+            </td>
+            <td>
+                Grijs aluminium-kleurig
+            </td>
+        </tr>
+        <tr>
+            <td>240,239,232</td>
+            <td>
+                RAL 9010
+            </td>
+            <td>
+                Reinweiß
+            </td>
+            <td>
+                Pure white
+            </td>
+            <td>
+                Blanc pur
+            </td>
+            <td>
+                Blanco puro
+            </td>
+            <td>
+                Bianco puro
+            </td>
+            <td>
+                Zuiver wit
+            </td>
+        </tr>
+        <tr>
+            <td>61,63,65</td>
+            <td>
+                RAL 9011
+            </td>
+            <td>
+                Graphit-schwarz
+            </td>
+            <td>
+                Graphite black
+            </td>
+            <td>
+                Noir graphite
+            </td>
+            <td>
+                Negro grafito
+            </td>
+            <td>
+                Nero grafite
+            </td>
+            <td>
+                Grafietzwart
+            </td>
+        </tr>
+        <tr>
+            <td>238,241,237</td>
+            <td>
+                RAL 9016
+            </td>
+            <td>
+                Verkehrsweiß
+            </td>
+            <td>
+                Traffic white
+            </td>
+            <td>
+                Blanc signalisation
+            </td>
+            <td>
+                Blanco tráfico
+            </td>
+            <td>
+                Bianco traffico
+            </td>
+            <td>
+                Verkeerswit
+            </td>
+        </tr>
+        <tr>
+            <td>63,64,63</td>
+            <td>
+                RAL 9017
+            </td>
+            <td>
+                Verkehrs-schwarz
+            </td>
+            <td>
+                Traffic black
+            </td>
+            <td>
+                Noir signalisation
+            </td>
+            <td>
+                Negro tráfico
+            </td>
+            <td>
+                Nero traffico
+            </td>
+            <td>
+                Verkeerszwart
+            </td>
+        </tr>
+        <tr>
+            <td>201,207,202</td>
+            <td>
+                RAL 9018
+            </td>
+            <td>
+                Papyrusweiß
+            </td>
+            <td>
+                Papyrus white
+            </td>
+            <td>
+                Blanc papyrus
+            </td>
+            <td>
+                Blanco papiro
+            </td>
+            <td>
+                Bianco papiro
+            </td>
+            <td>
+                Papyruswit
+            </td>
+        </tr>
+        <tr>
+            <td>157,159,159</td>
+            <td>
+                RAL 9022
+            </td>
+            <td>
+                Perlhellgrau
+            </td>
+            <td>
+                Pearl light grey
+            </td>
+            <td>
+                Gris clair nacré
+            </td>
+            <td>
+                Gris claro perlado
+            </td>
+            <td>
+                Grigio chiaro perlato
+            </td>
+            <td>
+                Parelmoer lichtgrijs
+            </td>
+        </tr>
+        <tr>
+            <td>135,137,139</td>
+            <td>
+                RAL 9023
+            </td>
+            <td>
+                Perldunkel-grau
+            </td>
+            <td>
+                Pearl dark grey
+            </td>
+            <td>
+                Gris fonçé nacré
+            </td>
+            <td>
+                Gris oscuro perlado
+            </td>
+            <td>
+                Grigio scuro perlato
+            </td>
+            <td>
+                Parelmoer donkergrijs
+            </td>
+        </tr>
+    </tbody>
+</table>

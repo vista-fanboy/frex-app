@@ -1,0 +1,5 @@
+out
+local.properties
+.idea
+*.iml
+*.ipr
