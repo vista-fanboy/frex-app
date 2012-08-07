@@ -19,12 +19,6 @@
 
 package nf.frex.core;
 
-import nf.frex.core.ColorScheme;
-import nf.frex.core.DistanceFunction;
-import nf.frex.core.Fractal;
-import nf.frex.core.OrbitFunction;
-import nf.frex.core.Registry;
-
 /**
  * @author Norman Fomferra
  */
