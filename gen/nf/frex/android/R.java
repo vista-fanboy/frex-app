@@ -33,29 +33,11 @@ public final class R {
         public static final int frex_action_zoom_in=0x7f020000;
         public static final int frex_action_zoom_out=0x7f020001;
         public static final int frex_logo=0x7f020002;
-        public static final int ic_action_attach=0x7f020003;
-        public static final int ic_action_call=0x7f020004;
-        public static final int ic_action_copy=0x7f020005;
-        public static final int ic_action_cut=0x7f020006;
-        public static final int ic_action_delete=0x7f020007;
-        public static final int ic_action_done=0x7f020008;
-        public static final int ic_action_edit=0x7f020009;
-        public static final int ic_action_locate=0x7f02000a;
-        public static final int ic_action_mail=0x7f02000b;
-        public static final int ic_action_mail_add=0x7f02000c;
-        public static final int ic_action_microphone=0x7f02000d;
-        public static final int ic_action_overflow=0x7f02000e;
-        public static final int ic_action_paste=0x7f02000f;
-        public static final int ic_action_photo=0x7f020010;
-        public static final int ic_action_refresh=0x7f020011;
-        public static final int ic_action_search=0x7f020012;
-        public static final int ic_action_select_all=0x7f020013;
-        public static final int ic_action_send=0x7f020014;
-        public static final int ic_action_share=0x7f020015;
-        public static final int ic_action_star=0x7f020016;
-        public static final int ic_action_user=0x7f020017;
-        public static final int ic_action_user_add=0x7f020018;
-        public static final int ic_action_video=0x7f020019;
+        public static final int ic_action_edit=0x7f020003;
+        public static final int ic_action_locate=0x7f020004;
+        public static final int ic_action_send=0x7f020005;
+        public static final int ic_action_share=0x7f020006;
+        public static final int ic_action_star=0x7f020007;
     }
     public static final class id {
         public static final int about_frex=0x7f070023;
@@ -123,6 +105,7 @@ public final class R {
         public static final int email_subject=0x7f040024;
         public static final int enter_name_msg=0x7f040027;
         public static final int error_msg=0x7f04001c;
+        public static final int files_deleted_msg=0x7f04002c;
         public static final int fractal_name=0x7f040012;
         public static final int fractal_saved=0x7f04001b;
         public static final int fractal_type=0x7f040013;
@@ -150,7 +133,6 @@ public final class R {
         public static final int zoom_all=0x7f040014;
         public static final int zoom_in=0x7f040015;
         public static final int zoom_out=0x7f040016;
-    public static final int files_deleted_msg;
     }
     public static final class style {
         /**  the theme applied to the application or activity 

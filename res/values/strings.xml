@@ -67,5 +67,5 @@
     <string name="parameters_not_found_msg">Parameters not found.</string>
     <string name="delete_all_fractals">Delete all Fractals</string>
     <string name="really_delete_all_fractals_msg">All of your saved fractals (%d) will be deleted!\nDo you really want to continue?</string>
-    <string name="files_deleted_msg">%d of %d saved file(s) deleted.</string>
+    <string name="files_deleted_msg">%1$d of %2$d saved file(s) deleted.</string>
 </resources>
