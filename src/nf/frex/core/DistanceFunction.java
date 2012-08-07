@@ -25,170 +25,86 @@ import static java.lang.Math.*;
  * @author Norman Fomferra
  */
 public interface DistanceFunction {
-    DistanceFunction X = new DistanceFunction() {
-        @Override
-        public double evaluate(double x, double y) {
-            return x;
-        }
-    };
-    DistanceFunction Y = new DistanceFunction() {
-        @Override
-        public double evaluate(double x, double y) {
-            return y;
-        }
-    };
-    DistanceFunction MIN_XY = new DistanceFunction() {
-        @Override
-        public double evaluate(double x, double y) {
-            return min(x, y);
-        }
-    };
-    DistanceFunction MAX_XY = new DistanceFunction() {
-        @Override
-        public double evaluate(double x, double y) {
-            return max(x, y);
-        }
-    };
-    DistanceFunction ADD_XY = new DistanceFunction() {
-        @Override
-        public double evaluate(double x, double y) {
-            return x + y;
-        }
-    };
-    DistanceFunction SUB_XY = new DistanceFunction() {
-        @Override
-        public double evaluate(double x, double y) {
-            return x - y;
-        }
-    };
-    DistanceFunction MUL_XY = new DistanceFunction() {
-        @Override
-        public double evaluate(double x, double y) {
-            return x * y;
-        }
-    };
-    DistanceFunction DIV_XY = new DistanceFunction() {
-        @Override
-        public double evaluate(double x, double y) {
-            return abs(y) > 0 ? x / y : Double.POSITIVE_INFINITY;
-        }
-    };
-    DistanceFunction LOG_XX = new DistanceFunction() {
-        @Override
-        public double evaluate(double x, double y) {
-            return log(x * x);
-        }
-    };
-
-    DistanceFunction LINEAR_1 = new DistanceFunction() {
+    DistanceFunction STINGS = new DistanceFunction() {
         @Override
         public double evaluate(double x, double y) {
             return min(abs(x), abs(y));
         }
     };
-    DistanceFunction LINEAR_2 = new DistanceFunction() {
-        @Override
-        public double evaluate(double x, double y) {
-            return min(abs(y - x), abs(y + x));
-        }
-    };
-    DistanceFunction LINEAR_3 = new DistanceFunction() {
+    DistanceFunction DENSE_STINGS = new DistanceFunction() {
         @Override
         public double evaluate(double x, double y) {
             return min(min(abs(x), abs(y - x)), min(abs(y), abs(y + x)));
         }
     };
-    DistanceFunction CUBIC_1 = new DistanceFunction() {
+    DistanceFunction OVERLAID_STINGS = new DistanceFunction() {
         @Override
         public double evaluate(double x, double y) {
-            return abs((x + 1) * x * (x - 1));
+            return log(x * x);
         }
     };
-    DistanceFunction CUBIC_2 = new DistanceFunction() {
+    DistanceFunction HAIR = new DistanceFunction() {
         @Override
         public double evaluate(double x, double y) {
-            double v = (x + 1) * x * (x - 1);
-            return min(abs(y - v), abs(y + v));
+            double v1 = (x + 1) * x * (x - 1);
+            double v2 = (y + 1) * y * (y - 1);
+            return min(abs(v1), abs(v2));
         }
     };
-    DistanceFunction RING_1 = new DistanceFunction() {
-        @Override
-        public final double evaluate(double x, double y) {
-            double v = x * x + y * y;
-            return v > 1.0 ? v - 1.0 : 1.0 - v;
-        }
-    };
-    DistanceFunction RING_2 = new DistanceFunction() {
-        @Override
-        public final double evaluate(double x, double y) {
-            double v = x * x + y * y;
-            return min(v > 1.0 ? v - 1.0 : 1.0 - v, v > 2.0 ? v - 2.0 : 2.0 - v);
-        }
-    };
-    DistanceFunction RING_3 = new DistanceFunction() {
-        @Override
-        public final double evaluate(double x, double y) {
-            double v = x * x + y * y;
-            return min(min(v > 1.0 ? v - 1.0 : 1.0 - v, v > 2.0 ? v - 2.0 : 2.0 - v), v > 3.0 ? v - 3.0 : 3.0 - v);
-        }
-    };
-    DistanceFunction RING_4 = new DistanceFunction() {
-        @Override
-        public final double evaluate(double x, double y) {
-            double v = log(x * x + y * y);
-            return 1.0 + sin(v);
-        }
-    };
-    DistanceFunction SIN_1 = new DistanceFunction() {
-        @Override
-        public double evaluate(double x, double y) {
-            return y - sin(x);
-        }
-    };
-    DistanceFunction SIN_2 = new DistanceFunction() {
+
+    DistanceFunction CURLS = new DistanceFunction() {
         @Override
         public double evaluate(double x, double y) {
             double v = 1.0 + sin(x);
             return min(y - v, y + v);
         }
     };
-    DistanceFunction SIN_3 = new DistanceFunction() {
-        @Override
-        public double evaluate(double x, double y) {
-            return 1.0 + min(sin(x), sin(y));
-        }
-    };
-    DistanceFunction SIN_4= new DistanceFunction() {
-        @Override
-        public double evaluate(double x, double y) {
-            return sin(x * y);
-        }
-    };
-    DistanceFunction DIST_1 = new DistanceFunction() {
-        @Override
-        public double evaluate(double x, double y) {
-            return x * x + y * y;
-        }
-    };
-    DistanceFunction DIST_2 = new DistanceFunction() {
+
+    DistanceFunction ANTENNAE = new DistanceFunction() {
         @Override
         public double evaluate(double x, double y) {
             return x * x - y * y;
         }
     };
-    DistanceFunction DIST_3 = new DistanceFunction() {
+
+    DistanceFunction SPIDER_NET = new DistanceFunction() {
         @Override
         public double evaluate(double x, double y) {
-            return (x - y) * (x - y);
+            return 1.0 + min(sin(x), sin(y));
         }
     };
-    DistanceFunction LOG_DIST_1 = new DistanceFunction() {
+
+    DistanceFunction RINGS = new DistanceFunction() {
         @Override
-        public double evaluate(double x, double y) {
-            return log(x * x + y * y);
+        public final double evaluate(double x, double y) {
+            double v = x * x + y * y;
+            return v > 1.0 ? v - 1.0 : 1.0 - v;
         }
     };
-    DistanceFunction LOG_DIST_2 = new DistanceFunction() {
+    DistanceFunction DOUBLE_RINGS = new DistanceFunction() {
+        @Override
+        public final double evaluate(double x, double y) {
+            double v = x * x + y * y;
+            return min(v > 1.0 ? v - 1.0 : 1.0 - v, v > 2.0 ? v - 2.0 : 2.0 - v);
+        }
+    };
+    DistanceFunction TRIPLE_RINGS = new DistanceFunction() {
+        @Override
+        public final double evaluate(double x, double y) {
+            double v = x * x + y * y;
+            return min(min(v > 1.0 ? v - 1.0 : 1.0 - v, v > 2.0 ? v - 2.0 : 2.0 - v), v > 3.0 ? v - 3.0 : 3.0 - v);
+        }
+    };
+
+    DistanceFunction CIRCLES = new DistanceFunction() {
+        @Override
+        public final double evaluate(double x, double y) {
+            double v = log(x * x + y * y);
+            return 1.0 + sin(v);
+        }
+    };
+
+    DistanceFunction FOUR_CIRCLES = new DistanceFunction() {
         @Override
         public double evaluate(double x, double y) {
             double dx1 = (x - 1) * (x - 1);
@@ -199,7 +115,101 @@ public interface DistanceFunction {
         }
     };
 
-    DistanceFunction FLOOR_DIST = new DistanceFunction() {
+
+    DistanceFunction BUBBLES = new DistanceFunction() {
+        @Override
+        public double evaluate(double x, double y) {
+            return x * x + y * y;
+        }
+    };
+
+
+
+
+    DistanceFunction _X = new DistanceFunction() {
+        @Override
+        public double evaluate(double x, double y) {
+            return x;
+        }
+    };
+    DistanceFunction _Y = new DistanceFunction() {
+        @Override
+        public double evaluate(double x, double y) {
+            return y;
+        }
+    };
+    DistanceFunction _MIN_XY = new DistanceFunction() {
+        @Override
+        public double evaluate(double x, double y) {
+            return min(x, y);
+        }
+    };
+    DistanceFunction _MAX_XY = new DistanceFunction() {
+        @Override
+        public double evaluate(double x, double y) {
+            return max(x, y);
+        }
+    };
+    DistanceFunction _ADD_XY = new DistanceFunction() {
+        @Override
+        public double evaluate(double x, double y) {
+            return x + y;
+        }
+    };
+    DistanceFunction _SUB_XY = new DistanceFunction() {
+        @Override
+        public double evaluate(double x, double y) {
+            return x - y;
+        }
+    };
+    DistanceFunction _MUL_XY = new DistanceFunction() {
+        @Override
+        public double evaluate(double x, double y) {
+            return x * y;
+        }
+    };
+    DistanceFunction _DIV_XY = new DistanceFunction() {
+        @Override
+        public double evaluate(double x, double y) {
+            return abs(y) > 0 ? x / y : Double.POSITIVE_INFINITY;
+        }
+    };
+
+
+    DistanceFunction _CUBIC_1 = new DistanceFunction() {
+        @Override
+        public double evaluate(double x, double y) {
+            return abs((x + 1) * x * (x - 1));
+        }
+    };
+    DistanceFunction _CUBIC_2 = new DistanceFunction() {
+        @Override
+        public double evaluate(double x, double y) {
+            double v = (x + 1) * x * (x - 1);
+            return min(abs(y - v), abs(y + v));
+        }
+    };
+
+    DistanceFunction _SIN_4= new DistanceFunction() {
+        @Override
+        public double evaluate(double x, double y) {
+            return sin(x * y);
+        }
+    };
+    DistanceFunction _DIST_3 = new DistanceFunction() {
+        @Override
+        public double evaluate(double x, double y) {
+            return (x - y) * (x - y);
+        }
+    };
+    DistanceFunction _LOG_DIST_1 = new DistanceFunction() {
+        @Override
+        public double evaluate(double x, double y) {
+            return log(x * x + y * y);
+        }
+    };
+
+    DistanceFunction _FLOOR_DIST = new DistanceFunction() {
         @Override
         public double evaluate(double x, double y) {
             return floor(x * x + y * y);

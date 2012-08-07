@@ -43,7 +43,8 @@ public class Registry<T> {
             if (Modifier.isPublic(field.getModifiers())
                     && Modifier.isFinal(field.getModifiers())
                     && Modifier.isStatic(field.getModifiers())
-                    && fieldType.isAssignableFrom(field.getType())) {
+                    && fieldType.isAssignableFrom(field.getType())
+                    && !field.getName().startsWith("_")) {
                 try {
                     String id = field.getName();
                     T value = (T) field.get(null);
@@ -54,7 +55,7 @@ public class Registry<T> {
                 }
             }
         }
-        Collections.sort(idList);
+        // Collections.sort(idList);
         return new Registry<T>(idList, idValueMap);
     }
 

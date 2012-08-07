@@ -100,7 +100,7 @@ public class Generator {
             final boolean[] computed = image.getComputed();
             final double[] orbitX = new double[iterMax];
             final double[] orbitY = new double[iterMax];
-            final OrbitFunction orbitFunction = new OrbitFunction(Registries.distanceFunctions.getValue(config.getDistanceFunctionId(), DistanceFunction.X),
+            final OrbitFunction orbitFunction = new OrbitFunction(Registries.distanceFunctions.getValue(config.getDistanceFunctionId(), DistanceFunction.STINGS),
                                                                   config.getDistanceDilation(),
                                                                   config.getDistanceTranslateX(),
                                                                   config.getDistanceTranslateY()

@@ -24,8 +24,6 @@ package nf.frex.core;
  */
 public final class OrbitFunction {
 
-    public final static OrbitFunction THIN_RINGS = new OrbitFunction(DistanceFunction.RING_3, 0.05, 0.0, 0.0);
-
     private final double dilation;
     private final double translateX;
     private final double translateY;
