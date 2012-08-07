@@ -34,6 +34,27 @@ public class ColorScheme {
     private final static int _DARK_GREY = Color.parseColor("#aaaaaa");
     private final static int _LIGHT_GREY = Color.parseColor("#444444");
 
+    public final static ColorScheme CLOUDS = new ColorScheme(
+            Color.parseColor("#19191d"),
+            Color.parseColor("#605f67"),
+            Color.parseColor("#737486"),
+            Color.parseColor("#b8a3a0"),
+            Color.parseColor("#8d94b0"),
+            Color.parseColor("#ffc8a0"),
+            Color.parseColor("#fefc8d"),
+            Color.parseColor("#fefec2")
+            );
+    public final static ColorScheme BRICKS = new ColorScheme(
+            Color.parseColor("#120e05"),
+            Color.parseColor("#363531"),
+            Color.parseColor("#6d6960"),
+            Color.parseColor("#6d6960"),
+            Color.parseColor("#d2c9ac"),
+            Color.parseColor("#d9c7a1"),
+            Color.parseColor("#6d6960"),
+            Color.parseColor("#7d6b47"),
+            Color.parseColor("#f5f2ed")
+    );
     public final static ColorScheme EARTH = new ColorScheme(Color.BLACK, Color.rgb(94, 51, 31), Color.rgb(240, 214, 171), Color.WHITE);
     public final static ColorScheme OCEAN = new ColorScheme(Color.BLACK, Color.rgb(3, 20, 46), Color.rgb(135, 148, 166), Color.rgb(133, 166, 122), Color.WHITE);
     public final static ColorScheme RAINBOW = new ColorScheme(Color.RED, Color.YELLOW, _GREEN, Color.BLUE, _INDIGO, _VIOLET);
