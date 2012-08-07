@@ -50,12 +50,11 @@ import java.util.Properties;
  * To-do List
  * <pre>
  *     todo - add welcome screen with a few hints
- *     todo - I18N fractals, functions, color schemes
+ *     todo - I18N of fractals, functions, color scheme names
  *     todo - Define ready-to-use orbit processors
  *     todo - Refine distance functions and give better names (by what it looks like)
  *     todo - check I18N, generate uk-english, italian, french and spanish versions
  *     todo - fix problem of too small dialogs on tablets
- *     todo - description: make background images, meditative toy, high-quality rendering
  *     todo - introduce function that auto-creates images (e.g. shake mobile using varying intensities)
  *     todo - add better/nicer color bars
  *     todo - manage saved fractals: rename and delete
@@ -68,7 +67,7 @@ import java.util.Properties;
  */
 public class FrexActivity extends Activity {
 
-    public static final String TAG = "FrexActivity";
+    public static final String TAG = "Frex";
 
     private static Bitmap[] COLOR_TABLE_ICONS;
 
@@ -306,22 +305,26 @@ public class FrexActivity extends Activity {
 
     private void deleteAllFractals() {
         final FrexIO frexIO = new FrexIO(this);
-        final File[] files = frexIO.getFiles("");
+        final File[] files = frexIO.getFiles(FrexIO.PARAM_FILE_EXT);
 
         AlertDialog.Builder b = new AlertDialog.Builder(this);
-        b.setTitle("Delete all Fractals");
-        b.setMessage(files.length + " file(s) will be deleted!\nReally continue?");
+        b.setTitle(getString(R.string.delete_all_fractals));
+        b.setMessage(getString(R.string.really_delete_all_fractals_msg, files.length));
         b.setCancelable(true);
         b.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 int n = 0;
-                for (File file : files) {
-                    if (file.delete()) {
+                for (File paramFile : files) {
+                    if (paramFile.delete()) {
+                        n++;
+                    }
+                    File imageFile = new File(paramFile.getParentFile(), FrexIO.getFilenameWithoutExt(paramFile) + FrexIO.IMAGE_FILE_EXT);
+                    if (imageFile.delete()) {
                         n++;
                     }
                 }
-                Toast.makeText(FrexActivity.this, n + " of " + files.length + " file(s) deleted", Toast.LENGTH_SHORT).show();
+                Toast.makeText(FrexActivity.this, getString(R.string.files_deleted_msg, n, files.length), Toast.LENGTH_SHORT).show();
             }
         });
         b.setNeutralButton(android.R.string.no, new DialogInterface.OnClickListener() {
@@ -646,7 +649,6 @@ public class FrexActivity extends Activity {
             }
         });
 
-        // todo I18N!
         final Button okButton = (Button) dialog.findViewById(R.id.ok_button);
         final Button cancelButton = (Button) dialog.findViewById(R.id.cancel_button);
         okButton.setOnClickListener(new View.OnClickListener() {
@@ -655,14 +657,14 @@ public class FrexActivity extends Activity {
 
                 String fractalName = editText.getText().toString().trim();
                 if (fractalName.length() == 0) {
-                    Toast.makeText(FrexActivity.this, "Please enter a name!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(FrexActivity.this, R.string.enter_name_msg, Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 FrexIO frexIO = new FrexIO(FrexActivity.this);
                 File paramFile = frexIO.getFile(fractalName, FrexIO.PARAM_FILE_EXT);
                 if (!paramFile.exists()) {
-                    Toast.makeText(FrexActivity.this, "Parameters not found.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(FrexActivity.this, getString(R.string.parameters_not_found_msg), Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -704,13 +706,12 @@ public class FrexActivity extends Activity {
         final Button okButton = (Button) dialog.findViewById(R.id.ok_button);
         final Button cancelButton = (Button) dialog.findViewById(R.id.cancel_button);
 
-        // todo I18N!
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final String fractalName = editText.getText().toString().trim();
                 if (fractalName.length() == 0) {
-                    Toast.makeText(FrexActivity.this, "Please enter a name!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(FrexActivity.this, getString(R.string.enter_name_msg), Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -718,8 +719,8 @@ public class FrexActivity extends Activity {
                 final File paramFile = frexIO.getFile(fractalName, FrexIO.PARAM_FILE_EXT);
                 if (paramFile.exists()) {
                     AlertDialog.Builder b = new AlertDialog.Builder(FrexActivity.this);
-                    b.setTitle("Name exists");
-                    b.setMessage(String.format("Name '%s' is in use.\nOverwrite existing fractal?", fractalName));
+                    b.setTitle(R.string.safe_fractal);
+                    b.setMessage(String.format(getString(R.string.name_exists_msg), fractalName));
                     b.setCancelable(true);
                     b.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                         @Override
