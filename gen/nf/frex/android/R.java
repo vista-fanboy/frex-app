@@ -116,10 +116,12 @@ public final class R {
         public static final int colors=0x7f040008;
         public static final int decorated_fractal=0x7f040017;
         public static final int decorations=0x7f040002;
+        public static final int delete_all_fractals=0x7f04002a;
         public static final int delete_saved_fractals=0x7f040010;
         public static final int dilation=0x7f040005;
         public static final int distance_function=0x7f040004;
         public static final int email_subject=0x7f040024;
+        public static final int enter_name_msg=0x7f040027;
         public static final int error_msg=0x7f04001c;
         public static final int fractal_name=0x7f040012;
         public static final int fractal_saved=0x7f04001b;
@@ -127,12 +129,15 @@ public final class R {
         public static final int image_save_failed_msg=0x7f040026;
         public static final int image_saved_msg=0x7f040025;
         public static final int julia_mode_fractal=0x7f040018;
+        public static final int name_exists_msg=0x7f040028;
         public static final int no_fractals_found=0x7f04001d;
         public static final int num_iterations=0x7f04000d;
         public static final int open_fractal=0x7f04000e;
         public static final int out_of_memory=0x7f04001f;
+        public static final int parameters_not_found_msg=0x7f040029;
         public static final int properties=0x7f040003;
         public static final int random=0x7f040001;
+        public static final int really_delete_all_fractals_msg=0x7f04002b;
         public static final int safe_fractal=0x7f04000f;
         public static final int save_image=0x7f040022;
         public static final int select_fractal=0x7f040011;
@@ -145,6 +150,7 @@ public final class R {
         public static final int zoom_all=0x7f040014;
         public static final int zoom_in=0x7f040015;
         public static final int zoom_out=0x7f040016;
+    public static final int files_deleted_msg;
     }
     public static final class style {
         /**  the theme applied to the application or activity 

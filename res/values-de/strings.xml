@@ -51,14 +51,20 @@
     <string name="fractal_saved">Fraktal gespeichert.</string>
     <string name="error_msg">Fehler: {0}</string>
     <string name="no_fractals_found">Keine gespeicherten Fractals gefunden.</string>
-    <string name="set_wallpaper">Als Hintergrundbild setzen</string>
+    <string name="set_wallpaper">Als Hintergrundbild einstellen</string>
     <string name="out_of_memory">Speicher voll.</string>
-    <string name="wallpaper_msg">Ein neues Hintergrundbild (%1$dx%2$d px) wird für dein Gerät berechnet. Je nach Hardware kann das zwischen mehreren Sekunden oder Minuten dauern.\nMöchtest du den Hintergrund jetzt austauschen?
+    <string name="wallpaper_msg">Ein neues Hintergrundbild (%1$dx%2$d px) wird für dein Gerät berechnet. Je nach Gerät kann das zwischen Sekunden oder Minuten dauern.\nMöchtest du den Hintergrund jetzt austauschen?
     </string>
     <string name="wallpaper_set_msg">Hintergrundbild gesetzt.</string>
     <string name="save_image">Bild speichern</string>
     <string name="share_image">Bild senden</string>
-    <string name="email_subject">Ein neues Fraktal für dich</string>
+    <string name="email_subject">Ein Fraktal für dich</string>
     <string name="image_saved_msg">Bild gespeichert in\n%s</string>
     <string name="image_save_failed_msg">Bild konnte nicht gespeichert werden</string>
+    <string name="enter_name_msg">Bitte gib einen Namen ein!</string>
+    <string name="name_exists_msg">Der Name \'%s\' ist schon vergeben.\nSoll das bestehende Fraktal überschrieben werden?</string>
+    <string name="parameters_not_found_msg">Parameter nicht gefunden.</string>
+    <string name="delete_all_fractals">Alle Fraktals löschen</string>
+    <string name="really_delete_all_fractals_msg">Alle deiner gespeicherten Fraktals (%d) werden gelöscht!\nMöchtest du das wirklich?</string>
+    <string name="files_deleted_msg">%d von %d Dateien(s) wurden gelöscht.</string>
 </resources>
