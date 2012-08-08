@@ -46,7 +46,7 @@
     <string name="julia_mode_fractal">\'Julia-Set\' mode</string>
     <string name="about_frex">About Frex</string>
     <string name="about_frex_text">
-        Frex version %s\nCopyright © 2012 by Norman Fomferra.\n\nThis program comes with ABSOLUTELY NO WARRANTY; Frex is free software distributed under the terms of the GPL v3.
+        Frex version %s\nCopyright © 2012 by Norman Fomferra.\n\nThis program comes with ABSOLUTELY NO WARRANTY; Frex is free software distributed under the terms of the GPL v3 (GNU General Public License).
     </string>
     <string name="fractal_saved">Fractal saved.</string>
     <string name="error_msg">Error: %s</string>

@@ -191,82 +191,77 @@ public class FrexActivity extends Activity {
         final int minimumWidth = wallpaperManager.getDesiredMinimumWidth();
         final int minimumHeight = wallpaperManager.getDesiredMinimumHeight();
 
-        AlertDialog.Builder b = new AlertDialog.Builder(this);
-        b.setTitle(R.string.set_wallpaper);
-        TextView view1 = new TextView(this);
-        view1.setSingleLine(false);
-        view1.setPadding(5, 5, 5, 5);
-        view1.setText(getString(R.string.wallpaper_msg, minimumWidth, minimumHeight));
-        b.setView(view1);
-        //b.setMessage(getString(R.string.wallpaper_msg, minimumWidth, minimumHeight));
-        b.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                // ok
-            }
-        });
-        b.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                final Image image = view.getImage();
-                final int imageWidth = image.getWidth();
-                final int imageHeight = image.getHeight();
+        showYesNoDialog(R.string.set_wallpaper,
+                getString(R.string.wallpaper_msg, minimumWidth, minimumHeight),
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        final Image image = view.getImage();
+                        final int imageWidth = image.getWidth();
+                        final int imageHeight = image.getHeight();
 
-                if (imageWidth != minimumWidth || imageHeight != minimumHeight) {
+                        if (imageWidth != minimumWidth || imageHeight != minimumHeight) {
 
-                    final Image wallpaperImage;
-                    try {
-                        wallpaperImage = new Image(minimumWidth, minimumHeight);
-                    } catch (OutOfMemoryError e) {
-                        Toast.makeText(FrexActivity.this, getString(R.string.out_of_memory), Toast.LENGTH_LONG).show();
-                        return;
+                            final Image wallpaperImage;
+                            try {
+                                wallpaperImage = new Image(minimumWidth, minimumHeight);
+                            } catch (OutOfMemoryError e) {
+                                Toast.makeText(FrexActivity.this, getString(R.string.out_of_memory), Toast.LENGTH_LONG).show();
+                                return;
+                            }
+
+                            final ProgressDialog progressDialog = new ProgressDialog(FrexActivity.this);
+                            final Generator wallpaperGenerator = new Generator(view.getGeneratorConfig(), new Generator.ProgressListener() {
+                                int numLines;
+
+                                @Override
+                                public void onStarted(int numTasks) {
+                                }
+
+                                @Override
+                                public void onSomeLinesComputed(int taskId, int line1, int line2) {
+                                    numLines += 1 + line2 - line1;
+                                    progressDialog.setProgress(numLines);
+                                }
+
+                                @Override
+                                public void onStopped(boolean cancelled) {
+                                    progressDialog.dismiss();
+                                    if (!cancelled) {
+                                        setWallpaper(wallpaperManager, wallpaperImage);
+                                    }
+                                }
+                            });
+
+                            DialogInterface.OnCancelListener cancelListener = new DialogInterface.OnCancelListener() {
+                                @Override
+                                public void onCancel(DialogInterface dialog) {
+                                    if (progressDialog.isShowing()) {
+                                        progressDialog.dismiss();
+                                    }
+                                    wallpaperGenerator.cancel();
+                                }
+                            };
+                            progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+                            progressDialog.setCancelable(true);
+                            progressDialog.setMax(minimumHeight);
+                            progressDialog.setOnCancelListener(cancelListener);
+                            progressDialog.show();
+
+                            wallpaperGenerator.start(wallpaperImage, false);
+                        } else {
+                            setWallpaper(wallpaperManager, image);
+                        }
                     }
-
-                    final ProgressDialog progressDialog = new ProgressDialog(FrexActivity.this);
-                    final Generator wallpaperGenerator = new Generator(view.getGeneratorConfig(), new Generator.ProgressListener() {
-                        int numLines;
-
-                        @Override
-                        public void onStarted(int numTasks) {
-                        }
-
-                        @Override
-                        public void onSomeLinesComputed(int taskId, int line1, int line2) {
-                            numLines += 1 + line2 - line1;
-                            progressDialog.setProgress(numLines);
-                        }
-
-                        @Override
-                        public void onStopped(boolean cancelled) {
-                            progressDialog.dismiss();
-                            if (!cancelled) {
-                                setWallpaper(wallpaperManager, wallpaperImage);
-                            }
-                        }
-                    });
-
-                    DialogInterface.OnCancelListener cancelListener = new DialogInterface.OnCancelListener() {
-                        @Override
-                        public void onCancel(DialogInterface dialog) {
-                            if (progressDialog.isShowing()) {
-                                progressDialog.dismiss();
-                            }
-                            wallpaperGenerator.cancel();
-                        }
-                    };
-                    progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-                    progressDialog.setCancelable(true);
-                    progressDialog.setMax(minimumHeight);
-                    progressDialog.setOnCancelListener(cancelListener);
-                    progressDialog.show();
-
-                    wallpaperGenerator.start(wallpaperImage, false);
-                } else {
-                    setWallpaper(wallpaperManager, image);
-                }
-            }
-        });
-        b.show();
+                },
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // ok
+                    }
+                },
+                null
+        );
     }
 
     static int imgId = 0;
@@ -321,32 +316,31 @@ public class FrexActivity extends Activity {
         final FrexIO frexIO = new FrexIO(this);
         final File[] files = frexIO.getFiles(FrexIO.PARAM_FILE_EXT);
 
-        AlertDialog.Builder b = new AlertDialog.Builder(this);
-        b.setTitle(getString(R.string.delete_all_fractals));
-        b.setMessage(getString(R.string.really_delete_all_fractals_msg, files.length));
-        b.setCancelable(true);
-        b.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                int n = 0;
-                for (File paramFile : files) {
-                    if (paramFile.delete()) {
-                        n++;
+        showYesNoDialog(R.string.delete_all_fractals,
+                getString(R.string.really_delete_all_fractals_msg, files.length),
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        int n = 0;
+                        for (File paramFile : files) {
+                            if (paramFile.delete()) {
+                                n++;
+                            }
+                            File imageFile = new File(paramFile.getParentFile(), FrexIO.getFilenameWithoutExt(paramFile) + FrexIO.IMAGE_FILE_EXT);
+                            if (imageFile.delete()) {
+                                n++;
+                            }
+                        }
+                        Toast.makeText(FrexActivity.this, getString(R.string.files_deleted_msg, n, files.length), Toast.LENGTH_SHORT).show();
                     }
-                    File imageFile = new File(paramFile.getParentFile(), FrexIO.getFilenameWithoutExt(paramFile) + FrexIO.IMAGE_FILE_EXT);
-                    if (imageFile.delete()) {
-                        n++;
+                },
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
                     }
-                }
-                Toast.makeText(FrexActivity.this, getString(R.string.files_deleted_msg, n, files.length), Toast.LENGTH_SHORT).show();
-            }
-        });
-        b.setNeutralButton(android.R.string.no, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-            }
-        });
-        b.show();
+                },
+                null
+        );
     }
 
     @Override
@@ -732,31 +726,30 @@ public class FrexActivity extends Activity {
                 final FrexIO frexIO = new FrexIO(FrexActivity.this);
                 final File paramFile = frexIO.getFile(fractalName, FrexIO.PARAM_FILE_EXT);
                 if (paramFile.exists()) {
-                    AlertDialog.Builder b = new AlertDialog.Builder(FrexActivity.this);
-                    b.setTitle(R.string.safe_fractal);
-                    b.setMessage(String.format(getString(R.string.name_exists_msg), fractalName));
-                    b.setCancelable(true);
-                    b.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogIfc, int which) {
-                            // "Yes" selected --> save / overwrite
-                            saveConfig(fractalName, frexIO, paramFile, dialog);
-                        }
-                    });
-                    b.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            // "No" selected --> do nothing, leave Save dialog open
-                        }
-                    });
-                    b.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                        @Override
-                        public void onCancel(DialogInterface dialog) {
-                            // cancel Save action --> do nothing, close Save dialog and return
-                            dialog.dismiss();
-                        }
-                    });
-                    b.show();
+                    showYesNoDialog(
+                            R.string.safe_fractal,
+                            getString(R.string.name_exists_msg, fractalName),
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogIfc, int which) {
+                                    // "Yes" selected --> save / overwrite
+                                    saveConfig(fractalName, frexIO, paramFile, dialog);
+                                }
+                            },
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // "No" selected --> do nothing, leave Save dialog open
+                                }
+                            },
+                            new DialogInterface.OnCancelListener() {
+                                @Override
+                                public void onCancel(DialogInterface dialog) {
+                                    // cancel Save action --> do nothing, close Save dialog and return
+                                    dialog.dismiss();
+                                }
+                            }
+                    );
 
                 } else {
                     saveConfig(fractalName, frexIO, paramFile, dialog);
@@ -781,10 +774,18 @@ public class FrexActivity extends Activity {
             versionName = "?";
             Log.w(TAG, e);
         }
+
+        TextView textView = new TextView(this);
+        textView.setSingleLine(false);
+        textView.setPadding(5, 5, 5, 5);
+        textView.setText(getString(R.string.about_frex_text, versionName));
+        textView.setLinksClickable(true);
+
         AlertDialog.Builder b = new AlertDialog.Builder(this);
         b.setTitle(R.string.about_frex);
         b.setIcon(R.drawable.frex_logo);
-        b.setMessage(getString(R.string.about_frex_text, versionName));
+        b.setView(textView);
+
         return b.create();
     }
 
@@ -961,5 +962,32 @@ public class FrexActivity extends Activity {
         }
         temporaryImageFiles.clear();
     }
+
+    private void showYesNoDialog(int titleId, String message,
+                                 DialogInterface.OnClickListener yesListener,
+                                 DialogInterface.OnClickListener noListener,
+                                 DialogInterface.OnCancelListener cancelListener) {
+
+        TextView textView = new TextView(this);
+        textView.setSingleLine(false);
+        textView.setPadding(5, 5, 5, 5);
+        textView.setText(message);
+
+        AlertDialog.Builder b = new AlertDialog.Builder(this);
+        b.setTitle(titleId);
+        b.setView(textView);
+        b.setCancelable(true);
+        if (yesListener != null) {
+            b.setPositiveButton(android.R.string.yes, yesListener);
+        }
+        if (noListener != null) {
+            b.setNegativeButton(android.R.string.no, noListener);
+        }
+        if (cancelListener != null) {
+            b.setOnCancelListener(cancelListener);
+        }
+        b.show();
+    }
+
 
 }
