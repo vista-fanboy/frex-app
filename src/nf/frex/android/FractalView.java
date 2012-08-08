@@ -679,7 +679,7 @@ public class FractalView extends View {
         }
 
         @Override
-        public void onStopped() {
+        public void onStopped(boolean cancelled) {
             postInvalidate();
         }
     }

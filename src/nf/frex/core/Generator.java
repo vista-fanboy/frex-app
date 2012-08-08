@@ -35,7 +35,7 @@ public class Generator {
     }
 
     public void start(final Image image, boolean colorsOnly) {
-        cancel();
+            cancel();
 
         ProgressListenerWrapper listenerWrapper = new ProgressListenerWrapper(listener);
 
@@ -189,6 +189,10 @@ public class Generator {
             listener.onTaskTerminated();
         }
 
+        public boolean isCancelled() {
+            return cancelled;
+        }
+
         public void cancel() {
             this.cancelled = true;
         }
@@ -205,7 +209,7 @@ public class Generator {
 
         void onSomeLinesComputed(int taskId, int line1, int line2);
 
-        void onStopped();
+        void onStopped(boolean cancelled);
     }
 
 
@@ -229,13 +233,17 @@ public class Generator {
         }
 
         @Override
-        public void onStopped() {
+        public void onStopped(boolean cancelled) {
         }
 
         public void onTaskTerminated() {
             tasksDone++;
             if (tasksDone == tasks.length) {
-                wrappedListener.onStopped();
+                boolean cancelled = false;
+                for (Task task : tasks) {
+                    cancelled |= task != null && task.isCancelled();
+                }
+                wrappedListener.onStopped(cancelled);
             }
         }
 
