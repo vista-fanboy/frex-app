@@ -30,6 +30,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.PaintDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -82,13 +83,17 @@ public class FrexActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         //Log.d(TAG, "onCreate(savedInstanceState=" + savedInstanceState + ")");
         super.onCreate(savedInstanceState);
+
+        requestWindowFeature(Window.FEATURE_ACTION_BAR);
         requestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
         requestWindowFeature(Window.FEATURE_ACTION_MODE_OVERLAY);
-        getActionBar().setBackgroundDrawable(new PaintDrawable(Color.argb(128, 0, 0, 0)));
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+            getActionBar().setBackgroundDrawable(new PaintDrawable(Color.argb(128, 0, 0, 0)));
+        }
 
         view = new FractalView(this);
         registerForContextMenu(view);
-        //getActionBar().hide();
         setContentView(view);
         if (savedInstanceState != null) {
             view.restoreInstanceState(new BundlePropertySet(savedInstanceState));

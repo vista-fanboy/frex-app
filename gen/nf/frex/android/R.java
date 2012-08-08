@@ -30,14 +30,15 @@ public final class R {
     public static final class attr {
     }
     public static final class drawable {
-        public static final int frex_action_zoom_in=0x7f020000;
-        public static final int frex_action_zoom_out=0x7f020001;
-        public static final int frex_logo=0x7f020002;
-        public static final int ic_action_edit=0x7f020003;
-        public static final int ic_action_locate=0x7f020004;
-        public static final int ic_action_send=0x7f020005;
-        public static final int ic_action_share=0x7f020006;
-        public static final int ic_action_star=0x7f020007;
+        public static final int frex_action_colors=0x7f020000;
+        public static final int frex_action_zoom_in=0x7f020001;
+        public static final int frex_action_zoom_out=0x7f020002;
+        public static final int frex_logo=0x7f020003;
+        public static final int ic_action_edit=0x7f020004;
+        public static final int ic_action_locate=0x7f020005;
+        public static final int ic_action_send=0x7f020006;
+        public static final int ic_action_share=0x7f020007;
+        public static final int ic_action_star=0x7f020008;
     }
     public static final class id {
         public static final int about_frex=0x7f070023;

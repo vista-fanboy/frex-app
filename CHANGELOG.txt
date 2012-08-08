@@ -1,0 +1,5 @@
+v1.0.0 (08.08.2012, Morning)
+    - Initial version
+
+v1.0.1 (08.08.2012, Evening)
+    - Provided basic backward compatibility with Android 2.3.3

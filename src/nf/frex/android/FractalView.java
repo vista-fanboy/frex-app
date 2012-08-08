@@ -25,12 +25,12 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
+import android.os.Build;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
-import android.widget.Toast;
 import nf.frex.core.*;
 
 import java.util.ArrayList;
@@ -654,14 +654,17 @@ public class FractalView extends View {
 
         @Override
         public boolean onSingleTapConfirmed(MotionEvent event) {
-            // zoomInRegion(event);
-            ActionBar actionBar = activity.getActionBar();
-            if (actionBar.isShowing()) {
-                actionBar.hide();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+                ActionBar actionBar = activity.getActionBar();
+                if (actionBar.isShowing()) {
+                    actionBar.hide();
+                } else {
+                    actionBar.show();
+                }
+                return true;
             } else {
-                actionBar.show();
+                return super.onSingleTapConfirmed(event);
             }
-            return true;
         }
     }
 

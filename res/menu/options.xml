@@ -32,10 +32,12 @@
           android:showAsAction="always"
           android:title="@string/zoom_out"/>
     <item android:id="@+id/properties"
-          android:showAsAction="never"
+          android:icon="@drawable/ic_action_edit"
+          android:showAsAction="ifRoom"
           android:title="@string/properties"/>
     <item android:id="@+id/colors"
-          android:showAsAction="never"
+          android:icon="@drawable/frex_action_colors"
+          android:showAsAction="ifRoom"
           android:title="@string/colors"/>
     <item android:id="@+id/decorations"
           android:showAsAction="never"
