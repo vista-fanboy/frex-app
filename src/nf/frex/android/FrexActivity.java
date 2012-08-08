@@ -73,7 +73,6 @@ public class FrexActivity extends Activity {
     private static Bitmap[] COLOR_TABLE_ICONS;
 
     private FractalView view;
-    private ShareActionProvider shareActionProvider;
     private final List<Uri> temporaryImageFiles = new ArrayList<Uri>();
 
     /**
@@ -147,7 +146,7 @@ public class FrexActivity extends Activity {
                 saveImage(false);
                 return true;
             case R.id.share_image:
-                shareImage(item);
+                shareImage();
                 return true;
             case R.id.set_wallpaper:
                 setWallpaper();
@@ -167,21 +166,24 @@ public class FrexActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void shareImage(MenuItem item) {
-        if (shareActionProvider == null) {
-            shareActionProvider = (ShareActionProvider) item.getActionProvider();
+    private void shareImage() {
+        Intent shareIntent = createShareIntent();
+        if (shareIntent != null) {
+            startActivity(Intent.createChooser(shareIntent, getString(R.string.share_image)));
         }
-        if (shareActionProvider != null) {
-            Uri uri = saveImage(true);
-            if (uri != null) {
-                Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                shareIntent.setType("image/*");
-                shareIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
-                shareIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.email_subject));
-                shareActionProvider.setShareIntent(shareIntent);
-            }
+    }
+
+    private Intent createShareIntent() {
+        Uri uri = saveImage(true);
+        if (uri != null) {
+            Intent shareIntent = new Intent(Intent.ACTION_SEND);
+            shareIntent.setType("image/*");
+            shareIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
+            shareIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.email_subject));
+            return shareIntent;
         }
+        return null;
     }
 
     private void setWallpaper() {
