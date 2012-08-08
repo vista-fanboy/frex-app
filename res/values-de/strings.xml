@@ -64,7 +64,7 @@
     <string name="enter_name_msg">Bitte gib einen Namen ein!</string>
     <string name="name_exists_msg">Der Name \'%s\' ist schon vergeben.\nSoll das bestehende Fraktal überschrieben werden?</string>
     <string name="parameters_not_found_msg">Parameter nicht gefunden.</string>
-    <string name="delete_all_fractals">Alle Fraktals löschen</string>
-    <string name="really_delete_all_fractals_msg">Alle deiner gespeicherten Fraktals (%d) werden gelöscht!\nMöchtest du das wirklich?</string>
+    <string name="delete_all_fractals">Alle Fraktale löschen</string>
+    <string name="really_delete_all_fractals_msg">All deine gespeicherten Fraktale (%d) werden gelöscht!\nMöchtest du das wirklich?</string>
     <string name="files_deleted_msg">%1$d von %2$d Dateien wurden gelöscht.</string>
 </resources>
