@@ -287,7 +287,7 @@ public class FractalView extends View {
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        Log.d(TAG, "onSizeChanged: w = " + w + ", h = " + h);
+        // Log.d(TAG, "onSizeChanged: w = " + w + ", h = " + h);
         super.onSizeChanged(w, h, oldw, oldh);
         screenGenerator.cancel();
         image.resize(w, h);
