@@ -846,31 +846,31 @@ public class FrexActivity extends Activity {
 
     @Override
     protected void onStart() {
-        Log.d(TAG, "onStart()");
+        // Log.d(TAG, "onStart()");
         super.onStart();
     }
 
     @Override
     protected void onRestart() {
-        Log.d(TAG, "onRestart()");
+        // Log.d(TAG, "onRestart()");
         super.onRestart();
     }
 
     @Override
     protected void onResume() {
-        Log.d(TAG, "onResume()");
+        // Log.d(TAG, "onResume()");
         super.onResume();
     }
 
     @Override
     protected void onPostResume() {
-        Log.d(TAG, "onPostResume()");
+        // Log.d(TAG, "onPostResume()");
         super.onPostResume();
     }
 
     @Override
     protected void onPause() {
-        Log.d(TAG, "Cancelling generators");
+        // Log.d(TAG, "Cancelling generators");
         view.cancelGenerators();
 
         super.onPause();
@@ -878,20 +878,20 @@ public class FrexActivity extends Activity {
 
     @Override
     protected void onUserLeaveHint() {
-        Log.d(TAG, "onUserLeaveHint()");
+        // Log.d(TAG, "onUserLeaveHint()");
         super.onUserLeaveHint();
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        Log.d(TAG, "onSaveInstanceState(outState=" + outState + ")");
+        // Log.d(TAG, "onSaveInstanceState(outState=" + outState + ")");
         super.onSaveInstanceState(outState);
         view.saveInstanceState(new BundlePropertySet(outState));
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        Log.d(TAG, "onRestoreInstanceState(outState=" + savedInstanceState + ")");
+        // Log.d(TAG, "onRestoreInstanceState(outState=" + savedInstanceState + ")");
         super.onRestoreInstanceState(savedInstanceState);
         if (savedInstanceState != null) {
             view.restoreInstanceState(new BundlePropertySet(savedInstanceState));
@@ -901,20 +901,20 @@ public class FrexActivity extends Activity {
     @Override
     protected void onStop() {
         view.getScreenGenerator().cancel();
-        Log.d(TAG, "onStop()");
+        // Log.d(TAG, "onStop()");
         super.onStop();
     }
 
     @Override
     protected void onDestroy() {
-        Log.d(TAG, "onDestroy: deleting temporary image files");
+        // Log.d(TAG, "onDestroy: deleting temporary image files");
         deleteTemporaryImageFiles();
         super.onDestroy();
     }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
-        Log.d(TAG, "onConfigurationChanged(newConfig=" + newConfig + ")");
+        // Log.d(TAG, "onConfigurationChanged(newConfig=" + newConfig + ")");
         super.onConfigurationChanged(newConfig);
     }
 
@@ -927,20 +927,22 @@ public class FrexActivity extends Activity {
 
     @Override
     public void onLowMemory() {
-        Log.d(TAG, "onLowMemory()");
+        // Log.d(TAG, "onLowMemory()");
         super.onLowMemory();
     }
 
     @Override
     public void onTrimMemory(int level) {
-        Log.d(TAG, "onTrimMemory(level=" + level + ")");
+        // Log.d(TAG, "onTrimMemory(level=" + level + ")");
         super.onTrimMemory(level);
     }
 
     private void deleteTemporaryImageFiles() {
         for (Uri uri : temporaryImageFiles) {
             if (getContentResolver().delete(uri, null, null) > 0) {
-                Log.d(TAG, "Deleted " + uri);
+                Log.v(TAG, "Deleted " + uri);
+            } else {
+                Log.v(TAG, "Failed to delete " + uri);
             }
         }
         temporaryImageFiles.clear();
