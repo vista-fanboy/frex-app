@@ -70,11 +70,18 @@
              android:layout_height="wrap_content"
             />
 
-    <Button android:id="@+id/random_button"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/random"
-            />
+    <LinearLayout android:orientation="horizontal"
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_gravity="fill_horizontal"
+                  android:padding="5dp"
+            >
+        <Button android:id="@+id/random_button"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/random"
+                />
+    </LinearLayout>
 
     <LinearLayout android:orientation="horizontal"
                   android:layout_width="fill_parent"
