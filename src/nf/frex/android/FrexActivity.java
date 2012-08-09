@@ -577,15 +577,6 @@ public class FrexActivity extends Activity {
                     view.setRegion(fractal.getDefaultRegion());
                     view.setBailOut(fractal.getDefaultBailOut());
                 }
-                if (oldDeco != newDeco) {
-                    if (newDeco) {
-                        view.setColorGain(6.0 / iterMax);
-                        view.setColorOffset(0.0);
-                    } else {
-                        view.setColorGain(1.0 / iterMax);
-                        view.setColorOffset(0.0);
-                    }
-                }
                 view.recomputeAll();
             }
         });

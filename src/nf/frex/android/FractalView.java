@@ -91,7 +91,7 @@ public class FractalView extends View {
         generatorConfig.setDistanceTranslateX(0.0);
         generatorConfig.setDistanceTranslateY(0.0);
 
-        generatorConfig.setColorSchemeId("HEAT");
+        generatorConfig.setColorSchemeId("SUNSET");
         generatorConfig.setColorScheme(Registries.colorSchemes.getValue(generatorConfig.getColorSchemeId()));
         generatorConfig.setColorGradient(generatorConfig.getColorScheme().createGradient(1024));
         generatorConfig.setColorGain(1.0 / fractal.getDefaultIterMax());
@@ -220,9 +220,14 @@ public class FractalView extends View {
     public void setDecoratedFractal(boolean decoratedFractal, boolean adjustColor) {
         if (this.generatorConfig.isDecoratedFractal() != decoratedFractal) {
             this.generatorConfig.setDecoratedFractal(decoratedFractal);
-            if (adjustColor && !this.generatorConfig.isDecoratedFractal()) {
-                setColorGain(1.0);
-                setColorOffset(0.0);
+            if (adjustColor) {
+                if (this.generatorConfig.isDecoratedFractal()) {
+                    setColorGain(5.0 / getIterMax());
+                    setColorOffset(0.0);
+                } else {
+                    setColorGain(1.0 / getIterMax());
+                    setColorOffset(0.0);
+                }
             }
         }
     }
