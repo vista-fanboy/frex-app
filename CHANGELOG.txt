@@ -1,5 +1,7 @@
-v1.0.0 (08.08.2012, Morning)
+v1.0.2 (10.08.2012)
+    - When changing fractal type, color gain is adapted so that full color palette is exploited
+v1.0.1 (09.08.2012)
+    - Provided basic backward compatibility with Android 2.3.3
+v1.0.0 (08.08.2012)
     - Initial version
 
-v1.0.1 (08.08.2012, Evening)
-    - Provided basic backward compatibility with Android 2.3.3

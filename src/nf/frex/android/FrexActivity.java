@@ -50,6 +50,7 @@ import java.util.Properties;
 /**
  * To-do List
  * <pre>
+ *     todo - on SDK 10, dialogs are not prepared with initial data (check!)
  *     todo - add welcome screen with a few hints
  *     todo - I18N of fractals, functions, color scheme names
  *     todo - Define ready-to-use orbit processors
@@ -558,13 +559,24 @@ public class FrexActivity extends Activity {
                 String newFractalId = fractals.getId(fractalTypeSpinner.getSelectedItemPosition());
                 Fractal fractal = fractals.getValue(fractalTypeSpinner.getSelectedItemPosition());
                 String oldFractalId = view.getFractalId();
+                boolean oldDeco = view.isDecoratedFractal();
+                boolean newDeco = decoratedFractal.isChecked();
                 view.setFractalId(newFractalId);
                 view.setIterMax(iterMax);
-                view.setDecoratedFractal(decoratedFractal.isChecked());
+                view.setDecoratedFractal(newDeco);
                 view.setJuliaModeFractal(juliaModeCheckBox.isChecked());
                 if (!oldFractalId.equals(newFractalId)) {
                     view.setRegion(fractal.getDefaultRegion());
                     view.setBailOut(fractal.getDefaultBailOut());
+                }
+                if (oldDeco != newDeco) {
+                    if (newDeco) {
+                        view.setColorGain(5.0 / iterMax);
+                        view.setColorOffset(0.0);
+                    } else {
+                        view.setColorGain(2.0 / iterMax);
+                        view.setColorOffset(0.0);
+                    }
                 }
                 view.recomputeAll();
             }

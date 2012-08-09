@@ -88,7 +88,7 @@ public class FractalView extends View {
         generatorConfig.setColorSchemeId("EARTH");
         generatorConfig.setColorScheme(Registries.colorSchemes.getValue(generatorConfig.getColorSchemeId()));
         generatorConfig.setColorGradient(generatorConfig.getColorScheme().createGradient(1024));
-        generatorConfig.setColorGain(0.05);
+        generatorConfig.setColorGain(5.0 / fractal.getDefaultIterMax());
         generatorConfig.setColorOffset(0.0);
         generatorConfig.setColorRepeat(true);
 
