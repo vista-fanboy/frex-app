@@ -82,21 +82,21 @@ public class FractalView extends View {
         generatorConfig.setIterMax(fractal.getDefaultIterMax());
         generatorConfig.setBailOut(fractal.getDefaultBailOut());
         generatorConfig.setJuliaModeFractal(false);
-        generatorConfig.setJuliaX(0);
-        generatorConfig.setJuliaY(0);
+        generatorConfig.setJuliaX(0.0);
+        generatorConfig.setJuliaY(0.0);
 
-        generatorConfig.setColorSchemeId("EARTH");
-        generatorConfig.setColorScheme(Registries.colorSchemes.getValue(generatorConfig.getColorSchemeId()));
-        generatorConfig.setColorGradient(generatorConfig.getColorScheme().createGradient(1024));
-        generatorConfig.setColorGain(5.0 / fractal.getDefaultIterMax());
-        generatorConfig.setColorOffset(0.0);
-        generatorConfig.setColorRepeat(true);
-
-        generatorConfig.setDecoratedFractal(true);
-        generatorConfig.setDistanceFunctionId("LINEAR_1");
+        generatorConfig.setDecoratedFractal(false);
+        generatorConfig.setDistanceFunctionId("STINGS");
         generatorConfig.setDistanceDilation(0.2);
         generatorConfig.setDistanceTranslateX(0.0);
         generatorConfig.setDistanceTranslateY(0.0);
+
+        generatorConfig.setColorSchemeId("HEAT");
+        generatorConfig.setColorScheme(Registries.colorSchemes.getValue(generatorConfig.getColorSchemeId()));
+        generatorConfig.setColorGradient(generatorConfig.getColorScheme().createGradient(1024));
+        generatorConfig.setColorGain(1.0 / fractal.getDefaultIterMax());
+        generatorConfig.setColorOffset(0.0);
+        generatorConfig.setColorRepeat(true);
 
         screenGenerator = new Generator(generatorConfig, new GeneratorProgressListener());
     }
