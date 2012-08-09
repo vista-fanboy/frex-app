@@ -22,6 +22,7 @@ package nf.frex.android;
 import android.app.*;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
@@ -90,6 +91,13 @@ public class FrexActivity extends Activity {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
             getActionBar().setBackgroundDrawable(new PaintDrawable(Color.argb(128, 0, 0, 0)));
+        } else {
+            // Fix: Frex to stop working on screen orientation changes (Android 2.3.3 only)
+            if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+            } else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+            }
         }
 
         view = new FractalView(this);
@@ -571,10 +579,10 @@ public class FrexActivity extends Activity {
                 }
                 if (oldDeco != newDeco) {
                     if (newDeco) {
-                        view.setColorGain(5.0 / iterMax);
+                        view.setColorGain(6.0 / iterMax);
                         view.setColorOffset(0.0);
                     } else {
-                        view.setColorGain(2.0 / iterMax);
+                        view.setColorGain(1.0 / iterMax);
                         view.setColorOffset(0.0);
                     }
                 }
