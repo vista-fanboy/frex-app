@@ -26,20 +26,23 @@ public abstract class Fractal {
 
     public static final Fractal MANDELBROT = new Fractal(new Region(-0.5, 0.0, 1.2), 100, 100.0) {
         @Override
-        public int computeOrbit(double initX, double initY, double constX, double constY, int iterMax, double bailOut, double[] orbitX, double[] orbitY) {
-            double cx = initX;
-            double cy = initY;
-            double cxx, cyy;
+        public int computeOrbit(double initX, double initY,
+                                double constX, double constY,
+                                int iterMax, double bailOut,
+                                double[] orbitX, double[] orbitY) {
+            double zx = initX;
+            double zy = initY;
+            double zxx, zyy;
             for (int iter = 0; iter < iterMax; iter++) {
-                cxx = cx * cx;
-                cyy = cy * cy;
-                if (cxx + cyy > bailOut) {
+                zxx = zx * zx;
+                zyy = zy * zy;
+                if (zxx + zyy > bailOut) {
                     return iter;
                 }
-                cy = 2.0 * cx * cy + constY;
-                cx = cxx - cyy + constX;
-                orbitX[iter] = cx;
-                orbitY[iter] = cy;
+                zy = 2.0 * zx * zy + constY;
+                zx = zxx - zyy + constX;
+                orbitX[iter] = zx;
+                orbitY[iter] = zy;
             }
             return iterMax;
         }
@@ -47,28 +50,31 @@ public abstract class Fractal {
 
     public static final Fractal BURNING_SHIP = new Fractal(new Region(-0.5, 0.0, 1.2), 100, 100.0) {
         @Override
-        public int computeOrbit(double initX, double initY, double constX, double constY, int iterMax, double bailOut, double[] orbitX, double[] orbitY) {
+        public int computeOrbit(double initX, double initY,
+                                double constX, double constY,
+                                int iterMax, double bailOut,
+                                double[] orbitX, double[] orbitY) {
             initY *= -1.0;
             constY *= -1.0;
 
-            double cx = initX;
-            double cy = initY;
-            double cxy, cxx, cyy;
+            double zx = initX;
+            double zy = initY;
+            double zxy, zxx, zyy;
 
             for (int iter = 0; iter < iterMax; iter++) {
-                cxx = cx * cx;
-                cyy = cy * cy;
-                if (cxx + cyy > bailOut) {
+                zxx = zx * zx;
+                zyy = zy * zy;
+                if (zxx + zyy > bailOut) {
                     return iter;
                 }
-                cxy = cx * cy;
-                if (cxy < 0.0) {
-                    cxy *= -1.0;
+                zxy = zx * zy;
+                if (zxy < 0.0) {
+                    zxy *= -1.0;
                 }
-                cy = 2.0 * cxy + constY;
-                cx = cxx - cyy + constX;
-                orbitX[iter] = cx;
-                orbitY[iter] = cy;
+                zy = 2.0 * zxy + constY;
+                zx = zxx - zyy + constX;
+                orbitX[iter] = zx;
+                orbitY[iter] = zy;
             }
             return iterMax;
         }
@@ -76,26 +82,29 @@ public abstract class Fractal {
 
     public static final Fractal ODD_ONION = new Fractal(new Region(-0.5, 0.0, 1.2), 150, 100.0) {
         @Override
-        public int computeOrbit(double initX, double initY, double constX, double constY, int iterMax, double bailOut, double[] orbitX, double[] orbitY) {
-            double cx = initX;
-            double cy = initY;
-            double cxx, cyy;
+        public int computeOrbit(double initX, double initY,
+                                double constX, double constY,
+                                int iterMax, double bailOut,
+                                double[] orbitX, double[] orbitY) {
+            double zx = initX;
+            double zy = initY;
+            double zxx, zyy;
             double t;
             for (int iter = 0; iter < iterMax; iter++) {
-                cxx = cx * cx;
-                cyy = cy * cy;
-                if (cxx + cyy > bailOut) {
+                zxx = zx * zx;
+                zyy = zy * zy;
+                if (zxx + zyy > bailOut) {
                     return iter;
                 }
-                cy = 2.0 * cx * cy + constY;
-                cx = cxx - cyy + constX;
-                orbitX[iter] = cx;
-                orbitY[iter] = cy;
+                zy = 2.0 * zx * zy + constY;
+                zx = zxx - zyy + constX;
+                orbitX[iter] = zx;
+                orbitY[iter] = zy;
                 // This is the term that "disturbs" the Mandelbrot set
-                if (cy < cx) {
-                    t = cy;
-                    cy = cx;
-                    cx = t;
+                if (zy < zx) {
+                    t = zy;
+                    zy = zx;
+                    zx = t;
                 }
             }
             return iterMax;
@@ -104,7 +113,10 @@ public abstract class Fractal {
 
     public static final Fractal NOVA = new Fractal(new Region(0, 0, 1), 100, 0.001) {
         @Override
-        public int computeOrbit(double initX, double initY, double constX, double constY, int iterMax, double bailOut, double[] orbitX, double[] orbitY) {
+        public int computeOrbit(double initX, double initY,
+                                double constX, double constY,
+                                int iterMax, double bailOut,
+                                double[] orbitX, double[] orbitY) {
 
             final double rr = bailOut * bailOut;
             double zx = initX;
@@ -159,8 +171,7 @@ public abstract class Fractal {
 
     public abstract int computeOrbit(double initX, double initY,
                                      double constX, double constY,
-                                     int iterMax,
-                                     double bailOut,
+                                     int iterMax, double bailOut,
                                      double[] orbitX, double[] orbitY);
 
     public double getDefaultBailOut() {
