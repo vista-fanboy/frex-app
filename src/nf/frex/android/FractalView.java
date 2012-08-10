@@ -74,7 +74,6 @@ public class FractalView extends View {
         imageCopy = new Image(getWidth(), getHeight());
 
         generatorConfig = new GeneratorConfig();
-        generatorConfig.setConfigName(null); // --> default
 
         generatorConfig.setFractalId("MANDELBROT");
         Fractal fractal = Registries.fractals.getValue(generatorConfig.getFractalId());
@@ -97,6 +96,8 @@ public class FractalView extends View {
         generatorConfig.setColorGain(1.0 / fractal.getDefaultIterMax());
         generatorConfig.setColorOffset(0.0);
         generatorConfig.setColorRepeat(true);
+
+        generatorConfig.setConfigName(generatorConfig.getFractalId().toLowerCase());
 
         screenGenerator = new Generator(generatorConfig, new GeneratorProgressListener());
     }

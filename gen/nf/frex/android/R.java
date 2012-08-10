@@ -41,18 +41,18 @@ public final class R {
         public static final int ic_action_star=0x7f020008;
     }
     public static final class id {
-        public static final int about_frex=0x7f070023;
+        public static final int about_frex=0x7f070025;
         public static final int cancel_button=0x7f07000b;
         public static final int color_gain_seek_bar=0x7f070003;
         public static final int color_offset_seek_bar=0x7f070002;
         public static final int color_repeat=0x7f070004;
         public static final int color_table_spinner=0x7f070001;
-        public static final int colors=0x7f07001b;
+        public static final int colors=0x7f07001d;
         public static final int colors_dialog=0x7f070000;
         public static final int decorated_fractal_check_box=0x7f070014;
-        public static final int decorations=0x7f07001c;
+        public static final int decorations=0x7f07001e;
         public static final int decorations_dialog=0x7f070006;
-        public static final int delete_all_fractals=0x7f070021;
+        public static final int delete_all_fractals=0x7f070023;
         public static final int dilation_seek_bar=0x7f070008;
         public static final int distance_function_spinner=0x7f070007;
         public static final int fractal_gallery=0x7f07000e;
@@ -62,21 +62,23 @@ public final class R {
         public static final int num_iterations_edit_text=0x7f070013;
         public static final int num_iterations_seek_bar=0x7f070012;
         public static final int ok_button=0x7f07000c;
-        public static final int open_fractal=0x7f07001d;
+        public static final int open_fractal=0x7f07001f;
         public static final int open_fractal_dialog=0x7f07000d;
-        public static final int properties=0x7f07001a;
+        public static final int properties=0x7f07001c;
         public static final int properties_dialog=0x7f070010;
         public static final int random_button=0x7f070005;
-        public static final int save_fractal=0x7f07001e;
+        public static final int save_fractal=0x7f070020;
         public static final int save_fractal_dialog=0x7f070016;
-        public static final int save_image=0x7f07001f;
-        public static final int set_wallpaper=0x7f070022;
-        public static final int share_image=0x7f070020;
+        public static final int save_image=0x7f070021;
+        public static final int set_wallpaper=0x7f070024;
+        public static final int share_image=0x7f070022;
+        public static final int spinnerImageView=0x7f070017;
+        public static final int spinnerTextView=0x7f070018;
         public static final int transl_x_seek_bar=0x7f070009;
         public static final int transl_y_seek_bar=0x7f07000a;
-        public static final int zoom_all=0x7f070017;
-        public static final int zoom_in=0x7f070018;
-        public static final int zoom_out=0x7f070019;
+        public static final int zoom_all=0x7f070019;
+        public static final int zoom_in=0x7f07001a;
+        public static final int zoom_out=0x7f07001b;
     }
     public static final class layout {
         public static final int colors_dialog=0x7f030000;
@@ -84,6 +86,8 @@ public final class R {
         public static final int open_fractal_dialog=0x7f030002;
         public static final int properties_dialog=0x7f030003;
         public static final int save_fractal_dialog=0x7f030004;
+        public static final int spinner_image_view=0x7f030005;
+        public static final int spinner_text_view=0x7f030006;
     }
     public static final class menu {
         public static final int options=0x7f060000;

@@ -1,7 +1,10 @@
 v1.0.2 (10.08.2012)
-    - The initially displayed fractal is now without decorations because computation was too slow on week devices
-    - Fixed a problem causing Frex to stop working on screen orientation changes on Android 2.3.3 systems
-    - When changing fractal type or decoration mode, color gain is adapted so that full color palette is exploited
+    - Speeded up display of the initially displayed fractal (omit decorations, because their computation was too slow on older devices)
+    - When changing fractal type or decoration mode, color gain is now adapted so that full color gradient range is exploited.
+    - When saving a fractal, the fractal type is now used as default name.
+    - On some Android 2.3 devices the text of drop-down list items (in Properties & Decorations dialogs) was barely visible. Fixed that.
+    - On some Android 2.3 devices the options menu has a white background, but Frex uses white icons... Fixed that.
+    - On some Android 2.3 devices orientation changes caused Frex to terminate unexpectedly. Fixed that.
 v1.0.1 (09.08.2012)
     - Provided basic backward compatibility with Android 2.3.3
 v1.0.0 (08.08.2012)

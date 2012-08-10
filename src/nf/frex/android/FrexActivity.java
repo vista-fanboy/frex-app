@@ -20,6 +20,7 @@
 package nf.frex.android;
 
 import android.app.*;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -33,7 +34,9 @@ import android.graphics.drawable.PaintDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.*;
 import android.widget.*;
@@ -51,13 +54,12 @@ import java.util.Properties;
 /**
  * To-do List
  * <pre>
- *     todo - on SDK 10, dialogs are not prepared with initial data (check!)
+ *     todo - bug: on SDK 10, dialogs are not prepared with initial data (check!)
  *     todo - add welcome screen with a few hints
  *     todo - I18N of fractals, functions, color scheme names
  *     todo - Define ready-to-use orbit processors
  *     todo - Refine distance functions and give better names (by what it looks like)
- *     todo - check I18N, generate uk-english, italian, french and spanish versions
- *     todo - fix problem of too small dialogs on tablets
+ *     todo - Generate uk-english, italian, french and spanish versions
  *     todo - introduce function that auto-creates images (e.g. shake mobile using varying intensities)
  *     todo - add better/nicer color bars
  *     todo - manage saved fractals: rename and delete
@@ -70,8 +72,9 @@ import java.util.Properties;
  */
 public class FrexActivity extends Activity {
 
-    public static final String TAG = "Frex";
+    public static final boolean PRE_SDK14 = Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH;
 
+    public static final String TAG = "Frex";
     private static Bitmap[] COLOR_TABLE_ICONS;
 
     private FractalView view;
@@ -89,15 +92,16 @@ public class FrexActivity extends Activity {
         requestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
         requestWindowFeature(Window.FEATURE_ACTION_MODE_OVERLAY);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-            getActionBar().setBackgroundDrawable(new PaintDrawable(Color.argb(128, 0, 0, 0)));
-        } else {
-            // Fix: Frex to stop working on screen orientation changes (Android 2.3.3 only)
+        if (PRE_SDK14) {
+            requestWindowFeature(Window.FEATURE_NO_TITLE);
+            // Fix: Frex to stop working on screen orientation changes (Android 2.3.x only)
             if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
                 setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
             } else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
                 setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
             }
+        } else {
+            getActionBar().setBackgroundDrawable(new PaintDrawable(Color.argb(128, 0, 0, 0)));
         }
 
         view = new FractalView(this);
@@ -115,8 +119,12 @@ public class FrexActivity extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.options, menu);
+        if (PRE_SDK14) {
+            setMenuBackground();
+        }
         return true;
     }
 
@@ -398,7 +406,8 @@ public class FrexActivity extends Activity {
         int checkedIndex = Registries.colorSchemes.getIndex(view.getColorSchemeId());
 
         final Spinner colorTableSpinner = (Spinner) dialog.findViewById(R.id.color_table_spinner);
-        colorTableSpinner.setAdapter(new ImageListAdapter(this, COLOR_TABLE_ICONS));
+        //colorTableSpinner.setAdapter(new ImageArrayAdapter(this, R.layout.spinner_image_view, COLOR_TABLE_ICONS));
+        colorTableSpinner.setAdapter(new ImageArrayAdapter(this, 0, COLOR_TABLE_ICONS));
         colorTableSpinner.setSelection(checkedIndex, false);
         colorTableSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -493,7 +502,9 @@ public class FrexActivity extends Activity {
 
         juliaModeCheckBox.setEnabled(true);
 
-        fractalTypeSpinner.setAdapter(new TextListAdapter(this, fractals.getIds()));
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, fractals.getIds());
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        fractalTypeSpinner.setAdapter(arrayAdapter);
         fractalTypeSpinner.setSelection(fractalTypeIndex, false);
         fractalTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -564,16 +575,18 @@ public class FrexActivity extends Activity {
                     return;
                 }
                 dialog.dismiss();
+                String oldConfigName = view.getConfigName();
                 String newFractalId = fractals.getId(fractalTypeSpinner.getSelectedItemPosition());
                 Fractal fractal = fractals.getValue(fractalTypeSpinner.getSelectedItemPosition());
                 String oldFractalId = view.getFractalId();
-                boolean oldDeco = view.isDecoratedFractal();
-                boolean newDeco = decoratedFractal.isChecked();
                 view.setFractalId(newFractalId);
                 view.setIterMax(iterMax);
-                view.setDecoratedFractal(newDeco);
+                view.setDecoratedFractal(decoratedFractal.isChecked());
                 view.setJuliaModeFractal(juliaModeCheckBox.isChecked());
                 if (!oldFractalId.equals(newFractalId)) {
+                    if (oldConfigName.contains(oldFractalId.toLowerCase())) {
+                        view.setConfigName(newFractalId.toLowerCase());
+                    }
                     view.setRegion(fractal.getDefaultRegion());
                     view.setBailOut(fractal.getDefaultBailOut());
                 }
@@ -592,8 +605,11 @@ public class FrexActivity extends Activity {
         final Registry<DistanceFunction> distanceFunctions = Registries.distanceFunctions;
         int checkedIndex = distanceFunctions.getIndex(view.getDistanceFunctionId());
 
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, distanceFunctions.getIds());
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
         final Spinner distanceFunctionSpinner = (Spinner) dialog.findViewById(R.id.distance_function_spinner);
-        distanceFunctionSpinner.setAdapter(new TextListAdapter(this, distanceFunctions.getIds()));
+        distanceFunctionSpinner.setAdapter(arrayAdapter);
         distanceFunctionSpinner.setSelection(checkedIndex, false);
 
         final SeekBar dilationSeekBar = (SeekBar) dialog.findViewById(R.id.dilation_seek_bar);
@@ -1000,5 +1016,29 @@ public class FrexActivity extends Activity {
         b.show();
     }
 
-
+    // see http://stackoverflow.com/questions/6990524/white-background-on-optionsmenu-android
+    private void setMenuBackground() {
+        getLayoutInflater().setFactory(new LayoutInflater.Factory() {
+            @Override
+            public View onCreateView(String name, Context context, AttributeSet attrs) {
+                if (name.equalsIgnoreCase("com.android.internal.view.menu.IconMenuItemView")) {
+                    try {
+                        LayoutInflater inflater = getLayoutInflater();
+                        final View view = inflater.createView(name, null, attrs);
+                        new Handler().post(new Runnable() {
+                            public void run() {
+                                view.setBackgroundColor(Color.argb(127, 0, 0, 0));
+                            }
+                        });
+                        return view;
+                    } catch (InflateException e) {
+                        // :(
+                    } catch (ClassNotFoundException e) {
+                        // :(
+                    }
+                }
+                return null;
+            }
+        });
+    }
 }
