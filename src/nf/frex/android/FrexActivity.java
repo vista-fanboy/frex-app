@@ -1016,7 +1016,10 @@ public class FrexActivity extends Activity {
         b.show();
     }
 
-    // see http://stackoverflow.com/questions/6990524/white-background-on-optionsmenu-android
+    // On some Android 2.3 devices the options menu has a white background, but Frex uses white icons...
+    //
+    // This is a solution from http://stackoverflow.com/questions/6990524/white-background-on-optionsmenu-android
+    //
     private void setMenuBackground() {
         getLayoutInflater().setFactory(new LayoutInflater.Factory() {
             @Override
