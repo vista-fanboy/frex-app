@@ -1,6 +1,8 @@
-Mit Frex kannst du auf deinem Handy oder Tablet ganz einfach wunderschöne Bilder aus der Welt der Fraktale erzeugen.
-Fraktale zu gestalten ist eine fesselnde und entspannende Angelegenheit!
-Du kannst verschiedene Fraktaltypen auswählen und dich dann in die innere Schönheit dieser Gebilde hinein bewegen,
+Mit Frex kannst du auf deinem Handy oder Tablet ganz einfach faszinierende Bilder aus der Welt der Fraktale erzeugen. Fraktale zu gestalten ist eine fesselnde und entspannende Angelegenheit! Du kannst verschiedene Fraktaltypen auswählen und dich dann in die innere Schönheit dieser Gebilde hinein bewegen,
 du kannst deren Farben verändern und weitere Bilddetails hinzufügen.
-Wenn du mit deinem Werk zufrieden bist, kannst du es passgenau als Hintergrundbild (HD) einstellen, deinen Freunden
-senden oder es in deine Gallerie kopieren. Viel Spaß!
+
+Wenn du mit deinem Werk zufrieden bist, kannst du es passgenau als Hintergrundbild einstellen, es deinen Freunden senden oder es in deine Gallerie kopieren.
+
+Frex ist freie Software.
+
+Viel Spaß!
