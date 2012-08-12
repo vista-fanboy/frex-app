@@ -684,7 +684,8 @@ public class FrexActivity extends Activity {
 
         final Gallery gallery = (Gallery) dialog.findViewById(R.id.fractal_gallery);
         final EditText editText = (EditText) dialog.findViewById(R.id.fractal_name_edit_text);
-        gallery.setAdapter(new ImageFileGalleryAdapter(this, imageFiles));
+       final ImageFileGalleryAdapter galleryAdapter = new ImageFileGalleryAdapter(this, imageFiles);
+        gallery.setAdapter(galleryAdapter);
         gallery.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -698,9 +699,10 @@ public class FrexActivity extends Activity {
             }
         });
 
-        final Button okButton = (Button) dialog.findViewById(R.id.ok_button);
+        final Button openButton = (Button) dialog.findViewById(R.id.ok_button);
+        final Button deleteButton = (Button) dialog.findViewById(R.id.delete_button);
         final Button cancelButton = (Button) dialog.findViewById(R.id.cancel_button);
-        okButton.setOnClickListener(new View.OnClickListener() {
+        openButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -735,6 +737,34 @@ public class FrexActivity extends Activity {
                 view.setConfigName(fractalName);
                 view.restoreInstanceState(new DefaultPropertySet(properties));
                 view.recomputeAll();
+            }
+        });
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final String fractalName = editText.getText().toString().trim();
+                if (fractalName.length() == 0) {
+                    Toast.makeText(FrexActivity.this, R.string.enter_name_msg, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                showYesNoDialog(R.string.open_fractal, String.format("Really delete fractal '%s'", fractalName), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        int n = 0;
+                        FrexIO frexIO = new FrexIO(FrexActivity.this);
+                        File paramFile = frexIO.getFile(fractalName, FrexIO.PARAM_FILE_EXT);
+                        n += paramFile.delete() ? 1 : 0;
+                        File imageFile = frexIO.getFile(fractalName, FrexIO.IMAGE_FILE_EXT);
+                        n += imageFile.delete() ? 1 : 0;
+                        Toast.makeText(FrexActivity.this, "Fracal deleted", Toast.LENGTH_SHORT).show();
+
+                        galleryAdapter.removeFractal(gallery.getSelectedItemPosition());
+                    }
+                },
+                null,
+                null);
+
             }
         });
         cancelButton.setOnClickListener(new View.OnClickListener() {

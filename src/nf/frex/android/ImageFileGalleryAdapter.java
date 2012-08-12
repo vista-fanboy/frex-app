@@ -34,22 +34,27 @@ import android.widget.ImageView;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
 * @author Norman Fomferra
 */
 public class ImageFileGalleryAdapter extends BaseAdapter {
 
-    Bitmap[] bitmaps;
     private final Context context;
-    private final File[] imageFiles;
+    private final ArrayList<File> imageFiles;
+    private final ArrayList<Bitmap> bitmaps;
     private final int galleryItemBackground;
     private final int thumbnailHeight;
 
     public ImageFileGalleryAdapter(Context context, File[] imageFiles) {
         this.context = context;
-        this.imageFiles = imageFiles;
-        bitmaps = new Bitmap[imageFiles.length];
+        this.imageFiles = new ArrayList<File>(Arrays.asList(imageFiles));
+        bitmaps =  new ArrayList<Bitmap>(imageFiles.length);
+        for (File imageFile : imageFiles) {
+            bitmaps.add(null);
+        }
         TypedArray attr = context.obtainStyledAttributes(R.styleable.fractal_gallery);
         galleryItemBackground = attr.getResourceId(R.styleable.fractal_gallery_android_galleryItemBackground, 0);
         attr.recycle();
@@ -61,12 +66,12 @@ public class ImageFileGalleryAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return imageFiles.length;
+        return imageFiles.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return imageFiles[position];
+        return imageFiles.get(position);
     }
 
     @Override
@@ -84,12 +89,12 @@ public class ImageFileGalleryAdapter extends BaseAdapter {
             imageView = new ImageView(context);
             imageView.setBackgroundResource(galleryItemBackground);
         }
-        if (bitmaps[position] == null) {
+        if (bitmaps.get(position) == null) {
             // todo - load image in background thread
             try {
-                FileInputStream stream = new FileInputStream(imageFiles[position]);
+                FileInputStream stream = new FileInputStream(imageFiles.get(position));
                 try {
-                    bitmaps[position] = BitmapFactory.decodeStream(stream);
+                    bitmaps.set(position, BitmapFactory.decodeStream(stream));
                 } finally {
                     stream.close();
                 }
@@ -99,14 +104,21 @@ public class ImageFileGalleryAdapter extends BaseAdapter {
         }
 
         imageView.setId(position);
-        if (bitmaps[position] != null) {
-            int w = bitmaps[position].getWidth();
-            int h = bitmaps[position].getHeight();
+        Bitmap bitmap = bitmaps.get(position);
+        if (bitmap != null) {
+            int w = bitmap.getWidth();
+            int h = bitmap.getHeight();
             int thumbnailWidth = (w * thumbnailHeight) / h;
             imageView.setLayoutParams(new Gallery.LayoutParams(thumbnailWidth, thumbnailHeight));
             //imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-            imageView.setImageBitmap(bitmaps[position]);
+            imageView.setImageBitmap(bitmap);
         }
         return imageView;
+    }
+
+    public void removeFractal(int position) {
+        imageFiles.remove(position);
+        bitmaps.remove(position);
+        notifyDataSetChanged();
     }
 }

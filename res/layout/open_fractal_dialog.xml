@@ -63,8 +63,14 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 />
+        <Button android:id="@+id/delete_button"
+                android:text="@string/delete"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                />
         <Button android:id="@+id/ok_button"
-                android:text="@android:string/ok"
+                android:text="@string/open"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
