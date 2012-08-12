@@ -39,11 +39,21 @@ public class FrexIO {
 
     public FrexIO(Context context) {
         this.context = context;
-        File appDir = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        if (appDir == null || !appDir.exists()) {
+        File picturesDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+        File externalAppDir = null;
+        if (picturesDirectory.exists()) {
+            externalAppDir = new File(picturesDirectory, "Frex");
+            if (!externalAppDir.exists()) {
+                if (!externalAppDir.mkdir()) {
+                    externalAppDir = null;
+                }
+            }
+        }
+        if (externalAppDir != null && externalAppDir.exists()) {
+            appDir = externalAppDir;
+        } else {
             appDir = context.getFilesDir();
         }
-        this.appDir = appDir;
     }
 
     public File getFile(String fileName) {
