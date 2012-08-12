@@ -76,7 +76,7 @@ public class FractalView extends View {
         generatorConfig = new GeneratorConfig();
 
         generatorConfig.setFractalId("MANDELBROT");
-        Fractal fractal = Registries.fractals.getValue(generatorConfig.getFractalId());
+        Fractal fractal = getFractal();
         generatorConfig.setRegion(fractal.getDefaultRegion().clone());
         generatorConfig.setIterMax(fractal.getDefaultIterMax());
         generatorConfig.setBailOut(fractal.getDefaultBailOut());
@@ -124,6 +124,10 @@ public class FractalView extends View {
 
     public void setFractalId(String fractalId) {
         this.generatorConfig.setFractalId(fractalId);
+    }
+
+    public Fractal getFractal() {
+        return Registries.fractals.getValue(getFractalId());
     }
 
     public String getColorSchemeId() {
@@ -219,10 +223,10 @@ public class FractalView extends View {
     }
 
     public void setDecoratedFractal(boolean decoratedFractal, boolean adjustColor) {
-        if (this.generatorConfig.isDecoratedFractal() != decoratedFractal) {
-            this.generatorConfig.setDecoratedFractal(decoratedFractal);
+        if (generatorConfig.isDecoratedFractal() != decoratedFractal) {
+            generatorConfig.setDecoratedFractal(decoratedFractal);
             if (adjustColor) {
-                if (this.generatorConfig.isDecoratedFractal()) {
+                if (generatorConfig.isDecoratedFractal()) {
                     setColorGain(5.0 / getIterMax());
                     setColorOffset(0.0);
                 } else {
@@ -242,27 +246,24 @@ public class FractalView extends View {
     }
 
     public void setJuliaModeFractal(boolean juliaModeFractal, boolean adjustCoords) {
-        if (this.generatorConfig.isJuliaModeFractal() != juliaModeFractal) {
-            this.generatorConfig.setJuliaModeFractal(juliaModeFractal);
+        if (generatorConfig.isJuliaModeFractal() != juliaModeFractal) {
+            generatorConfig.setJuliaModeFractal(juliaModeFractal);
             if (adjustCoords) {
-                if (this.generatorConfig.isJuliaModeFractal()) {
-                    setJuliaX(generatorConfig.getRegion().getCenterX());
-                    setJuliaY(generatorConfig.getRegion().getCenterY());
-                } else {
-                    setJuliaX(generatorConfig.getRegion().getCenterX());
-                    setJuliaY(generatorConfig.getRegion().getCenterY());
-                    generatorConfig.getRegion().set(generatorConfig.getJuliaX(), generatorConfig.getJuliaY(), generatorConfig.getRegion().getRadius());
+                setJuliaX(generatorConfig.getRegion().getCenterX());
+                setJuliaY(generatorConfig.getRegion().getCenterY());
+                if (generatorConfig.isJuliaModeFractal()) {
+                    generatorConfig.getRegion().set(getFractal().getDefaultRegion());
                 }
             }
         }
     }
 
     public void setJuliaX(double juliaX) {
-        this.generatorConfig.setJuliaX(juliaX);
+        generatorConfig.setJuliaX(juliaX);
     }
 
     public void setJuliaY(double juliaY) {
-        this.generatorConfig.setJuliaY(juliaY);
+        generatorConfig.setJuliaY(juliaY);
     }
 
     public Generator getScreenGenerator() {
@@ -559,7 +560,7 @@ public class FractalView extends View {
     }
 
     public void zoomAll() {
-        Region defaultRegion = Registries.fractals.getValue(getFractalId()).getDefaultRegion();
+        Region defaultRegion = getFractal().getDefaultRegion();
         regenerateRegion(defaultRegion);
     }
 
