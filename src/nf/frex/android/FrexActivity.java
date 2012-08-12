@@ -102,6 +102,23 @@ public class FrexActivity extends Activity {
             }
         } else {
             getActionBar().setBackgroundDrawable(new PaintDrawable(Color.argb(128, 0, 0, 0)));
+            /*
+            // Later, use the NAVIGATION_MODE_LIST to open the Frex Gallery activity, etc.
+            getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,
+                    android.R.layout.simple_spinner_item,
+                    new String[]{"A", "B", "C"});
+            arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            getActionBar().setListNavigationCallbacks(arrayAdapter, new ActionBar.OnNavigationListener() {
+                @Override
+                public boolean onNavigationItemSelected(int itemPosition, long itemId) {
+                    return false;
+                }
+            });
+
+            // Later, use the home button to go to the last saved position
+            getActionBar().setHomeButtonEnabled(true);
+            */
         }
 
         view = new FractalView(this);
@@ -505,7 +522,7 @@ public class FrexActivity extends Activity {
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, fractals.getIds());
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         fractalTypeSpinner.setAdapter(arrayAdapter);
-        fractalTypeSpinner.setSelection(fractalTypeIndex, false);
+        fractalTypeSpinner.setSelection(fractalTypeIndex, true);
         fractalTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View spinnerView, int position, long id) {
