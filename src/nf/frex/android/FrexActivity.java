@@ -176,9 +176,6 @@ public class FrexActivity extends Activity {
             case R.id.save_fractal:
                 showDialog(R.id.save_fractal);
                 return true;
-            case R.id.save_image:
-                saveImage(false);
-                return true;
             case R.id.share_image:
                 shareImage();
                 return true;

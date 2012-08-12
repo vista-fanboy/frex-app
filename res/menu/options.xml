@@ -49,9 +49,6 @@
     <item android:id="@+id/save_fractal"
           android:showAsAction="never"
           android:title="@string/safe_fractal"/>
-    <item android:id="@+id/save_image"
-          android:showAsAction="never"
-          android:title="@string/save_image"/>
     <item android:id="@+id/share_image"
           android:icon="@drawable/ic_action_share"
           android:showAsAction="ifRoom"
