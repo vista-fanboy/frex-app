@@ -28,9 +28,11 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.PaintDrawable;
+import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -46,10 +48,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 
 /**
  * To-do List
@@ -138,7 +137,7 @@ public class FrexActivity extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.options, menu);
+        inflater.inflate(R.menu.main, menu);
         if (PRE_SDK14) {
             setMenuBackground();
         }
@@ -174,7 +173,7 @@ public class FrexActivity extends Activity {
                 }
                 return true;
             case R.id.save_fractal:
-                saveConfig();
+                saveFractal();
                 return true;
             case R.id.share_image:
                 shareImage();
@@ -377,7 +376,7 @@ public class FrexActivity extends Activity {
     @Override
     protected Dialog onCreateDialog(int id, Bundle args) {
         if (id == R.id.manage_fractals) {
-            return createOpenDialog();
+            return createManageDialog();
         } else if (id == R.id.colors) {
             return createColorsDialog();
         } else if (id == R.id.properties) {
@@ -394,7 +393,7 @@ public class FrexActivity extends Activity {
     protected void onPrepareDialog(int id, Dialog dialog, Bundle args) {
         super.onPrepareDialog(id, dialog, args);
         if (id == R.id.manage_fractals) {
-            prepareOpenDialog(dialog);
+            prepareManageDialog(dialog);
         } else if (id == R.id.colors) {
             prepareColorsDialog(dialog);
         } else if (id == R.id.properties) {
@@ -674,12 +673,21 @@ public class FrexActivity extends Activity {
         });
     }
 
-    private void prepareOpenDialog(final Dialog dialog) {
+    // todo - move this to FractalManagerActivity
+    private void prepareManageDialog(final Dialog dialog) {
+        WindowManager wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        final int thumbnailWidth = display.getWidth() / 3;
+        final int thumbnailHeight = display.getHeight() / 3;
+
         final FrexIO frexIO = new FrexIO(FrexActivity.this);
         final File[] imageFiles = frexIO.getFiles(FrexIO.IMAGE_FILE_EXT);
+        final Bitmap[] thumbnails = new Bitmap[imageFiles.length];
+        final Bitmap proxyBitmap = Bitmap.createBitmap(new int[thumbnailWidth * thumbnailHeight], thumbnailWidth, thumbnailHeight, Bitmap.Config.ARGB_8888);
+        Arrays.fill(thumbnails, proxyBitmap);
 
         final Gallery gallery = (Gallery) dialog.findViewById(R.id.fractal_gallery);
-        final ImageFileGalleryAdapter galleryAdapter = new ImageFileGalleryAdapter(this, imageFiles);
+        final ImageFileGalleryAdapter galleryAdapter = new ImageFileGalleryAdapter(this, imageFiles, thumbnails);
         gallery.setAdapter(galleryAdapter);
         gallery.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -690,6 +698,42 @@ public class FrexActivity extends Activity {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
+        gallery.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                gallery.showContextMenu();
+                return false;
+            }
+        });
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < imageFiles.length; i++) {
+                    try {
+                        FileInputStream stream = new FileInputStream(imageFiles[i]);
+                        try {
+                            Bitmap bitmap = BitmapFactory.decodeStream(stream);
+                            int w = bitmap.getWidth();
+                            int h = bitmap.getHeight();
+                            int thumbnailWidth = (w * thumbnailHeight) / h;
+                            Bitmap thumbnail = Bitmap.createScaledBitmap(bitmap, thumbnailWidth, thumbnailHeight, true);
+                            galleryAdapter.setThumbnail(i, thumbnail);
+                        } finally {
+                            stream.close();
+                        }
+                    } catch (IOException e) {
+                        // ?
+                    }
+                    FrexActivity.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            galleryAdapter.notifyDataSetChanged();
+                        }
+                    });
+                }
+            }
+        }).start();
 
         final Button openButton = (Button) dialog.findViewById(R.id.ok_button);
         final Button deleteButton = (Button) dialog.findViewById(R.id.delete_button);
@@ -772,11 +816,36 @@ public class FrexActivity extends Activity {
         return b.create();
     }
 
-    private Dialog createOpenDialog() {
+    private Dialog createManageDialog() {
         Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.manage_fractals_dialog);
-        dialog.setTitle(getString(R.string.open_fractal));
+        dialog.setTitle(getString(R.string.manage_fractals));
+        registerForContextMenu(dialog.findViewById(R.id.fractal_gallery));
+
         return dialog;
+    }
+
+    // todo - move this to FractalManagerActivity
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        if (v instanceof Gallery) {
+            MenuInflater inflater = getMenuInflater();
+            inflater.inflate(R.menu.gallery_context, menu);
+        }
+    }
+
+    // todo - move this to FractalManagerActivity
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        // AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        if (item.getItemId() == R.id.delete) {
+            return true;
+        }
+        if (item.getItemId() == R.id.share_image) {
+            return true;
+        }
+        return super.onContextItemSelected(item);
     }
 
     private Dialog createDecorationsDialog() {
@@ -803,7 +872,7 @@ public class FrexActivity extends Activity {
         return dialog;
     }
 
-    private void saveConfig() {
+    private void saveFractal() {
         FrexIO frexIO = new FrexIO(this);
         File paramFile = frexIO.getUniqueParamFile(view.getFractalId().toLowerCase());
         File imageFile = new File(paramFile.getParent(), FrexIO.getFilenameWithoutExt(paramFile) + FrexIO.IMAGE_FILE_EXT);
@@ -831,6 +900,16 @@ public class FrexActivity extends Activity {
         } catch (IOException e) {
             Toast.makeText(this, getString(R.string.error_msg, e.getLocalizedMessage()), Toast.LENGTH_SHORT).show();
         }
+
+        MediaScannerConnection.scanFile(this,
+                new String[]{imageFile.getPath()},
+                new String[]{"image/*"},
+                new MediaScannerConnection.OnScanCompletedListener() {
+                    @Override
+                    public void onScanCompleted(String path, Uri uri) {
+
+                    }
+                });
 
         view.setConfigName(FrexIO.getFilenameWithoutExt(paramFile));
         Toast.makeText(this, getString(R.string.fractal_saved), Toast.LENGTH_LONG).show();

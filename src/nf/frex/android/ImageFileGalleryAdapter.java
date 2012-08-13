@@ -23,10 +23,8 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.Gallery;
 import android.widget.ImageView;
@@ -36,32 +34,25 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
-* @author Norman Fomferra
-*/
+ * @author Norman Fomferra
+ */
 public class ImageFileGalleryAdapter extends BaseAdapter {
 
     private final Context context;
     private final ArrayList<File> imageFiles;
-    private final ArrayList<Bitmap> bitmaps;
+    private final ArrayList<Bitmap> thumbnails;
     private final int galleryItemBackground;
-    private final int thumbnailHeight;
 
-    public ImageFileGalleryAdapter(Context context, File[] imageFiles) {
+    public ImageFileGalleryAdapter(Context context, File[] imageFiles, Bitmap[] thumbnails) {
         this.context = context;
         this.imageFiles = new ArrayList<File>(Arrays.asList(imageFiles));
-        bitmaps =  new ArrayList<Bitmap>(imageFiles.length);
-        for (File imageFile : imageFiles) {
-            bitmaps.add(null);
-        }
+        this.thumbnails = new ArrayList<Bitmap>(Arrays.asList(thumbnails));
         TypedArray attr = context.obtainStyledAttributes(R.styleable.fractal_gallery);
         galleryItemBackground = attr.getResourceId(R.styleable.fractal_gallery_android_galleryItemBackground, 0);
         attr.recycle();
-
-        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        Display display = wm.getDefaultDisplay();
-        thumbnailHeight = display.getHeight() / 3;
     }
 
     @Override
@@ -80,7 +71,12 @@ public class ImageFileGalleryAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public boolean hasStableIds() {
+        return true;
+    }
+
+    @Override
+    public View getView(final int position, View convertView, ViewGroup parent) {
 
         ImageView imageView;
         if (convertView instanceof ImageView) {
@@ -89,36 +85,26 @@ public class ImageFileGalleryAdapter extends BaseAdapter {
             imageView = new ImageView(context);
             imageView.setBackgroundResource(galleryItemBackground);
         }
-        if (bitmaps.get(position) == null) {
-            // todo - load image in background thread
-            try {
-                FileInputStream stream = new FileInputStream(imageFiles.get(position));
-                try {
-                    bitmaps.set(position, BitmapFactory.decodeStream(stream));
-                } finally {
-                    stream.close();
-                }
-            } catch (IOException e) {
-                // ?
-            }
-        }
 
         imageView.setId(position);
-        Bitmap bitmap = bitmaps.get(position);
-        if (bitmap != null) {
-            int w = bitmap.getWidth();
-            int h = bitmap.getHeight();
-            int thumbnailWidth = (w * thumbnailHeight) / h;
-            imageView.setLayoutParams(new Gallery.LayoutParams(thumbnailWidth, thumbnailHeight));
-            //imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-            imageView.setImageBitmap(bitmap);
-        }
+
+        Bitmap bitmap = thumbnails.get(position);
+        imageView.setLayoutParams(new Gallery.LayoutParams(bitmap.getWidth(), bitmap.getHeight()));
+        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+        imageView.setImageBitmap(bitmap);
+
         return imageView;
     }
 
     public void removeFractal(int position) {
         imageFiles.remove(position);
-        bitmaps.remove(position);
+        thumbnails.remove(position);
         notifyDataSetChanged();
+    }
+
+    public void setThumbnail(int position, Bitmap thumbnail) {
+        thumbnails.set(position, thumbnail);
+        // This will cause a crash:
+        // notifyDataSetChanged();
     }
 }
