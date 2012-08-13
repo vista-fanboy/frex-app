@@ -166,15 +166,15 @@ public class FrexActivity extends Activity {
             case R.id.properties:
                 showDialog(R.id.properties);
                 return true;
-            case R.id.open_fractal:
+            case R.id.manage_fractals:
                 if (new FrexIO(this).hasFiles()) {
-                    showDialog(R.id.open_fractal);
+                    showDialog(R.id.manage_fractals);
                 } else {
                     Toast.makeText(FrexActivity.this, getString(R.string.no_fractals_found), Toast.LENGTH_SHORT).show();
                 }
                 return true;
             case R.id.save_fractal:
-                showDialog(R.id.save_fractal);
+                saveConfig();
                 return true;
             case R.id.share_image:
                 shareImage();
@@ -376,9 +376,7 @@ public class FrexActivity extends Activity {
 
     @Override
     protected Dialog onCreateDialog(int id, Bundle args) {
-        if (id == R.id.save_fractal) {
-            return createSaveDialog();
-        } else if (id == R.id.open_fractal) {
+        if (id == R.id.manage_fractals) {
             return createOpenDialog();
         } else if (id == R.id.colors) {
             return createColorsDialog();
@@ -395,9 +393,7 @@ public class FrexActivity extends Activity {
     @Override
     protected void onPrepareDialog(int id, Dialog dialog, Bundle args) {
         super.onPrepareDialog(id, dialog, args);
-        if (id == R.id.save_fractal) {
-            prepareSaveDialog(dialog);
-        } else if (id == R.id.open_fractal) {
+        if (id == R.id.manage_fractals) {
             prepareOpenDialog(dialog);
         } else if (id == R.id.colors) {
             prepareColorsDialog(dialog);
@@ -683,154 +679,70 @@ public class FrexActivity extends Activity {
         final File[] imageFiles = frexIO.getFiles(FrexIO.IMAGE_FILE_EXT);
 
         final Gallery gallery = (Gallery) dialog.findViewById(R.id.fractal_gallery);
-        final EditText editText = (EditText) dialog.findViewById(R.id.fractal_name_edit_text);
-       final ImageFileGalleryAdapter galleryAdapter = new ImageFileGalleryAdapter(this, imageFiles);
+        final ImageFileGalleryAdapter galleryAdapter = new ImageFileGalleryAdapter(this, imageFiles);
         gallery.setAdapter(galleryAdapter);
         gallery.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                editText.getEditableText().clear();
-                editText.getEditableText().append(FrexIO.getFilenameWithoutExt(imageFiles[position]));
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                editText.getEditableText().clear();
             }
         });
 
         final Button openButton = (Button) dialog.findViewById(R.id.ok_button);
         final Button deleteButton = (Button) dialog.findViewById(R.id.delete_button);
-        final Button cancelButton = (Button) dialog.findViewById(R.id.cancel_button);
         openButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                String fractalName = editText.getText().toString().trim();
-                if (fractalName.length() == 0) {
-                    Toast.makeText(FrexActivity.this, R.string.enter_name_msg, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                FrexIO frexIO = new FrexIO(FrexActivity.this);
-                File paramFile = frexIO.getFile(fractalName, FrexIO.PARAM_FILE_EXT);
-                if (!paramFile.exists()) {
-                    Toast.makeText(FrexActivity.this, getString(R.string.parameters_not_found_msg), Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                Properties properties = new Properties();
-                try {
-                    FileInputStream fis = new FileInputStream(paramFile);
+                int position = gallery.getSelectedItemPosition();
+                if (position >= 0) {
+                    File imageFile = imageFiles[position];
+                    File paramFile = new File(imageFile.getParent(), FrexIO.getFilenameWithoutExt(imageFile) + FrexIO.PARAM_FILE_EXT);
+                    Properties properties = new Properties();
                     try {
-                        properties = new Properties();
-                        properties.load(fis);
-                    } finally {
-                        fis.close();
+                        FileInputStream fis = new FileInputStream(paramFile);
+                        try {
+                            properties = new Properties();
+                            properties.load(fis);
+                        } finally {
+                            fis.close();
+                        }
+                    } catch (IOException e) {
+                        Toast.makeText(FrexActivity.this, getString(R.string.error_msg, e.getLocalizedMessage()), Toast.LENGTH_SHORT).show();
+                        return;
                     }
-                } catch (IOException e) {
-                    Toast.makeText(FrexActivity.this, getString(R.string.error_msg, e.getLocalizedMessage()), Toast.LENGTH_SHORT).show();
-                    return;
-                }
 
-                dialog.dismiss();
-                view.setConfigName(fractalName);
-                view.restoreInstanceState(new DefaultPropertySet(properties));
-                view.recomputeAll();
+                    dialog.dismiss();
+                    view.setConfigName(FrexIO.getFilenameWithoutExt(imageFiles[position]));
+                    view.restoreInstanceState(new DefaultPropertySet(properties));
+                    view.recomputeAll();
+                }
             }
         });
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String fractalName = editText.getText().toString().trim();
-                if (fractalName.length() == 0) {
-                    Toast.makeText(FrexActivity.this, R.string.enter_name_msg, Toast.LENGTH_SHORT).show();
+                final int position = gallery.getSelectedItemPosition();
+                if (position < 0) {
                     return;
                 }
-
-                showYesNoDialog(R.string.open_fractal, String.format("Really delete fractal '%s'", fractalName), new DialogInterface.OnClickListener() {
+                showYesNoDialog(R.string.delete_fractal, getString(R.string.really_delete_fractal), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        File imageFile = imageFiles[position];
+                        File paramFile = new File(imageFile.getParent(), FrexIO.getFilenameWithoutExt(imageFile) + FrexIO.PARAM_FILE_EXT);
                         int n = 0;
-                        FrexIO frexIO = new FrexIO(FrexActivity.this);
-                        File paramFile = frexIO.getFile(fractalName, FrexIO.PARAM_FILE_EXT);
-                        n += paramFile.delete() ? 1 : 0;
-                        File imageFile = frexIO.getFile(fractalName, FrexIO.IMAGE_FILE_EXT);
                         n += imageFile.delete() ? 1 : 0;
-                        Toast.makeText(FrexActivity.this, "Fracal deleted", Toast.LENGTH_SHORT).show();
-
+                        n += paramFile.delete() ? 1 : 0;
+                        Toast.makeText(FrexActivity.this, getString(R.string.fractal_deleted), Toast.LENGTH_SHORT).show();
                         galleryAdapter.removeFractal(gallery.getSelectedItemPosition());
                     }
                 },
-                null,
-                null);
+                        null,
+                        null);
 
-            }
-        });
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-    }
-
-    private void prepareSaveDialog(final Dialog dialog) {
-        final EditText editText = (EditText) dialog.findViewById(R.id.fractal_name_edit_text);
-        if (view.getConfigName() != null) {
-            editText.getEditableText().clear();
-            editText.getEditableText().append(view.getConfigName());
-        }
-
-        final Button okButton = (Button) dialog.findViewById(R.id.ok_button);
-        final Button cancelButton = (Button) dialog.findViewById(R.id.cancel_button);
-
-        okButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final String fractalName = editText.getText().toString().trim();
-                if (fractalName.length() == 0) {
-                    Toast.makeText(FrexActivity.this, getString(R.string.enter_name_msg), Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                final FrexIO frexIO = new FrexIO(FrexActivity.this);
-                final File paramFile = frexIO.getFile(fractalName, FrexIO.PARAM_FILE_EXT);
-                if (paramFile.exists()) {
-                    showYesNoDialog(
-                            R.string.safe_fractal,
-                            getString(R.string.name_exists_msg, fractalName),
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogIfc, int which) {
-                                    // "Yes" selected --> save / overwrite
-                                    saveConfig(fractalName, frexIO, paramFile, dialog);
-                                }
-                            },
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    // "No" selected --> do nothing, leave Save dialog open
-                                }
-                            },
-                            new DialogInterface.OnCancelListener() {
-                                @Override
-                                public void onCancel(DialogInterface dialog) {
-                                    // cancel Save action --> do nothing, close Save dialog and return
-                                    dialog.dismiss();
-                                }
-                            }
-                    );
-
-                } else {
-                    saveConfig(fractalName, frexIO, paramFile, dialog);
-                }
-            }
-        });
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
             }
         });
 
@@ -860,16 +772,9 @@ public class FrexActivity extends Activity {
         return b.create();
     }
 
-    private Dialog createSaveDialog() {
-        Dialog dialog = new Dialog(this);
-        dialog.setContentView(R.layout.save_fractal_dialog);
-        dialog.setTitle(getString(R.string.safe_fractal));
-        return dialog;
-    }
-
     private Dialog createOpenDialog() {
         Dialog dialog = new Dialog(this);
-        dialog.setContentView(R.layout.open_fractal_dialog);
+        dialog.setContentView(R.layout.manage_fractals_dialog);
         dialog.setTitle(getString(R.string.open_fractal));
         return dialog;
     }
@@ -898,7 +803,10 @@ public class FrexActivity extends Activity {
         return dialog;
     }
 
-    private void saveConfig(String configName, FrexIO frexIO, File paramFile, Dialog dialog) {
+    private void saveConfig() {
+        FrexIO frexIO = new FrexIO(this);
+        File paramFile = frexIO.getUniqueParamFile(view.getFractalId().toLowerCase());
+        File imageFile = new File(paramFile.getParent(), FrexIO.getFilenameWithoutExt(paramFile) + FrexIO.IMAGE_FILE_EXT);
         try {
             FileOutputStream fos = new FileOutputStream(paramFile);
             try {
@@ -914,7 +822,6 @@ public class FrexActivity extends Activity {
         }
 
         try {
-            File imageFile = frexIO.getFile(configName, FrexIO.IMAGE_FILE_EXT);
             FileOutputStream out = new FileOutputStream(imageFile);
             try {
                 view.createBitmap().compress(FrexIO.IMAGE_FILE_FORMAT, 100, out);
@@ -925,8 +832,7 @@ public class FrexActivity extends Activity {
             Toast.makeText(this, getString(R.string.error_msg, e.getLocalizedMessage()), Toast.LENGTH_SHORT).show();
         }
 
-        dialog.dismiss();
-        view.setConfigName(configName);
+        view.setConfigName(FrexIO.getFilenameWithoutExt(paramFile));
         Toast.makeText(this, getString(R.string.fractal_saved), Toast.LENGTH_LONG).show();
     }
 

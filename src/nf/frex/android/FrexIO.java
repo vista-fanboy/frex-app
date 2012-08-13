@@ -25,20 +25,23 @@ import android.os.Environment;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author Norman Fomferra
  */
 public class FrexIO {
+
     public static final String PARAM_FILE_EXT = ".frex";
     public static final String IMAGE_FILE_EXT = ".png";
     public static final Bitmap.CompressFormat IMAGE_FILE_FORMAT = Bitmap.CompressFormat.PNG;
 
-    private final Context context;
-    private final File appDir;
+    private final File externalAppDir;
+    private final File internalAppDir;
 
     public FrexIO(Context context) {
-        this.context = context;
         File picturesDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
         File externalAppDir = null;
         if (picturesDirectory.exists()) {
@@ -50,33 +53,66 @@ public class FrexIO {
             }
         }
         if (externalAppDir != null && externalAppDir.exists()) {
-            appDir = externalAppDir;
+            this.externalAppDir = externalAppDir;
         } else {
-            appDir = context.getFilesDir();
+            this.externalAppDir = context.getFilesDir();
         }
+        this.internalAppDir = context.getFilesDir();
     }
 
     public File getFile(String fileName) {
-        return new File(appDir, fileName);
+        return externalAppDir != null ? new File(externalAppDir, fileName) : new File(internalAppDir, fileName);
     }
 
     public File getFile(String fileName, String ext) {
-        return new File(appDir, fileName.endsWith(ext) ? fileName : fileName + ext);
-    }
-
-    public String[] getFileNames(String ext) {
-        String[] names = appDir.list(new ExtFilenameFilter(ext));
-        return names != null ? names : new String[0];
+        return getFile(fileName.endsWith(ext) ? fileName : fileName + ext);
     }
 
     public File[] getFiles(String ext) {
-        File[] files = appDir.listFiles(new ExtFilenameFilter(ext));
-        return files != null ? files : new File[0];
+        List<File> fileList = getFileList(ext);
+        return fileList.toArray(new File[fileList.size()]);
+    }
+
+    public File getUniqueParamFile(String baseName) {
+        for (int i = 0; ; i++) {
+            String fileName = baseName + "_" + i + FrexIO.PARAM_FILE_EXT;
+            if (externalAppDir != null) {
+                File file1 = new File(externalAppDir, fileName);
+                if (!file1.exists()) {
+                    File file2 = new File(internalAppDir, fileName);
+                    if (!file2.exists()) {
+                        return file1;
+                    }
+                }
+            } else {
+                File file2 = new File(internalAppDir, fileName);
+                if (!file2.exists()) {
+                    return file2;
+                }
+            }
+        }
+    }
+
+
+    public List<File> getFileList(String ext) {
+        ArrayList<File> files = new ArrayList<File>(32);
+        collectFiles(internalAppDir, ext, files);
+        if (externalAppDir != null) {
+            collectFiles(externalAppDir, ext, files);
+        }
+        return files;
+    }
+
+    private void collectFiles(File appDir, String ext, ArrayList<File> fileNames) {
+        File[] names = appDir.listFiles(new ExtFilenameFilter(ext));
+        if (names != null) {
+            fileNames.addAll(Arrays.asList(names));
+        }
     }
 
     public boolean hasFiles() {
-        File[] files = appDir.listFiles(new ExtFilenameFilter(PARAM_FILE_EXT));
-        return files != null && files.length > 0;
+        List<File> fileList = getFileList(PARAM_FILE_EXT);
+        return !fileList.isEmpty();
     }
 
     public static String getFilenameWithoutExt(File file) {
@@ -89,6 +125,7 @@ public class FrexIO {
         }
         return name;
     }
+
 
     private static class ExtFilenameFilter implements FilenameFilter {
         final String ext;

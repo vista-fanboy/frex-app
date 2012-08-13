@@ -42,10 +42,10 @@
     <item android:id="@+id/decorations"
           android:showAsAction="never"
           android:title="@string/decorations"/>
-    <item android:id="@+id/open_fractal"
+    <item android:id="@+id/manage_fractals"
           android:icon="@drawable/ic_action_star"
           android:showAsAction="ifRoom"
-          android:title="@string/open_fractal"/>
+          android:title="@string/manage_fractals"/>
     <item android:id="@+id/save_fractal"
           android:showAsAction="never"
           android:title="@string/safe_fractal"/>

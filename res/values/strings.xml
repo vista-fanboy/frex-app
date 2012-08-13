@@ -33,8 +33,8 @@
     <string name="color_offset">Color offset</string>
     <string name="color_repeat">Repeat colors</string>
     <string name="num_iterations">Level of detail</string>
-    <string name="open_fractal">Open Fractal</string>
     <string name="safe_fractal">Safe Fractal</string>
+    <string name="manage_fractals">Manage Fractals</string>
     <string name="delete_saved_fractals">Delete Fractals</string>
     <string name="select_fractal">Select fractal</string>
     <string name="fractal_name">Fractal name</string>
@@ -62,12 +62,13 @@
     <string name="email_subject">A fractal for you</string>
     <string name="image_saved_msg">Image saved to\n%s.</string>
     <string name="image_save_failed_msg">Failed to save image.</string>
-    <string name="enter_name_msg">Please enter a name!</string>
-    <string name="name_exists_msg">The name \'%s\' is already in use.\nOverwrite the existing fractal?</string>
     <string name="parameters_not_found_msg">Parameters not found.</string>
     <string name="delete_all_fractals">Delete all Fractals</string>
     <string name="really_delete_all_fractals_msg">All of your saved fractals (%d) will be deleted!\nDo you really want to continue?</string>
     <string name="files_deleted_msg">%1$d of %2$d saved file(s) deleted.</string>
     <string name="open">Open</string>
     <string name="delete">Delete</string>
+    <string name="delete_fractal">Delete Fractal</string>
+    <string name="really_delete_fractal">Do you wish to permanently delete this fractal?</string>
+    <string name="fractal_deleted">Fractal deleted</string>
 </resources>
