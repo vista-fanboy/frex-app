@@ -167,7 +167,9 @@ public class FrexActivity extends Activity {
                 return true;
             case R.id.manage_fractals:
                 if (new FrexIO(this).hasFiles()) {
-                    showDialog(R.id.manage_fractals);
+                    // showDialog(R.id.manage_fractals);
+                    final Intent intent = new Intent(this, ManagerActivity.class);
+                    startActivityForResult(intent, R.id.manage_fractals);
                 } else {
                     Toast.makeText(FrexActivity.this, getString(R.string.no_fractals_found), Toast.LENGTH_SHORT).show();
                 }
@@ -196,6 +198,36 @@ public class FrexActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == Activity.RESULT_OK
+                && requestCode == R.id.manage_fractals
+                && data.getAction().equals(Intent.ACTION_VIEW)) {
+            // Perform a query to the contact's content provider for the contact's name
+            final Uri imageUri = data.getData();
+
+            File imageFile = new File(imageUri.getPath());
+            File paramFile = new File(imageFile.getParent(), FrexIO.getFilenameWithoutExt(imageFile) + FrexIO.PARAM_FILE_EXT);
+            Properties properties = new Properties();
+            try {
+                FileInputStream fis = new FileInputStream(paramFile);
+                try {
+                    properties = new Properties();
+                    properties.load(fis);
+                } finally {
+                    fis.close();
+                }
+            } catch (IOException e) {
+                Toast.makeText(FrexActivity.this, getString(R.string.error_msg, e.getLocalizedMessage()), Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            view.setConfigName(FrexIO.getFilenameWithoutExt(imageFile));
+            view.restoreInstanceState(new DefaultPropertySet(properties));
+            view.recomputeAll();
+        }
+    }
+
     private void shareImage() {
         Intent shareIntent = createShareIntent();
         if (shareIntent != null) {
@@ -221,7 +253,7 @@ public class FrexActivity extends Activity {
         final int minimumWidth = wallpaperManager.getDesiredMinimumWidth();
         final int minimumHeight = wallpaperManager.getDesiredMinimumHeight();
 
-        showYesNoDialog(R.string.set_wallpaper,
+        showYesNoDialog(this, R.string.set_wallpaper,
                 getString(R.string.wallpaper_msg, minimumWidth, minimumHeight),
                 new DialogInterface.OnClickListener() {
                     @Override
@@ -346,7 +378,7 @@ public class FrexActivity extends Activity {
         final FrexIO frexIO = new FrexIO(this);
         final File[] files = frexIO.getFiles(FrexIO.PARAM_FILE_EXT);
 
-        showYesNoDialog(R.string.delete_all_fractals,
+        showYesNoDialog(this, R.string.delete_all_fractals,
                 getString(R.string.really_delete_all_fractals_msg, files.length),
                 new DialogInterface.OnClickListener() {
                     @Override
@@ -772,7 +804,7 @@ public class FrexActivity extends Activity {
                 if (position < 0) {
                     return;
                 }
-                showYesNoDialog(R.string.delete_fractal, getString(R.string.really_delete_fractal), new DialogInterface.OnClickListener() {
+                showYesNoDialog(FrexActivity.this, R.string.delete_fractal, getString(R.string.really_delete_fractal), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         File imageFile = imageFiles[position];
@@ -1019,17 +1051,17 @@ public class FrexActivity extends Activity {
         temporaryImageFiles.clear();
     }
 
-    private void showYesNoDialog(int titleId, String message,
+    public static void showYesNoDialog(Context context, int titleId, String message,
                                  DialogInterface.OnClickListener yesListener,
                                  DialogInterface.OnClickListener noListener,
                                  DialogInterface.OnCancelListener cancelListener) {
 
-        TextView textView = new TextView(this);
+        TextView textView = new TextView(context);
         textView.setSingleLine(false);
         textView.setPadding(5, 5, 5, 5);
         textView.setText(message);
 
-        AlertDialog.Builder b = new AlertDialog.Builder(this);
+        AlertDialog.Builder b = new AlertDialog.Builder(context);
         b.setTitle(titleId);
         b.setView(textView);
         b.setCancelable(true);
