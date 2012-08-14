@@ -55,17 +55,13 @@ public class FrexIO {
         if (externalAppDir != null && externalAppDir.exists()) {
             this.externalAppDir = externalAppDir;
         } else {
-            this.externalAppDir = context.getFilesDir();
+            this.externalAppDir = null;
         }
         this.internalAppDir = context.getFilesDir();
     }
 
     public File getFile(String fileName) {
         return externalAppDir != null ? new File(externalAppDir, fileName) : new File(internalAppDir, fileName);
-    }
-
-    public File getFile(String fileName, String ext) {
-        return getFile(fileName.endsWith(ext) ? fileName : fileName + ext);
     }
 
     public File[] getFiles(String ext) {

@@ -28,7 +28,6 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.PaintDrawable;
@@ -48,7 +47,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Properties;
 
 /**
  * To-do List
@@ -121,7 +123,6 @@ public class FrexActivity extends Activity {
         }
 
         view = new FractalView(this);
-        registerForContextMenu(view);
         setContentView(view);
         if (savedInstanceState != null) {
             view.restoreInstanceState(new BundlePropertySet(savedInstanceState));
@@ -139,7 +140,7 @@ public class FrexActivity extends Activity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main, menu);
         if (PRE_SDK14) {
-            setMenuBackground();
+            setMenuBackground(this);
         }
         return true;
     }
@@ -167,9 +168,7 @@ public class FrexActivity extends Activity {
                 return true;
             case R.id.manage_fractals:
                 if (new FrexIO(this).hasFiles()) {
-                    // showDialog(R.id.manage_fractals);
-                    final Intent intent = new Intent(this, ManagerActivity.class);
-                    startActivityForResult(intent, R.id.manage_fractals);
+                    startActivityForResult(new Intent(this, ManagerActivity.class), R.id.manage_fractals);
                 } else {
                     Toast.makeText(FrexActivity.this, getString(R.string.no_fractals_found), Toast.LENGTH_SHORT).show();
                 }
@@ -177,18 +176,8 @@ public class FrexActivity extends Activity {
             case R.id.save_fractal:
                 saveFractal();
                 return true;
-            case R.id.share_image:
-                shareImage();
-                return true;
             case R.id.set_wallpaper:
                 setWallpaper();
-                return true;
-            case R.id.delete_all_fractals:
-                if (new FrexIO(this).hasFiles()) {
-                    deleteAllFractals();
-                } else {
-                    Toast.makeText(FrexActivity.this, getString(R.string.no_fractals_found), Toast.LENGTH_SHORT).show();
-                }
                 return true;
             case R.id.about_frex:
                 showDialog(R.id.about_frex);
@@ -203,7 +192,7 @@ public class FrexActivity extends Activity {
         if (resultCode == Activity.RESULT_OK
                 && requestCode == R.id.manage_fractals
                 && data.getAction().equals(Intent.ACTION_VIEW)) {
-            // Perform a query to the contact's content provider for the contact's name
+
             final Uri imageUri = data.getData();
 
             File imageFile = new File(imageUri.getPath());
@@ -228,117 +217,93 @@ public class FrexActivity extends Activity {
         }
     }
 
-    private void shareImage() {
-        Intent shareIntent = createShareIntent();
-        if (shareIntent != null) {
-            startActivity(Intent.createChooser(shareIntent, getString(R.string.share_image)));
-        }
-    }
-
-    private Intent createShareIntent() {
-        Uri uri = saveImage(true);
-        if (uri != null) {
-            Intent shareIntent = new Intent(Intent.ACTION_SEND);
-            shareIntent.setType("image/*");
-            shareIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
-            shareIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.email_subject));
-            return shareIntent;
-        }
-        return null;
-    }
-
     private void setWallpaper() {
         final WallpaperManager wallpaperManager = WallpaperManager.getInstance(FrexActivity.this);
         final int minimumWidth = wallpaperManager.getDesiredMinimumWidth();
         final int minimumHeight = wallpaperManager.getDesiredMinimumHeight();
 
         showYesNoDialog(this, R.string.set_wallpaper,
-                getString(R.string.wallpaper_msg, minimumWidth, minimumHeight),
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        final Image image = view.getImage();
-                        final int imageWidth = image.getWidth();
-                        final int imageHeight = image.getHeight();
+                        getString(R.string.wallpaper_msg, minimumWidth, minimumHeight),
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                final Image image = view.getImage();
+                                final int imageWidth = image.getWidth();
+                                final int imageHeight = image.getHeight();
 
-                        if (imageWidth != minimumWidth || imageHeight != minimumHeight) {
+                                if (imageWidth != minimumWidth || imageHeight != minimumHeight) {
 
-                            final Image wallpaperImage;
-                            try {
-                                wallpaperImage = new Image(minimumWidth, minimumHeight);
-                            } catch (OutOfMemoryError e) {
-                                Toast.makeText(FrexActivity.this, getString(R.string.out_of_memory), Toast.LENGTH_LONG).show();
-                                return;
+                                    final Image wallpaperImage;
+                                    try {
+                                        wallpaperImage = new Image(minimumWidth, minimumHeight);
+                                    } catch (OutOfMemoryError e) {
+                                        Toast.makeText(FrexActivity.this, getString(R.string.out_of_memory), Toast.LENGTH_LONG).show();
+                                        return;
+                                    }
+
+                                    final ProgressDialog progressDialog = new ProgressDialog(FrexActivity.this);
+                                    final Generator wallpaperGenerator = new Generator(view.getGeneratorConfig(), new Generator.ProgressListener() {
+                                        int numLines;
+
+                                        @Override
+                                        public void onStarted(int numTasks) {
+                                        }
+
+                                        @Override
+                                        public void onSomeLinesComputed(int taskId, int line1, int line2) {
+                                            numLines += 1 + line2 - line1;
+                                            progressDialog.setProgress(numLines);
+                                        }
+
+                                        @Override
+                                        public void onStopped(boolean cancelled) {
+                                            progressDialog.dismiss();
+                                            if (!cancelled) {
+                                                setWallpaper(wallpaperManager, wallpaperImage);
+                                            }
+                                        }
+                                    });
+
+                                    DialogInterface.OnCancelListener cancelListener = new DialogInterface.OnCancelListener() {
+                                        @Override
+                                        public void onCancel(DialogInterface dialog) {
+                                            if (progressDialog.isShowing()) {
+                                                progressDialog.dismiss();
+                                            }
+                                            wallpaperGenerator.cancel();
+                                        }
+                                    };
+                                    progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+                                    progressDialog.setCancelable(true);
+                                    progressDialog.setMax(minimumHeight);
+                                    progressDialog.setOnCancelListener(cancelListener);
+                                    progressDialog.show();
+
+                                    wallpaperGenerator.start(wallpaperImage, false);
+                                } else {
+                                    setWallpaper(wallpaperManager, image);
+                                }
                             }
-
-                            final ProgressDialog progressDialog = new ProgressDialog(FrexActivity.this);
-                            final Generator wallpaperGenerator = new Generator(view.getGeneratorConfig(), new Generator.ProgressListener() {
-                                int numLines;
-
-                                @Override
-                                public void onStarted(int numTasks) {
-                                }
-
-                                @Override
-                                public void onSomeLinesComputed(int taskId, int line1, int line2) {
-                                    numLines += 1 + line2 - line1;
-                                    progressDialog.setProgress(numLines);
-                                }
-
-                                @Override
-                                public void onStopped(boolean cancelled) {
-                                    progressDialog.dismiss();
-                                    if (!cancelled) {
-                                        setWallpaper(wallpaperManager, wallpaperImage);
-                                    }
-                                }
-                            });
-
-                            DialogInterface.OnCancelListener cancelListener = new DialogInterface.OnCancelListener() {
-                                @Override
-                                public void onCancel(DialogInterface dialog) {
-                                    if (progressDialog.isShowing()) {
-                                        progressDialog.dismiss();
-                                    }
-                                    wallpaperGenerator.cancel();
-                                }
-                            };
-                            progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-                            progressDialog.setCancelable(true);
-                            progressDialog.setMax(minimumHeight);
-                            progressDialog.setOnCancelListener(cancelListener);
-                            progressDialog.show();
-
-                            wallpaperGenerator.start(wallpaperImage, false);
-                        } else {
-                            setWallpaper(wallpaperManager, image);
-                        }
-                    }
-                },
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        // ok
-                    }
-                },
-                null
+                        },
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // ok
+                            }
+                        },
+                        null
         );
     }
 
-    static int imgId = 0;
-
-    Uri saveImage(boolean temp) {
+    Uri saveTemporaryImage() {
         final String url = MediaStore.Images.Media.insertImage(getContentResolver(),
-                view.getImage().createBitmap(),
-                view.getConfigName() != null ? view.getConfigName() : "frex-" + (++imgId),
-                "Fractal generated by Frex");
+                                                               view.getImage().createBitmap(),
+                                                               "Frex Image",
+                                                               "Fractal image generated by Frex");
         if (url != null) {
-            Toast.makeText(FrexActivity.this, getString(R.string.image_saved_msg, url), Toast.LENGTH_LONG).show();
+            // Toast.makeText(FrexActivity.this, getString(R.string.image_saved_msg, url), Toast.LENGTH_LONG).show();
             Uri uri = Uri.parse(url);
-            if (temp) {
-                temporaryImageFiles.add(uri);
-            }
+            temporaryImageFiles.add(uri);
             return uri;
         } else {
             Toast.makeText(this, getString(R.string.image_save_failed_msg), Toast.LENGTH_SHORT).show();
@@ -374,37 +339,6 @@ public class FrexActivity extends Activity {
         });
     }
 
-    private void deleteAllFractals() {
-        final FrexIO frexIO = new FrexIO(this);
-        final File[] files = frexIO.getFiles(FrexIO.PARAM_FILE_EXT);
-
-        showYesNoDialog(this, R.string.delete_all_fractals,
-                getString(R.string.really_delete_all_fractals_msg, files.length),
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        int n = 0;
-                        for (File paramFile : files) {
-                            if (paramFile.delete()) {
-                                n++;
-                            }
-                            File imageFile = new File(paramFile.getParentFile(), FrexIO.getFilenameWithoutExt(paramFile) + FrexIO.IMAGE_FILE_EXT);
-                            if (imageFile.delete()) {
-                                n++;
-                            }
-                        }
-                        Toast.makeText(FrexActivity.this, getString(R.string.files_deleted_msg, n, files.length), Toast.LENGTH_SHORT).show();
-                    }
-                },
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                    }
-                },
-                null
-        );
-    }
-
     @Override
     protected Dialog onCreateDialog(int id, Bundle args) {
         if (id == R.id.manage_fractals) {
@@ -424,9 +358,7 @@ public class FrexActivity extends Activity {
     @Override
     protected void onPrepareDialog(int id, Dialog dialog, Bundle args) {
         super.onPrepareDialog(id, dialog, args);
-        if (id == R.id.manage_fractals) {
-            prepareManageDialog(dialog);
-        } else if (id == R.id.colors) {
+        if (id == R.id.colors) {
             prepareColorsDialog(dialog);
         } else if (id == R.id.properties) {
             preparePropertiesDialog(dialog);
@@ -705,125 +637,6 @@ public class FrexActivity extends Activity {
         });
     }
 
-    // todo - move this to FractalManagerActivity
-    private void prepareManageDialog(final Dialog dialog) {
-        WindowManager wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
-        Display display = wm.getDefaultDisplay();
-        final int thumbnailWidth = display.getWidth() / 3;
-        final int thumbnailHeight = display.getHeight() / 3;
-
-        final FrexIO frexIO = new FrexIO(FrexActivity.this);
-        final File[] imageFiles = frexIO.getFiles(FrexIO.IMAGE_FILE_EXT);
-        final Bitmap[] thumbnails = new Bitmap[imageFiles.length];
-        final Bitmap proxyBitmap = Bitmap.createBitmap(new int[thumbnailWidth * thumbnailHeight], thumbnailWidth, thumbnailHeight, Bitmap.Config.ARGB_8888);
-        Arrays.fill(thumbnails, proxyBitmap);
-
-        final Gallery gallery = (Gallery) dialog.findViewById(R.id.fractal_gallery);
-        final ImageFileGalleryAdapter galleryAdapter = new ImageFileGalleryAdapter(this, imageFiles, thumbnails);
-        gallery.setAdapter(galleryAdapter);
-        gallery.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-        gallery.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                gallery.showContextMenu();
-                return false;
-            }
-        });
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                for (int i = 0; i < imageFiles.length; i++) {
-                    try {
-                        FileInputStream stream = new FileInputStream(imageFiles[i]);
-                        try {
-                            Bitmap bitmap = BitmapFactory.decodeStream(stream);
-                            int w = bitmap.getWidth();
-                            int h = bitmap.getHeight();
-                            int thumbnailWidth = (w * thumbnailHeight) / h;
-                            Bitmap thumbnail = Bitmap.createScaledBitmap(bitmap, thumbnailWidth, thumbnailHeight, true);
-                            galleryAdapter.setThumbnail(i, thumbnail);
-                        } finally {
-                            stream.close();
-                        }
-                    } catch (IOException e) {
-                        // ?
-                    }
-                    FrexActivity.this.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            galleryAdapter.notifyDataSetChanged();
-                        }
-                    });
-                }
-            }
-        }).start();
-
-        final Button openButton = (Button) dialog.findViewById(R.id.ok_button);
-        final Button deleteButton = (Button) dialog.findViewById(R.id.delete_button);
-        openButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int position = gallery.getSelectedItemPosition();
-                if (position >= 0) {
-                    File imageFile = imageFiles[position];
-                    File paramFile = new File(imageFile.getParent(), FrexIO.getFilenameWithoutExt(imageFile) + FrexIO.PARAM_FILE_EXT);
-                    Properties properties = new Properties();
-                    try {
-                        FileInputStream fis = new FileInputStream(paramFile);
-                        try {
-                            properties = new Properties();
-                            properties.load(fis);
-                        } finally {
-                            fis.close();
-                        }
-                    } catch (IOException e) {
-                        Toast.makeText(FrexActivity.this, getString(R.string.error_msg, e.getLocalizedMessage()), Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-
-                    dialog.dismiss();
-                    view.setConfigName(FrexIO.getFilenameWithoutExt(imageFiles[position]));
-                    view.restoreInstanceState(new DefaultPropertySet(properties));
-                    view.recomputeAll();
-                }
-            }
-        });
-        deleteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final int position = gallery.getSelectedItemPosition();
-                if (position < 0) {
-                    return;
-                }
-                showYesNoDialog(FrexActivity.this, R.string.delete_fractal, getString(R.string.really_delete_fractal), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        File imageFile = imageFiles[position];
-                        File paramFile = new File(imageFile.getParent(), FrexIO.getFilenameWithoutExt(imageFile) + FrexIO.PARAM_FILE_EXT);
-                        int n = 0;
-                        n += imageFile.delete() ? 1 : 0;
-                        n += paramFile.delete() ? 1 : 0;
-                        Toast.makeText(FrexActivity.this, getString(R.string.fractal_deleted), Toast.LENGTH_SHORT).show();
-                        galleryAdapter.removeFractal(gallery.getSelectedItemPosition());
-                    }
-                },
-                        null,
-                        null);
-
-            }
-        });
-
-    }
-
     private Dialog createAboutDialog() {
         String versionName;
         try {
@@ -850,34 +663,11 @@ public class FrexActivity extends Activity {
 
     private Dialog createManageDialog() {
         Dialog dialog = new Dialog(this);
-        dialog.setContentView(R.layout.manage_fractals_dialog);
+        dialog.setContentView(R.layout.manage_fractals);
         dialog.setTitle(getString(R.string.manage_fractals));
         registerForContextMenu(dialog.findViewById(R.id.fractal_gallery));
 
         return dialog;
-    }
-
-    // todo - move this to FractalManagerActivity
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        if (v instanceof Gallery) {
-            MenuInflater inflater = getMenuInflater();
-            inflater.inflate(R.menu.gallery_context, menu);
-        }
-    }
-
-    // todo - move this to FractalManagerActivity
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
-        // AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-        if (item.getItemId() == R.id.delete) {
-            return true;
-        }
-        if (item.getItemId() == R.id.share_image) {
-            return true;
-        }
-        return super.onContextItemSelected(item);
     }
 
     private Dialog createDecorationsDialog() {
@@ -934,14 +724,14 @@ public class FrexActivity extends Activity {
         }
 
         MediaScannerConnection.scanFile(this,
-                new String[]{imageFile.getPath()},
-                new String[]{"image/*"},
-                new MediaScannerConnection.OnScanCompletedListener() {
-                    @Override
-                    public void onScanCompleted(String path, Uri uri) {
+                                        new String[]{imageFile.getPath()},
+                                        new String[]{"image/*"},
+                                        new MediaScannerConnection.OnScanCompletedListener() {
+                                            @Override
+                                            public void onScanCompleted(String path, Uri uri) {
 
-                    }
-                });
+                                            }
+                                        });
 
         view.setConfigName(FrexIO.getFilenameWithoutExt(paramFile));
         Toast.makeText(this, getString(R.string.fractal_saved), Toast.LENGTH_LONG).show();
@@ -1052,9 +842,9 @@ public class FrexActivity extends Activity {
     }
 
     public static void showYesNoDialog(Context context, int titleId, String message,
-                                 DialogInterface.OnClickListener yesListener,
-                                 DialogInterface.OnClickListener noListener,
-                                 DialogInterface.OnCancelListener cancelListener) {
+                                       DialogInterface.OnClickListener yesListener,
+                                       DialogInterface.OnClickListener noListener,
+                                       DialogInterface.OnCancelListener cancelListener) {
 
         TextView textView = new TextView(context);
         textView.setSingleLine(false);
@@ -1081,13 +871,13 @@ public class FrexActivity extends Activity {
     //
     // This is a solution from http://stackoverflow.com/questions/6990524/white-background-on-optionsmenu-android
     //
-    private void setMenuBackground() {
-        getLayoutInflater().setFactory(new LayoutInflater.Factory() {
+    static void setMenuBackground(final Activity activity) {
+        activity.getLayoutInflater().setFactory(new LayoutInflater.Factory() {
             @Override
             public View onCreateView(String name, Context context, AttributeSet attrs) {
                 if (name.equalsIgnoreCase("com.android.internal.view.menu.IconMenuItemView")) {
                     try {
-                        LayoutInflater inflater = getLayoutInflater();
+                        LayoutInflater inflater = activity.getLayoutInflater();
                         final View view = inflater.createView(name, null, attrs);
                         new Handler().post(new Runnable() {
                             public void run() {

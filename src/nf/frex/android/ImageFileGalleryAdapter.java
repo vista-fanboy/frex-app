@@ -96,15 +96,22 @@ public class ImageFileGalleryAdapter extends BaseAdapter {
         return imageView;
     }
 
+    public void setThumbnail(int position, Bitmap thumbnail) {
+        thumbnails.set(position, thumbnail);
+        // This will cause a crash:
+        // notifyDataSetChanged();
+    }
+
     public void removeFractal(int position) {
         imageFiles.remove(position);
         thumbnails.remove(position);
         notifyDataSetChanged();
     }
 
-    public void setThumbnail(int position, Bitmap thumbnail) {
-        thumbnails.set(position, thumbnail);
-        // This will cause a crash:
-        // notifyDataSetChanged();
+    public void removeAllFractals() {
+        imageFiles.clear();
+        thumbnails.clear();
+        notifyDataSetChanged();
     }
+
 }

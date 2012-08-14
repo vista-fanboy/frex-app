@@ -50,25 +50,26 @@
     </string>
     <string name="fractal_saved">Fractal saved.</string>
     <string name="error_msg">Error: %s</string>
-    <string name="no_fractals_found">No saved fractals found.</string>
+    <string name="no_fractals_found">No saved fractals found</string>
     <string name="set_wallpaper">Set Wallpaper</string>
-    <string name="out_of_memory">Out of memory.</string>
+    <string name="out_of_memory">Out of memory</string>
     <string name="wallpaper_msg">
         A new wallpaper (%1$dx%2$d px) will be computed for your device. This may take a few seconds to minutes depending on your hardware.\nDo you want to exchange the existing wallpaper?
     </string>
-    <string name="wallpaper_set_msg">Wallpaper set.</string>
+    <string name="wallpaper_set_msg">Wallpaper set</string>
     <string name="save_image">Save Image</string>
     <string name="share_image">Share Image</string>
     <string name="email_subject">A fractal for you</string>
-    <string name="image_saved_msg">Image saved to\n%s.</string>
-    <string name="image_save_failed_msg">Failed to save image.</string>
-    <string name="parameters_not_found_msg">Parameters not found.</string>
+    <string name="image_saved_msg">Image saved to\n%s</string>
+    <string name="image_save_failed_msg">Failed to save image</string>
+    <string name="parameters_not_found_msg">Parameters not found</string>
     <string name="delete_all_fractals">Delete all Fractals</string>
     <string name="really_delete_all_fractals_msg">All of your saved fractals (%d) will be deleted!\nDo you really want to continue?</string>
-    <string name="files_deleted_msg">%1$d of %2$d saved file(s) deleted.</string>
+    <string name="fractals_deleted_msg">All fractals deleted</string>
     <string name="open">Open</string>
     <string name="delete">Delete</string>
     <string name="delete_fractal">Delete Fractal</string>
     <string name="really_delete_fractal">Do you wish to permanently delete this fractal?</string>
     <string name="fractal_deleted">Fractal deleted</string>
+    <string name="delete_all">Delete All</string>
 </resources>
