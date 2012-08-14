@@ -111,6 +111,12 @@ public abstract class Fractal {
         }
     };
 
+    /**
+     * <pre>
+     *    f  = z * (z - 1.0) * (z + 1.0)
+     *    z' = z - f/f' + c
+     * </pre>
+     */
     public static final Fractal NOVA = new Fractal(new Region(0, 0, 1), 100, 0.001) {
         @Override
         public int computeOrbit(double initX, double initY,
@@ -158,6 +164,58 @@ public abstract class Fractal {
         }
     };
 
+    public static final Fractal NOVA_IN_TROUBLE = new Fractal(new Region(0, 0, 1), 100, 0.001) {
+        @Override
+        public int computeOrbit(double initX, double initY,
+                                double constX, double constY,
+                                int iterMax, double bailOut,
+                                double[] orbitX, double[] orbitY) {
+
+            final double rr = bailOut * bailOut;
+            double zx = initX;
+            double zy = initY;
+
+            double dd, zzx = zx, zzy = zy;
+            double t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t;
+
+            for (int iter = 0; iter < iterMax; iter++) {
+                if (zy < zx) {
+                    t = zx;
+                    zx = zy;
+                    zy = t;
+                }
+
+                t6 = zx + 1.0;
+                t10 = zx - 1.0;
+                t8 = zx * t10;
+                t9 = zy * zy;
+                t11 = zx * zy;
+                t12 = t8 - t9;
+                t14 = t10 * zy;
+                t13 = t11 + t14;
+                t1 = t12 * t6 - t13 * zy;
+                t5 = 2.0 * zx - 1.0;
+                t7 = 2.0 * zy;
+                t2 = t5 * t6 - t7 * zy + t8 - t9;
+                t3 = t12 * zy + t6 * t13;
+                t4 = t5 * zy + t6 * t7 + t11 + t14;
+                t15 = t2 * t2 + t4 * t4;
+                zx = constX + zx - (t1 * t2 + t3 * t4) / t15;
+                zy = constY + zy - (t2 * t3 - t1 * t4) / t15;
+
+                dd = (zx - zzx) * (zx - zzx) + (zy - zzy) * (zy - zzy);
+                if (dd < rr) {
+                    return iter;
+                }
+                zzx = zx;
+                zzy = zy;
+
+                orbitX[iter] = zx;
+                orbitY[iter] = zy;
+            }
+            return iterMax;
+        }
+    };
 
     private final Region defaultRegion;
     private final int defaultIterMax;
