@@ -35,7 +35,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.*;
 import android.widget.*;
 import nf.frex.core.*;
@@ -44,7 +43,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
@@ -56,13 +54,11 @@ import java.util.Properties;
  */
 public class FrexActivity extends Activity {
 
+    //public static final String TAG = "Frex";
+    private static Bitmap[] COLOR_TABLE_ICONS;
     public static final boolean PRE_SDK14 = Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH;
 
-    public static final String TAG = "Frex";
-    private static Bitmap[] COLOR_TABLE_ICONS;
-
     private FractalView view;
-    private final List<Uri> temporaryImageFiles = new ArrayList<Uri>();
 
     /**
      * Called when the activity is first created.
@@ -663,14 +659,12 @@ public class FrexActivity extends Activity {
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        // Log.d(TAG, "onSaveInstanceState(outState=" + outState + ")");
         super.onSaveInstanceState(outState);
         view.saveInstanceState(new BundlePropertySet(outState));
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        // Log.d(TAG, "onRestoreInstanceState(outState=" + savedInstanceState + ")");
         super.onRestoreInstanceState(savedInstanceState);
         if (savedInstanceState != null) {
             view.restoreInstanceState(new BundlePropertySet(savedInstanceState));
@@ -679,22 +673,8 @@ public class FrexActivity extends Activity {
 
     @Override
     protected void onStop() {
-        view.getGenerator().cancel();
-        // Log.d(TAG, "onStop()");
         super.onStop();
-    }
-
-    @Override
-    protected void onDestroy() {
-        // Log.d(TAG, "onDestroy: deleting temporary image files");
-        deleteTemporaryImageFiles();
-        super.onDestroy();
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        // Log.d(TAG, "onConfigurationChanged(newConfig=" + newConfig + ")");
-        super.onConfigurationChanged(newConfig);
+        view.cancelGenerators();
     }
 
     @Override
@@ -702,17 +682,6 @@ public class FrexActivity extends Activity {
         PropertySet propertySet = new BundlePropertySet();
         view.saveInstanceState(propertySet);
         return propertySet;
-    }
-
-    private void deleteTemporaryImageFiles() {
-        for (Uri uri : temporaryImageFiles) {
-            if (getContentResolver().delete(uri, null, null) > 0) {
-                Log.v(TAG, "Deleted " + uri);
-            } else {
-                Log.v(TAG, "Failed to delete " + uri);
-            }
-        }
-        temporaryImageFiles.clear();
     }
 
     public static void showYesNoDialog(Context context, int titleId, String message,

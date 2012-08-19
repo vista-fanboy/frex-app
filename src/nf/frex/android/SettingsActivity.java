@@ -45,14 +45,12 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        PreferenceManager.getDefaultSharedPreferences(this).edit().clear();
-
         addPreferencesFromResource(R.xml.preferences);
         ListPreference numTasksPref = (ListPreference) getPreferenceManager().findPreference(NUM_TASKS_PREF_KEY);
         int numTasksMax = NUM_TASKS_DEFAULT + 2;
         String[] numTasksValues = new String[numTasksMax];
         for (int i = 0; i < numTasksMax; i++) {
-            numTasksValues[i] = (1+i) + "";
+            numTasksValues[i] = (1 + i) + "";
         }
         numTasksPref.setDefaultValue(NUM_TASKS_DEFAULT + "");
         numTasksPref.setEntries(numTasksValues);
@@ -124,13 +122,13 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
         String storageUsed;
         long mibs = Math.round(bytes / (1000.0 * 1000.0));
         if (mibs > 0) {
-            storageUsed = mibs + " MiB" ;
-        }   else {
+            storageUsed = mibs + " MiB";
+        } else {
             long kibs = Math.round(bytes / (1024.0));
             if (kibs > 0) {
-                storageUsed = kibs + " KiB" ;
-            }  else {
-                storageUsed  = bytes + " Byte";
+                storageUsed = kibs + " KiB";
+            } else {
+                storageUsed = bytes + " Byte";
             }
         }
         Preference preference = findPreference("storage_status");
