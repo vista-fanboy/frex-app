@@ -31,6 +31,7 @@
     <uses-permission android:name="android.permission.SET_WALLPAPER" />
 
     <application android:label="@string/app_name"
+                 android:theme="@android:style/Theme.Holo"
                  android:icon="@drawable/frex_logo">
         <activity android:name=".FrexActivity"
                   android:theme="@style/FrexActivityTheme"
@@ -42,7 +43,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".ManagerActivity"
-                  android:theme="@android:style/Theme.Holo"
-                  android:label="@string/manage_fractals"/>
+                  android:label="@string/manage_fractals"
+                />
+
+        <activity android:name=".SettingsActivity"
+                />
     </application>
 </manifest>

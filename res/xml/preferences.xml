@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Frex - a fractal image generator for Android mobile devices
+  ~
+  ~ Copyright (C) 2012 by Norman Fomferra
+  ~
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+            android:title="@string/calculation"
+            android:key="calculation">
+
+        <ListPreference
+                android:key="num_tasks"
+                android:title="@string/num_tasks"
+                />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+            android:key="storage"
+            android:title="@string/storage"
+            >
+
+        <Preference
+                android:key="storage_status"
+                android:title="@string/status"
+                android:summary=""/>
+
+        <nf.frex.android.DeleteAllPreference
+                android:key="delete_all"
+                android:title="@string/delete_all"
+                android:summary="@string/delete_all_summary"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+            android:key="about"
+            android:title="@string/about_frex"
+            >
+
+        <Preference
+                android:key="version"
+                android:title="@string/version"
+                android:summary=""/>
+
+        <Preference
+                android:key="license"
+                android:title="@string/license"
+                android:summary="@string/license_summary">
+            <intent android:action="android.intent.action.VIEW"
+                    android:data="http://www.gnu.org/licenses/gpl.html"/>
+        </Preference>
+
+        <Preference
+                android:key="project"
+                android:title="@string/project"
+                android:summary="code.google.com/p/frex-app">
+            <intent android:action="android.intent.action.VIEW"
+                    android:data="https://code.google.com/p/frex-app/"/>
+        </Preference>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

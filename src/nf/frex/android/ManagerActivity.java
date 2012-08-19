@@ -188,8 +188,8 @@ public class ManagerActivity extends Activity {
         final FrexIO frexIO = new FrexIO(this);
         final File[] files = frexIO.getFiles(FrexIO.IMAGE_FILE_EXT);
 
-        showYesNoDialog(this, R.string.delete_all_fractals,
-                        getString(R.string.really_delete_all_fractals_msg,
+        showYesNoDialog(this, R.string.delete_all,
+                        getString(R.string.delete_all_warning,
                                   files.length),
                         new DialogInterface.OnClickListener() {
                             @Override

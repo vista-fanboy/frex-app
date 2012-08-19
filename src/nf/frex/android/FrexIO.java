@@ -60,10 +60,6 @@ public class FrexIO {
         this.internalAppDir = context.getFilesDir();
     }
 
-    public File getFile(String fileName) {
-        return externalAppDir != null ? new File(externalAppDir, fileName) : new File(internalAppDir, fileName);
-    }
-
     public File[] getFiles(String ext) {
         List<File> fileList = getFileList(ext);
         return fileList.toArray(new File[fileList.size()]);
@@ -89,18 +85,25 @@ public class FrexIO {
         }
     }
 
-
     public List<File> getFileList(String ext) {
+        return getFileList(new ExtFilenameFilter(ext));
+    }
+
+    public List<File> getFileList() {
+        return getFileList(new AllFilenameFilter());
+    }
+
+    public List<File> getFileList(FilenameFilter filter) {
         ArrayList<File> files = new ArrayList<File>(32);
-        collectFiles(internalAppDir, ext, files);
+        collectFiles(internalAppDir, filter, files);
         if (externalAppDir != null) {
-            collectFiles(externalAppDir, ext, files);
+            collectFiles(externalAppDir, filter, files);
         }
         return files;
     }
 
-    private void collectFiles(File appDir, String ext, ArrayList<File> fileNames) {
-        File[] names = appDir.listFiles(new ExtFilenameFilter(ext));
+    private void collectFiles(File appDir, FilenameFilter filter, ArrayList<File> fileNames) {
+        File[] names = appDir.listFiles(filter);
         if (names != null) {
             fileNames.addAll(Arrays.asList(names));
         }
@@ -122,7 +125,6 @@ public class FrexIO {
         return name;
     }
 
-
     private static class ExtFilenameFilter implements FilenameFilter {
         final String ext;
 
@@ -135,4 +137,13 @@ public class FrexIO {
             return filename.endsWith(ext);
         }
     }
+
+    private static class AllFilenameFilter implements FilenameFilter {
+        @Override
+        public boolean accept(File dir, String filename) {
+            return filename.endsWith(IMAGE_FILE_EXT) || filename.endsWith(PARAM_FILE_EXT);
+        }
+    }
+
+
 }

@@ -24,8 +24,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -36,7 +34,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.provider.MediaStore;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.*;
@@ -89,23 +86,6 @@ public class FrexActivity extends Activity {
             }
         } else {
             getActionBar().setBackgroundDrawable(new PaintDrawable(Color.argb(128, 0, 0, 0)));
-            /*
-            // Later, use the NAVIGATION_MODE_LIST to open the Frex Gallery activity, etc.
-            getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
-            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,
-                    android.R.layout.simple_spinner_item,
-                    new String[]{"A", "B", "C"});
-            arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            getActionBar().setListNavigationCallbacks(arrayAdapter, new ActionBar.OnNavigationListener() {
-                @Override
-                public boolean onNavigationItemSelected(int itemPosition, long itemId) {
-                    return false;
-                }
-            });
-
-            // Later, use the home button to go to the last saved position
-            getActionBar().setHomeButtonEnabled(true);
-            */
         }
 
         view = new FractalView(this);
@@ -165,8 +145,8 @@ public class FrexActivity extends Activity {
             case R.id.set_wallpaper:
                 setWallpaper();
                 return true;
-            case R.id.about_frex:
-                showDialog(R.id.about_frex);
+            case R.id.settings:
+                startActivityForResult(new Intent(this, SettingsActivity.class), R.id.settings);
                 return true;
         }
 
@@ -175,10 +155,10 @@ public class FrexActivity extends Activity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == Activity.RESULT_OK
-                && requestCode == R.id.manage_fractals
-                && data.getAction().equals(Intent.ACTION_VIEW)) {
-
+        if (resultCode != Activity.RESULT_OK) {
+            return;
+        }
+        if (requestCode == R.id.manage_fractals && data.getAction().equals(Intent.ACTION_VIEW)) {
             final Uri imageUri = data.getData();
 
             File imageFile = new File(imageUri.getPath());
@@ -200,6 +180,8 @@ public class FrexActivity extends Activity {
             view.setConfigName(FrexIO.getFilenameWithoutExt(imageFile));
             view.restoreInstanceState(new DefaultPropertySet(properties));
             view.recomputeAll();
+        } else if (requestCode == R.id.settings) {
+            view.getGenerator().setNumTasks(SettingsActivity.getNumTasks(this));
         }
     }
 
@@ -228,7 +210,8 @@ public class FrexActivity extends Activity {
                                     }
 
                                     final ProgressDialog progressDialog = new ProgressDialog(FrexActivity.this);
-                                    final Generator wallpaperGenerator = new Generator(view.getGeneratorConfig(), new Generator.ProgressListener() {
+
+                                    Generator.ProgressListener progressListener = new Generator.ProgressListener() {
                                         int numLines;
 
                                         @Override
@@ -248,7 +231,10 @@ public class FrexActivity extends Activity {
                                                 setWallpaper(wallpaperManager, wallpaperImage);
                                             }
                                         }
-                                    });
+                                    };
+                                    final Generator wallpaperGenerator = new Generator(view.getGeneratorConfig(),
+                                                                                       SettingsActivity.NUM_CORES,
+                                                                                       progressListener);
 
                                     DialogInterface.OnCancelListener cancelListener = new DialogInterface.OnCancelListener() {
                                         @Override
@@ -281,23 +267,6 @@ public class FrexActivity extends Activity {
         );
     }
 
-    Uri saveTemporaryImage() {
-        final String url = MediaStore.Images.Media.insertImage(getContentResolver(),
-                                                               view.getImage().createBitmap(),
-                                                               "Frex Image",
-                                                               "Fractal image generated by Frex");
-        if (url != null) {
-            // Toast.makeText(FrexActivity.this, getString(R.string.image_saved_msg, url), Toast.LENGTH_LONG).show();
-            Uri uri = Uri.parse(url);
-            temporaryImageFiles.add(uri);
-            return uri;
-        } else {
-            Toast.makeText(this, getString(R.string.image_save_failed_msg), Toast.LENGTH_SHORT).show();
-            return null;
-        }
-    }
-
-
     private void setWallpaper(WallpaperManager wallpaperManager, Image image) {
         try {
             wallpaperManager.setBitmap(image.createBitmap());
@@ -327,16 +296,12 @@ public class FrexActivity extends Activity {
 
     @Override
     protected Dialog onCreateDialog(int id, Bundle args) {
-        if (id == R.id.manage_fractals) {
-            return createManageDialog();
-        } else if (id == R.id.colors) {
+        if (id == R.id.colors) {
             return createColorsDialog();
         } else if (id == R.id.properties) {
             return createPropertiesDialog();
         } else if (id == R.id.decorations) {
             return createDecorationsDialog();
-        } else if (id == R.id.about_frex) {
-            return createAboutDialog();
         }
         return null;
     }
@@ -623,39 +588,6 @@ public class FrexActivity extends Activity {
         });
     }
 
-    private Dialog createAboutDialog() {
-        String versionName;
-        try {
-            PackageInfo packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
-            versionName = packageInfo.versionName;
-        } catch (PackageManager.NameNotFoundException e) {
-            versionName = "?";
-            Log.w(TAG, e);
-        }
-
-        TextView textView = new TextView(this);
-        textView.setSingleLine(false);
-        textView.setPadding(5, 5, 5, 5);
-        textView.setText(getString(R.string.about_frex_text, versionName));
-        textView.setLinksClickable(true);
-
-        AlertDialog.Builder b = new AlertDialog.Builder(this);
-        b.setTitle(R.string.about_frex);
-        b.setIcon(R.drawable.frex_logo);
-        b.setView(textView);
-
-        return b.create();
-    }
-
-    private Dialog createManageDialog() {
-        Dialog dialog = new Dialog(this);
-        dialog.setContentView(R.layout.manage_fractals);
-        dialog.setTitle(getString(R.string.manage_fractals));
-        registerForContextMenu(dialog.findViewById(R.id.fractal_gallery));
-
-        return dialog;
-    }
-
     private Dialog createDecorationsDialog() {
         Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.decorations_dialog);
@@ -720,45 +652,13 @@ public class FrexActivity extends Activity {
                                         });
 
         view.setConfigName(FrexIO.getFilenameWithoutExt(paramFile));
-        Toast.makeText(this, getString(R.string.fractal_saved), Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    protected void onStart() {
-        // Log.d(TAG, "onStart()");
-        super.onStart();
-    }
-
-    @Override
-    protected void onRestart() {
-        // Log.d(TAG, "onRestart()");
-        super.onRestart();
-    }
-
-    @Override
-    protected void onResume() {
-        // Log.d(TAG, "onResume()");
-        super.onResume();
-    }
-
-    @Override
-    protected void onPostResume() {
-        // Log.d(TAG, "onPostResume()");
-        super.onPostResume();
+        Toast.makeText(this, getString(R.string.fractal_saved), Toast.LENGTH_SHORT).show();
     }
 
     @Override
     protected void onPause() {
-        // Log.d(TAG, "Cancelling generators");
-        view.cancelGenerators();
-
         super.onPause();
-    }
-
-    @Override
-    protected void onUserLeaveHint() {
-        // Log.d(TAG, "onUserLeaveHint()");
-        super.onUserLeaveHint();
+        view.cancelGenerators();
     }
 
     @Override
@@ -779,7 +679,7 @@ public class FrexActivity extends Activity {
 
     @Override
     protected void onStop() {
-        view.getScreenGenerator().cancel();
+        view.getGenerator().cancel();
         // Log.d(TAG, "onStop()");
         super.onStop();
     }
@@ -804,18 +704,6 @@ public class FrexActivity extends Activity {
         return propertySet;
     }
 
-    @Override
-    public void onLowMemory() {
-        // Log.d(TAG, "onLowMemory()");
-        super.onLowMemory();
-    }
-
-    @Override
-    public void onTrimMemory(int level) {
-        // Log.d(TAG, "onTrimMemory(level=" + level + ")");
-        super.onTrimMemory(level);
-    }
-
     private void deleteTemporaryImageFiles() {
         for (Uri uri : temporaryImageFiles) {
             if (getContentResolver().delete(uri, null, null) > 0) {
@@ -834,7 +722,7 @@ public class FrexActivity extends Activity {
 
         TextView textView = new TextView(context);
         textView.setSingleLine(false);
-        textView.setPadding(5, 5, 5, 5);
+        textView.setPadding(10, 10, 10, 10);
         textView.setText(message);
 
         AlertDialog.Builder b = new AlertDialog.Builder(context);

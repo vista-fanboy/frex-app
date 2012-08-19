@@ -26,6 +26,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.os.Build;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -47,7 +48,7 @@ public class FractalView extends View {
     private final ScaleGestureDetector scaleGestureDetector;
     private final FrexActivity activity;
     private final ArrayList<Region> regionHistory;
-    private final Generator screenGenerator;
+    private final Generator generator;
 
     private Bitmap bitmap;
     private Image image;
@@ -99,7 +100,8 @@ public class FractalView extends View {
 
         generatorConfig.setConfigName(generatorConfig.getFractalId().toLowerCase());
 
-        screenGenerator = new Generator(generatorConfig, new GeneratorProgressListener());
+        int numTasks = SettingsActivity.getNumTasks(getContext());
+        generator = new Generator(generatorConfig, numTasks, new GeneratorProgressListener());
     }
 
     public GeneratorConfig getGeneratorConfig() {
@@ -266,8 +268,8 @@ public class FractalView extends View {
         generatorConfig.setJuliaY(juliaY);
     }
 
-    public Generator getScreenGenerator() {
-        return screenGenerator;
+    public Generator getGenerator() {
+        return generator;
     }
 
     @Override
@@ -296,7 +298,7 @@ public class FractalView extends View {
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         // Log.d(TAG, "onSizeChanged: w = " + w + ", h = " + h);
         super.onSizeChanged(w, h, oldw, oldh);
-        screenGenerator.cancel();
+        generator.cancel();
         image.resize(w, h);
         imageCopy.resize(w, h);
         recomputeAll();
@@ -305,13 +307,13 @@ public class FractalView extends View {
     public void recomputeAll() {
         Arrays.fill(image.getComputed(), false);
         Arrays.fill(imageCopy.getComputed(), false);
-        screenGenerator.cancel();
-        screenGenerator.start(image, false);
+        generator.cancel();
+        generator.start(image, false);
     }
 
     public void recomputeColors() {
-        screenGenerator.cancel();
-        screenGenerator.start(image, true);
+        generator.cancel();
+        generator.start(image, true);
     }
 
     @Override
@@ -426,7 +428,7 @@ public class FractalView extends View {
         this.image = imageCopy;
         this.imageCopy = imageTemp;
 
-        screenGenerator.start(image, false);
+        generator.start(image, false);
     }
 
     private void moveRegion(float viewDistanceX, float viewDistanceY) {
@@ -445,7 +447,7 @@ public class FractalView extends View {
         this.image = imageCopy;
         this.imageCopy = imageTemp;
 
-        screenGenerator.start(image, false);
+        generator.start(image, false);
     }
 
 
@@ -565,7 +567,7 @@ public class FractalView extends View {
     }
 
     public void cancelGenerators() {
-        getScreenGenerator().cancel();
+        getGenerator().cancel();
     }
 
     private class ScaleGestureListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {

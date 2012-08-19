@@ -24,18 +24,23 @@ package nf.frex.core;
  */
 public class Generator {
     private final GeneratorConfig config;
-    private final Task[] tasks;
     private final ProgressListener listener;
+    private Task[] tasks;
+    private int numTasks;
 
-    public Generator(GeneratorConfig config, final ProgressListener listener) {
+    public Generator(GeneratorConfig config, int numTasks, final ProgressListener listener) {
         this.config = config;
         this.listener = listener;
-        int numThreads = 2 * Runtime.getRuntime().availableProcessors();
-        this.tasks = new Task[numThreads];
+        this.tasks = new Task[numTasks];
+        this.numTasks = numTasks;
     }
 
     public void start(final Image image, boolean colorsOnly) {
-            cancel();
+        cancel();
+
+        if (numTasks != tasks.length) {
+            tasks = new Task[numTasks];
+        }
 
         ProgressListenerWrapper listenerWrapper = new ProgressListenerWrapper(listener);
 
@@ -64,6 +69,14 @@ public class Generator {
         }
     }
 
+    public int getNumTasks() {
+        return numTasks;
+    }
+
+    public void setNumTasks(int numTasks) {
+        this.numTasks = numTasks;
+    }
+
     private static class Task extends Thread {
         private final GeneratorConfig config;
         private final Image image;
@@ -75,7 +88,7 @@ public class Generator {
 
         private boolean cancelled;
 
-        private Task(GeneratorConfig config,  Image image, int taskIndex, int startY, int endY, boolean regenColors, ProgressListenerWrapper listener) {
+        private Task(GeneratorConfig config, Image image, int taskIndex, int startY, int endY, boolean regenColors, ProgressListenerWrapper listener) {
             super("FrexTask(" + startY + "-" + endY + ")");
             this.config = config;
             this.image = image;
