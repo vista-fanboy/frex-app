@@ -1,3 +1,7 @@
+v1.1.0 (19.08.2012)
+    - Removed need to enter a names when saving a fractal
+    - Added new "Manage Fractals" screen - a fractal gallery from where you can view, share and delete all of your saved fractals
+    - Added new "Settings" screen - users can now enter the number of concurrently working computation tasks
 v1.0.2 (10.08.2012)
     - Speeded up display of the initially displayed fractal (omit decorations, because their computation was too slow on older devices)
     - When changing fractal type or decoration mode, color gain is now adapted so that full color gradient range is exploited.
