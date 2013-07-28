@@ -1,7 +1,7 @@
 /*
  * Frex - a fractal image generator for Android mobile devices
  *
- * Copyright (C) 2012 by Norman Fomferra
+ * Copyright (C) 2013 by Norman Fomferra
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -132,7 +132,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
             }
         }
         Preference preference = findPreference("storage_status");
-        String summary = getResources().getQuantityString(R.plurals.storage_summary, fileList.size(), fileList.size(), storageUsed);
+        String summary = getResources().getQuantityString(R.plurals.storage_summary, fileList.size(), fileList.size(), storageUsed, frexIO.getAppStorageDir().getPath());
         preference.setSummary(summary);
     }
 

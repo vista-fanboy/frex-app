@@ -1,7 +1,7 @@
 /*
  * Frex - a fractal image generator for Android mobile devices
  *
- * Copyright (C) 2012 by Norman Fomferra
+ * Copyright (C) 2013 by Norman Fomferra
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,9 +22,9 @@ package nf.frex.android;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Environment;
+import android.util.Log;
 
-import java.io.File;
-import java.io.FilenameFilter;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -38,51 +38,33 @@ public class FrexIO {
     public static final String IMAGE_FILE_EXT = ".png";
     public static final Bitmap.CompressFormat IMAGE_FILE_FORMAT = Bitmap.CompressFormat.PNG;
 
-    private final File externalAppDir;
-    private final File internalAppDir;
+    private final Context context;
+    private static File appStorageDir;
+    private static boolean internal;
 
     public FrexIO(Context context) {
-        File picturesDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-        File externalAppDir = null;
-        if (picturesDirectory.exists()) {
-            externalAppDir = new File(picturesDirectory, "Frex");
-            if (!externalAppDir.exists()) {
-                if (!externalAppDir.mkdir()) {
-                    externalAppDir = null;
-                }
+        this.context = context;
+    }
+
+    public File getAppStorageDir() {
+        checkAppStorageDir(context);
+        return appStorageDir;
+    }
+
+    public File getUniqueParamFile(String baseName) {
+        File appStorageDir = getAppStorageDir();
+        for (int i = 0; ; i++) {
+            String fileName = baseName + "_" + i + FrexIO.PARAM_FILE_EXT;
+            File file = new File(appStorageDir, fileName);
+            if (!file.exists()) {
+                return file;
             }
         }
-        if (externalAppDir != null && externalAppDir.exists()) {
-            this.externalAppDir = externalAppDir;
-        } else {
-            this.externalAppDir = null;
-        }
-        this.internalAppDir = context.getFilesDir();
     }
 
     public File[] getFiles(String ext) {
         List<File> fileList = getFileList(ext);
         return fileList.toArray(new File[fileList.size()]);
-    }
-
-    public File getUniqueParamFile(String baseName) {
-        for (int i = 0; ; i++) {
-            String fileName = baseName + "_" + i + FrexIO.PARAM_FILE_EXT;
-            if (externalAppDir != null) {
-                File file1 = new File(externalAppDir, fileName);
-                if (!file1.exists()) {
-                    File file2 = new File(internalAppDir, fileName);
-                    if (!file2.exists()) {
-                        return file1;
-                    }
-                }
-            } else {
-                File file2 = new File(internalAppDir, fileName);
-                if (!file2.exists()) {
-                    return file2;
-                }
-            }
-        }
     }
 
     public List<File> getFileList(String ext) {
@@ -95,15 +77,13 @@ public class FrexIO {
 
     public List<File> getFileList(FilenameFilter filter) {
         ArrayList<File> files = new ArrayList<File>(32);
-        collectFiles(internalAppDir, filter, files);
-        if (externalAppDir != null) {
-            collectFiles(externalAppDir, filter, files);
-        }
+        collectFiles(filter, files);
         return files;
     }
 
-    private void collectFiles(File appDir, FilenameFilter filter, ArrayList<File> fileNames) {
-        File[] names = appDir.listFiles(filter);
+    private void collectFiles(FilenameFilter filter, ArrayList<File> fileNames) {
+        File appStorageDir = getAppStorageDir();
+        File[] names = appStorageDir.listFiles(filter);
         if (names != null) {
             fileNames.addAll(Arrays.asList(names));
         }
@@ -116,13 +96,90 @@ public class FrexIO {
 
     public static String getFilenameWithoutExt(File file) {
         String name = file.getName();
-        if (name.endsWith(PARAM_FILE_EXT)) {
-            return name.substring(0, name.length() - PARAM_FILE_EXT.length());
-        }
-        if (name.endsWith(IMAGE_FILE_EXT)) {
-            return name.substring(0, name.length() - IMAGE_FILE_EXT.length());
+        int i = name.lastIndexOf('.');
+        if (i > 0) {
+            return name.substring(0, i);
         }
         return name;
+    }
+
+    public static File rename(File file, String suffix) {
+        String name = file.getName();
+        int i = name.lastIndexOf('.');
+        if (i > 0) {
+            String ext = name.substring(i);
+            String base = name.substring(0, i);
+            File dir = file.getParentFile();
+            return new File(dir, base + "i" + ext);
+        }
+        return file;
+    }
+
+    private void checkAppStorageDir(Context context) {
+        if (internal || appStorageDir == null || !appStorageDir.exists()) {
+            synchronized (this) {
+                setAppStorageDir(context);
+            }
+        }
+    }
+
+    private static void setAppStorageDir(Context context) {
+        File internalAppDir = context.getFilesDir();
+        File externalAppDir = findOrMountExternalAppDir();
+        if (externalAppDir.exists()) {
+            // Move all files from internal storage to external storage.
+            moveDirContent(internalAppDir, externalAppDir);
+            // Storage dir is external.
+            appStorageDir = externalAppDir;
+            internal = false;
+        } else {
+            // Storage dir is internal.
+            appStorageDir = internalAppDir;
+            internal = true;
+        }
+    }
+
+    private static void moveDirContent(File srcDir, File dstDir) {
+        File[] files = srcDir.listFiles();
+        if (files != null) {
+            for (File srcFile : files) {
+
+                File dstFile = new File(dstDir, srcFile.getName());
+                try {
+                    copyFile(srcFile, rename(dstFile, "_restored"));
+                    if (srcFile.delete()) {
+                        Log.w("FrexIO", "Moved file to external storage: " + srcFile);
+                    } else {
+                        Log.w("FrexIO", "Failed to delete file after copying to external storage: " + srcFile);
+                    }
+                } catch (IOException e) {
+                    Log.w("FrexIO", "Failed to copy file to external storage: " + srcFile);
+                }
+            }
+        }
+    }
+
+    private static void copyFile(File src, File dst) throws IOException {
+        InputStream in = new FileInputStream(src);
+        OutputStream out = new FileOutputStream(dst);
+        byte[] buf = new byte[1024];
+        int len;
+        while ((len = in.read(buf)) > 0) {
+            out.write(buf, 0, len);
+        }
+        in.close();
+        out.close();
+    }
+
+    private static File findOrMountExternalAppDir() {
+        File picturesDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+        File externalAppDir = new File(picturesDirectory, "Frex");
+        if (!externalAppDir.exists()) {
+            if (!externalAppDir.mkdirs()) {
+                Log.w("FrexIO", "Failed to create external storage dir: " + externalAppDir);
+            }
+        }
+        return externalAppDir;
     }
 
     private static class ExtFilenameFilter implements FilenameFilter {

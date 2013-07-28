@@ -2,7 +2,7 @@
 <!--
   ~ Frex - a fractal image generator for Android mobile devices
   ~
-  ~ Copyright (C) 2012 by Norman Fomferra
+  ~ Copyright (C) 2013 by Norman Fomferra
   ~
   ~ This program is free software: you can redistribute it and/or modify
   ~ it under the terms of the GNU General Public License as published by
@@ -20,8 +20,8 @@
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="nf.frex.android"
-          android:versionCode="6"
-          android:versionName="1.1">
+          android:versionCode="7"
+          android:versionName="1.1.1">
 
     <uses-sdk android:minSdkVersion="10"
               android:targetSdkVersion="15"/>

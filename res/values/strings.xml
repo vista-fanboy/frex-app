@@ -2,7 +2,7 @@
 <!--
   ~ Frex - a fractal image generator for Android mobile devices
   ~
-  ~ Copyright (C) 2012 by Norman Fomferra
+  ~ Copyright (C) 2013 by Norman Fomferra
   ~
   ~ This program is free software: you can redistribute it and/or modify
   ~ it under the terms of the GNU General Public License as published by
@@ -84,8 +84,8 @@
     <string name="delete_all_summary">Deletes all saved Frex files.</string>
     <string name="delete_all_warning">Beware!\n\nYou are about to delete all of your saved fractals.\nThis action cannot be undone.</string>
     <plurals name="storage_summary">
-        <item quantity="one">%1$d file, %2$s storage used.</item>
-        <item quantity="other">%1$d files, %2$s storage used.</item>
+        <item quantity="one">%1$d file, %2$s storage used.\nPath: %3$s</item>
+        <item quantity="other">%1$d files, %2$s storage used.\nPath: %3$s</item>
     </plurals>
     <plurals name="deleted_summary">
         <item quantity="one">%d file deleted.</item>
