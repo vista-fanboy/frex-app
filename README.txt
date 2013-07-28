@@ -26,6 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 Frex source code can be found at <http://code.google.com/p/frex-app/>.
 
 --------------------------------------------
-Copyright (C) 2012 by Norman Fomferra
+Copyright (C) 2013 by Norman Fomferra
 
 
