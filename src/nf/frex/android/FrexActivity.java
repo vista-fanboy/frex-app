@@ -23,6 +23,7 @@ import android.app.*;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
@@ -34,6 +35,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.util.AttributeSet;
 import android.view.*;
 import android.widget.*;
@@ -44,6 +46,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
 
@@ -59,6 +62,32 @@ public class FrexActivity extends Activity {
     public static final boolean PRE_SDK14 = Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH;
 
     private FractalView view;
+
+    @Override
+    public void onBackPressed() {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean navigateOnBack = preferences.getBoolean("navigate_on_back", false);
+        if (!navigateOnBack) {
+            super.onBackPressed();
+            return;
+        }
+
+        LinkedList<Region> regionHistory = view.getRegionHistory();
+        if (regionHistory.size() > 0) {
+            Region region;
+            if (regionHistory.size() == 1) {
+                region = regionHistory.get(0);
+                alert(getString(R.string.first_region_msg));
+            } else {
+                region = regionHistory.pollLast();
+            }
+            view.setRegionRecordingDisabled(true);
+            view.regenerateRegion(region);
+            view.setRegionRecordingDisabled(false);
+        } else {
+            alert(getString(R.string.empty_region_history_msg));
+        }
+    }
 
     /**
      * Called when the activity is first created.
@@ -144,6 +173,9 @@ public class FrexActivity extends Activity {
             case R.id.settings:
                 startActivityForResult(new Intent(this, SettingsActivity.class), R.id.settings);
                 return true;
+            case R.id.exit:
+                finish();
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -175,6 +207,8 @@ public class FrexActivity extends Activity {
 
             view.setConfigName(FrexIO.getFilenameWithoutExt(imageFile));
             view.restoreInstanceState(new DefaultPropertySet(properties));
+            view.getRegionHistory().clear();
+            view.getRegionHistory().add(view.getGeneratorConfig().getRegion().clone());
             view.recomputeAll();
         } else if (requestCode == R.id.settings) {
             view.getGenerator().setNumTasks(SettingsActivity.getNumTasks(this));
@@ -499,16 +533,24 @@ public class FrexActivity extends Activity {
                 String newFractalId = fractals.getId(fractalTypeSpinner.getSelectedItemPosition());
                 Fractal fractal = fractals.getValue(fractalTypeSpinner.getSelectedItemPosition());
                 String oldFractalId = view.getFractalId();
+                boolean newJuliaModeFractal = juliaModeCheckBox.isChecked();
+                boolean oldJuliaModeFractal = view.isJuliaModeFractal();
                 view.setFractalId(newFractalId);
                 view.setIterMax(iterMax);
                 view.setDecoratedFractal(decoratedFractal.isChecked());
-                view.setJuliaModeFractal(juliaModeCheckBox.isChecked());
-                if (!oldFractalId.equals(newFractalId)) {
+                view.setJuliaModeFractal(newJuliaModeFractal);
+                boolean fractalTypeChanged = !oldFractalId.equals(newFractalId);
+                if (fractalTypeChanged) {
                     if (oldConfigName.contains(oldFractalId.toLowerCase())) {
                         view.setConfigName(newFractalId.toLowerCase());
                     }
                     view.setRegion(fractal.getDefaultRegion());
                     view.setBailOut(fractal.getDefaultBailOut());
+                }
+                boolean juliaModeChanged = oldJuliaModeFractal != newJuliaModeFractal;
+                if (fractalTypeChanged || juliaModeChanged) {
+                    view.getRegionHistory().clear();
+                    view.getRegionHistory().add(fractal.getDefaultRegion().clone());
                 }
                 view.recomputeAll();
             }

@@ -31,6 +31,7 @@
                 />
     </PreferenceCategory>
 
+
     <PreferenceCategory
             android:key="storage"
             android:title="@string/storage"
@@ -39,14 +40,32 @@
         <Preference
                 android:key="storage_status"
                 android:title="@string/status"
-                android:summary=""/>
+                android:summary=""
+                />
 
         <nf.frex.android.DeleteAllPreference
                 android:key="delete_all"
                 android:title="@string/delete_all"
-                android:summary="@string/delete_all_summary"/>
+                android:summary="@string/delete_all_summary"
+                />
 
     </PreferenceCategory>
+
+
+    <PreferenceCategory
+            android:title="@string/behaviour"
+            android:key="behaviour">
+
+        <CheckBoxPreference
+                android:key="navigate_on_back"
+                android:checked="false"
+                android:title="@string/navigate_on_back"
+                android:summaryOn="@string/navigate_on_back_summary_on"
+                android:summaryOff="@string/navigate_on_back_summary_off"
+                />
+
+    </PreferenceCategory>
+
 
     <PreferenceCategory
             android:key="about"

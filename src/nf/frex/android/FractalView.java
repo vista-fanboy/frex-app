@@ -36,6 +36,7 @@ import nf.frex.core.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 
 /**
  * @author Norman Fomferra
@@ -47,7 +48,7 @@ public class FractalView extends View {
     private final GestureDetector gestureDetector;
     private final ScaleGestureDetector scaleGestureDetector;
     private final FrexActivity activity;
-    private final ArrayList<Region> regionHistory;
+    private final LinkedList<Region> regionHistory;
     private final Generator generator;
 
     private Bitmap bitmap;
@@ -60,6 +61,7 @@ public class FractalView extends View {
     private float zoomFactor;
 
     private final GeneratorConfig generatorConfig;
+    private boolean regionRecordingDisabled;
 
     public FractalView(final FrexActivity activity) {
         super(activity);
@@ -69,7 +71,7 @@ public class FractalView extends View {
         scaleGestureDetector = new ScaleGestureDetector(activity, new ScaleGestureListener());
         gestureDetector = new GestureDetector(activity, new GestureListener());
         gestureDetector.setIsLongpressEnabled(true);
-        regionHistory = new ArrayList<Region>();
+        regionHistory = new LinkedList<Region>();
 
         image = new Image(getWidth(), getHeight());
         imageCopy = new Image(getWidth(), getHeight());
@@ -100,8 +102,14 @@ public class FractalView extends View {
 
         generatorConfig.setConfigName(generatorConfig.getFractalId().toLowerCase());
 
+        regionHistory.add(generatorConfig.getRegion().clone());
+
         int numTasks = SettingsActivity.getNumTasks(getContext());
         generator = new Generator(generatorConfig, numTasks, new GeneratorProgressListener());
+    }
+
+    public LinkedList<Region> getRegionHistory() {
+        return regionHistory;
     }
 
     public GeneratorConfig getGeneratorConfig() {
@@ -419,10 +427,13 @@ public class FractalView extends View {
     }
 
     private void regenerateRegion(double cx, double cy, double r) {
-        Region region1 = generatorConfig.getRegion().clone();
+        Region lastRegion = generatorConfig.getRegion().clone();
+
+        recordLastRegion();
+
         generatorConfig.getRegion().set(cx, cy, r);
 
-        recycle(image, imageCopy, region1, generatorConfig.getRegion());
+        recycle(image, imageCopy, lastRegion, generatorConfig.getRegion());
 
         Image imageTemp = image;
         this.image = imageCopy;
@@ -433,6 +444,8 @@ public class FractalView extends View {
 
     private void moveRegion(float viewDistanceX, float viewDistanceY) {
         // Log.d(TAG, "moveRegion: viewDistanceX = " + viewDistanceX + ", viewDistanceY = " + viewDistanceY);
+
+        recordLastRegion();
 
         double s = generatorConfig.getRegion().getPixelSize(image.getWidth(), image.getHeight());
         double cx = generatorConfig.getRegion().getCenterX() + s * (int) viewDistanceX;
@@ -450,6 +463,11 @@ public class FractalView extends View {
         generator.start(image, false);
     }
 
+    private void recordLastRegion() {
+        if (!regionRecordingDisabled) {
+            getRegionHistory().add(generatorConfig.getRegion().clone());
+        }
+    }
 
     public static void recycle(final Image image1,
                                final Image image2,
@@ -568,6 +586,14 @@ public class FractalView extends View {
 
     public void cancelGenerators() {
         getGenerator().cancel();
+    }
+
+    public void setRegionRecordingDisabled(boolean regionRecordingDisabled) {
+        this.regionRecordingDisabled = regionRecordingDisabled;
+    }
+
+    public boolean isRegionRecordingDisabled() {
+        return regionRecordingDisabled;
     }
 
     private class ScaleGestureListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {

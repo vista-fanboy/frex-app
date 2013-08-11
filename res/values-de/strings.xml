@@ -47,7 +47,7 @@
     <string name="fractal_saved">Fraktal gespeichert.</string>
     <string name="error_msg">Fehler: %s</string>
     <string name="no_fractals_found">Keine gespeicherten Fractals gefunden.</string>
-    <string name="set_wallpaper">Als Hintergrundbild einstellen</string>
+    <string name="set_wallpaper">Als Hintergrundbild einrichten</string>
     <string name="out_of_memory">Speicher voll.</string>
     <string name="wallpaper_msg">Ein neues Hintergrundbild (%1$dx%2$d px) wird für dein Gerät berechnet. Je nach Gerät kann das zwischen Sekunden oder Minuten dauern.\nMöchtest du den Hintergrund jetzt austauschen?
     </string>
@@ -65,22 +65,25 @@
     <string name="fractal_deleted">Fraktal gelöscht</string>
     <string name="delete_all">Alle löschen</string>
     <string name="settings">Einstellungen</string>
+    <string name="exit">Beenden</string>
     <string name="calculation">Berechnung</string>
     <string name="num_tasks">Anzahl Tasks</string>
     <string name="storage">Speicher</string>
     <string name="about_frex">Über Frex</string>
     <string name="version">Version</string>
-    <string name="version_summary">
-        Frex version %s\nCopyright © 2012 by Norman Fomferra.
-    </string>
+    <string name="version_summary">Frex version %s\nCopyright © 2013 by Norman Fomferra.</string>
     <string name="license">Lizenz</string>
-    <string name="license_summary">
-        GNU General Public License v3.0\nFrex ist freie Software.
-    </string>
+    <string name="license_summary">GNU General Public License v3.0\nFrex ist freie Software.</string>
     <string name="project">Projekt</string>
     <string name="status">Status</string>
     <string name="delete_all_summary">Löscht alle von Frex gespeicherten Dateien.</string>
     <string name="delete_all_warning">Achtung!\n\nDu bist dabei, all deine gespeicherten Fraktale zu löschen.\nDies kann nicht rückgängig gemacht werden.</string>
+    <string name="behaviour">Verhalten</string>
+    <string name="navigate_on_back">Zurück-Button navigiert</string>
+    <string name="navigate_on_back_summary_on">Zurück-Button navigiert zu vorherigen Fraktalregionen zurück.</string>
+    <string name="navigate_on_back_summary_off">Zurück-Button beendet Frex (Standardverhalten).</string>
+    <string name="empty_region_history_msg">Regionshistorie leer.</string>
+    <string name="first_region_msg">Anfängliche Region erreicht.</string>
     <plurals name="storage_summary">
         <item quantity="one">%1$d Datei, %2$s Speicher belegt.\nPfad: %3$s</item>
         <item quantity="other">%1$d Dateien, %2$s Speicher belegt.\nPfad: %3$s</item>

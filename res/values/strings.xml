@@ -72,17 +72,22 @@
     <string name="about_frex">About Frex</string>
     <string name="version">Version</string>
     <string name="version_summary">
-        Frex version %s\nCopyright © 2012 by Norman Fomferra.
+        Frex version %s\nCopyright © 2013 by Norman Fomferra.
     </string>
     <string name="license">License</string>
-    <string name="license_summary">
-        GNU General Public License v3.0.\nFrex is free software.
-    </string>
+    <string name="license_summary">GNU General Public License v3.0.\nFrex is free software.</string>
     <string name="project">Project</string>
     <string name="settings">Settings</string>
+    <string name="exit">Exit</string>
     <string name="status">Status</string>
     <string name="delete_all_summary">Deletes all saved Frex files.</string>
     <string name="delete_all_warning">Beware!\n\nYou are about to delete all of your saved fractals.\nThis action cannot be undone.</string>
+    <string name="behaviour">Behaviour</string>
+    <string name="navigate_on_back">Back button navigates</string>
+    <string name="navigate_on_back_summary_on">Back button navigates back to last visited regions.</string>
+    <string name="navigate_on_back_summary_off">Back button exits Frex (standard behaviour).</string>
+    <string name="empty_region_history_msg">Region history empty.</string>
+    <string name="first_region_msg">Initial region reached.</string>
     <plurals name="storage_summary">
         <item quantity="one">%1$d file, %2$s storage used.\nPath: %3$s</item>
         <item quantity="other">%1$d files, %2$s storage used.\nPath: %3$s</item>

@@ -2,11 +2,8 @@ todo - bug: on SDK 10, dialogs are not prepared with initial data (check!)
 todo - add help screen with a few hints
 todo - I18N of fractals, functions, color scheme names
 todo - Define ready-to-use orbit processors
-todo - Refine distance functions and give better names (by what it looks like)
+todo - Refine distance functions and give better names (e.g. by what it looks like)
 todo - Generate uk-english, italian, french and spanish versions
 todo - introduce function that auto-creates images (e.g. shake mobile using varying intensities)
 todo - add better/nicer color bars
-todo - manage saved fractals: rename and delete
-todo - navigate back to last region (use 'regionHistory')
-todo - override back-button action, add preference to don't do it
 todo - undo/redo
