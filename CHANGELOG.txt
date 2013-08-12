@@ -1,6 +1,6 @@
 v1.2 (in development)
-    - back button can be used to navigate back
     - Issue 12: Add user-defined color gradients (create palette from picture)
+    - Issue 15:	Back button shall navigate back
 
 v1.1.1 (28.07.2013)
     - Fixed problem that prevented Frex from sharing images (https://code.google.com/p/frex-app/issues/detail?id=10)
