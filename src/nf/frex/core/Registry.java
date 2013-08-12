@@ -64,6 +64,13 @@ public class Registry<T> {
         this.idValueMap = idValueMap;
     }
 
+    public void add(String id, T value) {
+        if (!idValueMap.containsKey(id)) {
+            idList.add(0, id);
+        }
+        idValueMap.put(id, value);
+    }
+
     public int getSize() {
         return idList.size();
     }

@@ -43,7 +43,7 @@ public class ColorScheme {
             Color.parseColor("#ffc8a0"),
             Color.parseColor("#fefc8d"),
             Color.parseColor("#fefec2")
-            );
+    );
     public final static ColorScheme BRICKS = new ColorScheme(
             Color.parseColor("#120e05"),
             Color.parseColor("#363531"),
@@ -61,13 +61,14 @@ public class ColorScheme {
     public final static ColorScheme FIRE = new ColorScheme(Color.BLACK, Color.RED, Color.YELLOW, Color.WHITE, Color.rgb(127, 127, 255));
     public final static ColorScheme HEAT = new ColorScheme(Color.BLACK, Color.RED, Color.YELLOW, Color.WHITE);
     public final static ColorScheme BLACK_AND_WHITE = new ColorScheme(Color.BLACK, Color.WHITE);
-    public final static ColorScheme METAL = new ColorScheme(Color.BLACK, Color.WHITE, _DARK_GREY,  Color.WHITE, _LIGHT_GREY, Color.WHITE);
+    public final static ColorScheme METAL = new ColorScheme(Color.BLACK, Color.WHITE, _DARK_GREY, Color.WHITE, _LIGHT_GREY, Color.WHITE);
     public final static ColorScheme SUNSET = new ColorScheme(Color.BLACK, _ORANGE, Color.WHITE, Color.rgb(255, 90, 100), Color.WHITE);
     public final static ColorScheme ORANGE = new ColorScheme(Color.BLACK, _ORANGE, Color.WHITE);
     public final static ColorScheme YELLOW = new ColorScheme(Color.BLACK, Color.YELLOW, Color.WHITE);
     public final static ColorScheme RED = new ColorScheme(Color.BLACK, Color.RED, Color.WHITE);
     public final static ColorScheme GREEN = new ColorScheme(Color.BLACK, Color.GREEN, Color.WHITE);
     public final static ColorScheme BLUE = new ColorScheme(Color.BLACK, Color.BLUE, Color.WHITE);
+    private Bitmap icon;
 
     public static class TiePoint {
         private double position;
@@ -133,7 +134,7 @@ public class ColorScheme {
             String tiePointValue = tiePointValues[i];
             String[] posCol = tiePointValue.split(",");
             if (posCol.length != 2) {
-                   throw new IllegalArgumentException("Invalid color scheme tie-point");
+                throw new IllegalArgumentException("Invalid color scheme tie-point");
             }
             tiePoints[i] = new TiePoint(Double.parseDouble(posCol[0].trim()),
                                         Color.parseColor(posCol[1].trim()));
@@ -145,7 +146,7 @@ public class ColorScheme {
         return tiePoints;
     }
 
-    public int[] createGradient(int colorCount) {
+    public int[] getGradient(int colorCount) {
         int[] gradient = new int[colorCount];
         int index = 0;
         for (int i = 0; i < colorCount; i++) {
@@ -164,15 +165,18 @@ public class ColorScheme {
         return gradient;
     }
 
-    public Bitmap createGradientIcon() {
-        int width = 256;
-        int height = 48;
-        int[] colors = new int[width * height];
-        int[] palette = createGradient(width);
-        for (int j = 0; j < height; j++) {
-            System.arraycopy(palette, 0, colors, j * width, width);
+    public Bitmap getGradientIcon() {
+        if (icon == null) {
+            int width = 256;
+            int height = 48;
+            int[] colors = new int[width * height];
+            int[] palette = getGradient(width);
+            for (int j = 0; j < height; j++) {
+                System.arraycopy(palette, 0, colors, j * width, width);
+            }
+            icon = Bitmap.createBitmap(colors, width, height, Bitmap.Config.ARGB_8888);
         }
-        return Bitmap.createBitmap(colors, width, height, Bitmap.Config.ARGB_8888);
+        return icon;
     }
 
     private int getColor(TiePoint tp1, TiePoint tp2, double position) {

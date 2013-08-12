@@ -84,6 +84,8 @@
     <string name="navigate_on_back_summary_off">Zurück-Button beendet Frex (Standardverhalten).</string>
     <string name="empty_region_history_msg">Regionshistorie leer.</string>
     <string name="first_region_msg">Anfängliche Region erreicht.</string>
+    <string name="get_pal_from_img_button_text">Von Bild</string>
+    <string name="get_pal_from_img_title">Extrahiere Palette von Bild</string>
     <plurals name="storage_summary">
         <item quantity="one">%1$d Datei, %2$s Speicher belegt.\nPfad: %3$s</item>
         <item quantity="other">%1$d Dateien, %2$s Speicher belegt.\nPfad: %3$s</item>

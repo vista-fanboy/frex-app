@@ -37,6 +37,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.*;
 import android.widget.*;
 import nf.frex.core.*;
@@ -47,7 +48,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Date;
 import java.util.LinkedList;
-import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 /**
@@ -57,9 +58,10 @@ import java.util.Properties;
  */
 public class FrexActivity extends Activity {
 
-    //public static final String TAG = "Frex";
-    private static Bitmap[] COLOR_TABLE_ICONS;
+    public static final int SELECT_PICTURE_REQUEST_CODE = 4711;
     public static final boolean PRE_SDK14 = Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH;
+    public static final String TAG = "Frex";
+    private Registry<ColorScheme> colorSchemes;
 
     private FractalView view;
 
@@ -210,8 +212,76 @@ public class FrexActivity extends Activity {
             view.getRegionHistory().clear();
             view.getRegionHistory().add(view.getGeneratorConfig().getRegion().clone());
             view.recomputeAll();
+
+            Registry<ColorScheme> colorSchemes = getColorSchemes();
+            colorSchemes.add(view.getGeneratorConfig().getColorSchemeId(), view.getGeneratorConfig().getColorScheme());
+
         } else if (requestCode == R.id.settings) {
             view.getGenerator().setNumTasks(SettingsActivity.getNumTasks(this));
+        } else if (requestCode == SELECT_PICTURE_REQUEST_CODE) {
+            final Uri imageUri = data.getData();
+            final ColorQuantizer colorQuantizer = new ColorQuantizer();
+            final ProgressDialog progressDialog = new ProgressDialog(FrexActivity.this);
+            final DialogInterface.OnCancelListener cancelListener = new DialogInterface.OnCancelListener() {
+                @Override
+                public void onCancel(DialogInterface dialog) {
+                    if (progressDialog.isShowing()) {
+                        progressDialog.dismiss();
+                    }
+                    colorQuantizer.cancel();
+                }
+            };
+            final ColorQuantizer.ProgressListener progressListener = new ColorQuantizer.ProgressListener() {
+                @Override
+                public void progress(final String msg, final int iter, final int maxIter) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            progressDialog.setMessage(msg);
+                            progressDialog.setProgress(iter);
+                        }
+                    });
+                }
+            };
+
+            progressDialog.setTitle(getString(R.string.get_pal_from_img_title));
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+            progressDialog.setCancelable(true);
+            progressDialog.setOnCancelListener(cancelListener);
+            progressDialog.setMax(colorQuantizer.getMaxIterCount());
+            progressDialog.show();
+
+            Thread thread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    Bitmap bitmap;
+                    try {
+                        bitmap = FrexIO.readBitmap(getContentResolver(), imageUri, 256);
+                    } catch (IOException e) {
+                        alert("I/O error: " + e.getLocalizedMessage());
+                        return;
+                    }
+                    ColorScheme colorScheme = colorQuantizer.quantize(bitmap, progressListener);
+                    progressDialog.dismiss();
+                    if (colorScheme != null) {
+                        Log.d(TAG, "SELECT_PICTURE_REQUEST_CODE: Got colorScheme");
+                        String colorSchemeId = "$" + imageUri.toString();
+                        colorSchemes.add(colorSchemeId, colorScheme);
+                        view.setColorSchemeId(colorSchemeId);
+                        view.setColorScheme(colorScheme);
+                        view.recomputeColors();
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Log.d(TAG, "SELECT_PICTURE_REQUEST_CODE: showDialog(R.id.colors)");
+                                showDialog(R.id.colors);
+                            }
+                        });
+
+                    }
+                }
+            });
+            thread.start();
         }
     }
 
@@ -348,20 +418,23 @@ public class FrexActivity extends Activity {
         }
     }
 
-    private void prepareColorsDialog(Dialog dialog) {
-        if (COLOR_TABLE_ICONS == null) {
-            Registry<ColorScheme> colorTables = Registries.colorSchemes;
-            COLOR_TABLE_ICONS = new Bitmap[colorTables.getSize()];
-            List<String> ids = colorTables.getIdList();
-            for (int i = 0; i < ids.size(); i++) {
-                COLOR_TABLE_ICONS[i] = colorTables.getValue(i).createGradientIcon();
-            }
-        }
-        int checkedIndex = Registries.colorSchemes.getIndex(view.getColorSchemeId());
+    private void prepareColorsDialog(final Dialog dialog) {
 
+        Log.d(TAG, "prepareColorsDialog() entered");
+
+        getColorSchemes();
+
+        Log.d(TAG, "prepareColorsDialog: new bitmaps are being created");
+        Bitmap[] colorSchemeIcons = new Bitmap[colorSchemes.getSize()];
+        for (int i = 0; i < colorSchemeIcons.length; i++) {
+            ColorScheme colorScheme = colorSchemes.getValue(i);
+            colorSchemeIcons[i] = colorScheme.getGradientIcon();
+        }
+
+        int checkedIndex = Registries.colorSchemes.getIndex(view.getColorSchemeId());
+        Log.d(TAG, "prepareColorsDialog: checkedIndex = " + checkedIndex);
         final Spinner colorTableSpinner = (Spinner) dialog.findViewById(R.id.color_table_spinner);
-        //colorTableSpinner.setAdapter(new ImageArrayAdapter(this, R.layout.spinner_image_view, COLOR_TABLE_ICONS));
-        colorTableSpinner.setAdapter(new ImageArrayAdapter(this, 0, COLOR_TABLE_ICONS));
+        colorTableSpinner.setAdapter(new ImageArrayAdapter(this, 0, colorSchemeIcons));
         colorTableSpinner.setSelection(checkedIndex, false);
         colorTableSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -375,6 +448,8 @@ public class FrexActivity extends Activity {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
+
+        Log.d(TAG, "prepareColorsDialog: WRAW!");
 
         final SeekBar colorFactorSeekBar = (SeekBar) dialog.findViewById(R.id.color_gain_seek_bar);
         final double colorFactorMin = -3.0;
@@ -432,13 +507,47 @@ public class FrexActivity extends Activity {
         randomButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                colorTableSpinner.setSelection((int) (Math.random() * COLOR_TABLE_ICONS.length));
+                colorTableSpinner.setSelection((int) (Math.random() * colorSchemes.getSize()));
                 colorFactorSeekBarConfigurer.setRandomValue();
                 colorBiasSeekBarConfigurer.setRandomValue();
                 view.recomputeColors();
             }
         });
 
+        Button getPalFromImgButton = (Button) dialog.findViewById(R.id.get_pal_from_img_button);
+        getPalFromImgButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+                photoPickerIntent.setType("image/*");
+                dialog.dismiss();
+                startActivityForResult(photoPickerIntent, SELECT_PICTURE_REQUEST_CODE);
+            }
+        });
+
+        Log.d(TAG, "prepareColorsDialog() exited");
+    }
+
+    private Registry<ColorScheme> getColorSchemes() {
+        if (colorSchemes == null) {
+            colorSchemes = Registries.colorSchemes;
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+            Map<String, ?> all = preferences.getAll();
+            for (String key : all.keySet()) {
+                if (key.startsWith("$")) {
+                    String value = preferences.getString(key, null);
+                    if (value != null) {
+                        try {
+                            ColorScheme colorScheme = ColorScheme.parse(value);
+                            colorSchemes.add(key, colorScheme);
+                        } catch (IllegalArgumentException e) {
+                            // What to do  here?
+                        }
+                    }
+                }
+            }
+        }
+        return colorSchemes;
     }
 
     private void preparePropertiesDialog(final Dialog dialog) {

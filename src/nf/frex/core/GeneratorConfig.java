@@ -154,7 +154,7 @@ public class GeneratorConfig {
 
     public void setColorScheme(ColorScheme colorScheme) {
         this.colorScheme = colorScheme;
-        this.colorGradient = colorScheme.createGradient(GRADIENT_COLOR_COUNT);
+        this.colorGradient = colorScheme.getGradient(GRADIENT_COLOR_COUNT);
     }
 
     public String getColorSchemeId() {

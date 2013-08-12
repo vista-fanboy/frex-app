@@ -26,7 +26,6 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.os.Build;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -34,7 +33,6 @@ import android.view.ScaleGestureDetector;
 import android.view.View;
 import nf.frex.core.*;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 
@@ -95,7 +93,6 @@ public class FractalView extends View {
 
         generatorConfig.setColorSchemeId("SUNSET");
         generatorConfig.setColorScheme(Registries.colorSchemes.getValue(generatorConfig.getColorSchemeId()));
-        generatorConfig.setColorGradient(generatorConfig.getColorScheme().createGradient(1024));
         generatorConfig.setColorGain(1.0 / fractal.getDefaultIterMax());
         generatorConfig.setColorOffset(0.0);
         generatorConfig.setColorRepeat(true);

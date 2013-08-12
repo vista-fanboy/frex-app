@@ -19,8 +19,11 @@
 
 package nf.frex.android;
 
+import android.content.ContentResolver;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Environment;
 import android.util.Log;
 
@@ -180,6 +183,43 @@ public class FrexIO {
             }
         }
         return externalAppDir;
+    }
+
+    public static Bitmap readBitmap(ContentResolver resolver, Uri selectedImage, int requiredSize) throws IOException {
+
+        // Decode image size
+        BitmapFactory.Options o = new BitmapFactory.Options();
+        o.inJustDecodeBounds = true;
+        InputStream stream = resolver.openInputStream(selectedImage);
+        try {
+            BitmapFactory.decodeStream(stream, null, o);
+        } finally {
+            stream.close();
+        }
+
+        // Find the correct scale value. It should be the power of 2.
+        int width = o.outWidth;
+        int height = o.outHeight;
+        int scale = 1;
+        while (true) {
+            if (width / 2 < requiredSize
+                    || height / 2 < requiredSize) {
+                break;
+            }
+            width /= 2;
+            height /= 2;
+            scale *= 2;
+        }
+
+        // Decode with inSampleSize
+        BitmapFactory.Options o2 = new BitmapFactory.Options();
+        o2.inSampleSize = scale;
+        stream = resolver.openInputStream(selectedImage);
+        try {
+            return BitmapFactory.decodeStream(stream, null, o2);
+        } finally {
+            stream.close();
+        }
     }
 
     private static class ExtFilenameFilter implements FilenameFilter {
