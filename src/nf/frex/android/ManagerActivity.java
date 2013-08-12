@@ -35,6 +35,7 @@ import android.widget.Toast;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import static nf.frex.android.FrexActivity.showYesNoDialog;
@@ -219,17 +220,22 @@ public class ManagerActivity extends Activity {
         if (position < 0) {
             return;
         }
-        Intent shareIntent = createShareIntent(Uri.fromFile(imageFiles[position]));
+        File imageFile = imageFiles[position];
+        File paramFile = new File(imageFile.getParent(), FrexIO.getFilenameWithoutExt(imageFile) + FrexIO.PARAM_FILE_EXT);
+        Intent shareIntent = createShareIntent(Uri.fromFile(imageFile), Uri.fromFile(paramFile));
         if (shareIntent != null) {
             startActivity(Intent.createChooser(shareIntent, getString(R.string.share_image)));
         }
     }
 
-    private Intent createShareIntent(Uri uri) {
-        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+    // todo - check if sending 2 files works for most recipients
+    private Intent createShareIntent(Uri imageUri, Uri paramUri) {
+        //Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        Intent shareIntent = new Intent(Intent.ACTION_SEND_MULTIPLE);
         shareIntent.setType("image/*");
         shareIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
+        //shareIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
+        shareIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, new ArrayList<Uri>(Arrays.asList(imageUri, paramUri)));
         shareIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.email_subject));
         return shareIntent;
     }
