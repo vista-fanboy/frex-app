@@ -86,6 +86,7 @@
     <string name="first_region_msg">Anfängliche Region erreicht.</string>
     <string name="get_pal_from_img_button_text">Von Bild</string>
     <string name="get_pal_from_img_title">Extrahiere Palette von Bild</string>
+    <string name="examples">Beispiele</string>
     <plurals name="storage_summary">
         <item quantity="one">%1$d Datei, %2$s Speicher belegt.\nPfad: %3$s</item>
         <item quantity="other">%1$d Dateien, %2$s Speicher belegt.\nPfad: %3$s</item>

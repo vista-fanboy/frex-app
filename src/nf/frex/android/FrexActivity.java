@@ -20,10 +20,7 @@
 package nf.frex.android;
 
 import android.app.*;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.SharedPreferences;
+import android.content.*;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
@@ -41,15 +38,13 @@ import android.util.Log;
 import android.view.*;
 import android.widget.*;
 import nf.frex.core.*;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.Map;
-import java.util.Properties;
+import java.io.*;
+import java.util.*;
 
 /**
  * Frex' main activity.
@@ -61,8 +56,9 @@ public class FrexActivity extends Activity {
     public static final int SELECT_PICTURE_REQUEST_CODE = 4711;
     public static final boolean PRE_SDK14 = Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH;
     public static final String TAG = "Frex";
-    private Registry<ColorScheme> colorSchemes;
+    public static final String EXAMPLES_URL = "https://code.google.com/p/frex-app/wiki/FrexExamples";
 
+    private Registry<ColorScheme> colorSchemes;
     private FractalView view;
 
     @Override
@@ -117,14 +113,23 @@ public class FrexActivity extends Activity {
 
         view = new FractalView(this);
         setContentView(view);
-        if (savedInstanceState != null) {
-            view.restoreInstanceState(new BundlePropertySet(savedInstanceState));
-        } else {
-            PropertySet propertySet = (PropertySet) getLastNonConfigurationInstance();
-            if (propertySet != null) {
-                view.restoreInstanceState(propertySet);
+
+        if (!tryReadingFrexDocIntent(getIntent())) {
+            if (savedInstanceState != null) {
+                view.restoreInstanceState(new BundlePropertySet(savedInstanceState));
+            } else {
+                PropertySet propertySet = (PropertySet) getLastNonConfigurationInstance();
+                if (propertySet != null) {
+                    view.restoreInstanceState(propertySet);
+                }
             }
         }
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        tryReadingFrexDocIntent(intent);
     }
 
     @Override
@@ -175,6 +180,11 @@ public class FrexActivity extends Activity {
             case R.id.settings:
                 startActivityForResult(new Intent(this, SettingsActivity.class), R.id.settings);
                 return true;
+            case R.id.examples:
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(EXAMPLES_URL));
+                startActivity(intent);
+                return true;
             case R.id.exit:
                 finish();
                 return true;
@@ -190,32 +200,21 @@ public class FrexActivity extends Activity {
         }
         if (requestCode == R.id.manage_fractals && data.getAction().equals(Intent.ACTION_VIEW)) {
             final Uri imageUri = data.getData();
-
-            File imageFile = new File(imageUri.getPath());
-            File paramFile = new File(imageFile.getParent(), FrexIO.getFilenameWithoutExt(imageFile) + FrexIO.PARAM_FILE_EXT);
-            Properties properties = new Properties();
-            try {
-                FileInputStream fis = new FileInputStream(paramFile);
+            if (imageUri != null) {
+                File imageFile = new File(imageUri.getPath());
+                String configName = FrexIO.getFilenameWithoutExt(imageFile);
+                File paramFile = new File(imageFile.getParent(), configName + FrexIO.PARAM_FILE_EXT);
                 try {
-                    properties = new Properties();
-                    properties.load(fis);
-                } finally {
-                    fis.close();
+                    FileInputStream fis = new FileInputStream(paramFile);
+                    try {
+                        readFrexDoc(fis, configName);
+                    } finally {
+                        fis.close();
+                    }
+                } catch (IOException e) {
+                    Toast.makeText(FrexActivity.this, getString(R.string.error_msg, e.getLocalizedMessage()), Toast.LENGTH_SHORT).show();
                 }
-            } catch (IOException e) {
-                Toast.makeText(FrexActivity.this, getString(R.string.error_msg, e.getLocalizedMessage()), Toast.LENGTH_SHORT).show();
-                return;
             }
-
-            view.setConfigName(FrexIO.getFilenameWithoutExt(imageFile));
-            view.restoreInstanceState(new DefaultPropertySet(properties));
-            view.getRegionHistory().clear();
-            view.getRegionHistory().add(view.getGeneratorConfig().getRegion().clone());
-            view.recomputeAll();
-
-            Registry<ColorScheme> colorSchemes = getColorSchemes();
-            colorSchemes.add(view.getGeneratorConfig().getColorSchemeId(), view.getGeneratorConfig().getColorScheme());
-
         } else if (requestCode == R.id.settings) {
             view.getGenerator().setNumTasks(SettingsActivity.getNumTasks(this));
         } else if (requestCode == SELECT_PICTURE_REQUEST_CODE) {
@@ -759,49 +758,6 @@ public class FrexActivity extends Activity {
         return dialog;
     }
 
-    private void saveFractal() {
-        FrexIO frexIO = new FrexIO(this);
-        File paramFile = frexIO.getUniqueParamFile(view.getFractalId().toLowerCase());
-        File imageFile = new File(paramFile.getParent(), FrexIO.getFilenameWithoutExt(paramFile) + FrexIO.IMAGE_FILE_EXT);
-        try {
-            FileOutputStream fos = new FileOutputStream(paramFile);
-            try {
-                Properties properties = new Properties();
-                view.saveInstanceState(new DefaultPropertySet(properties));
-                properties.save(fos, "Generated by Frex on " + new Date());
-            } finally {
-                fos.close();
-            }
-        } catch (IOException e) {
-            Toast.makeText(this, getString(R.string.error_msg, e.getLocalizedMessage()), Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        try {
-            FileOutputStream out = new FileOutputStream(imageFile);
-            try {
-                view.createBitmap().compress(FrexIO.IMAGE_FILE_FORMAT, 100, out);
-            } finally {
-                out.close();
-            }
-        } catch (IOException e) {
-            Toast.makeText(this, getString(R.string.error_msg, e.getLocalizedMessage()), Toast.LENGTH_SHORT).show();
-        }
-
-        MediaScannerConnection.scanFile(this,
-                                        new String[]{imageFile.getPath()},
-                                        new String[]{"image/*"},
-                                        new MediaScannerConnection.OnScanCompletedListener() {
-                                            @Override
-                                            public void onScanCompleted(String path, Uri uri) {
-
-                                            }
-                                        });
-
-        view.setConfigName(FrexIO.getFilenameWithoutExt(paramFile));
-        Toast.makeText(this, getString(R.string.fractal_saved), Toast.LENGTH_SHORT).show();
-    }
-
     @Override
     protected void onPause() {
         super.onPause();
@@ -834,6 +790,145 @@ public class FrexActivity extends Activity {
         view.saveInstanceState(propertySet);
         return propertySet;
     }
+
+    private boolean tryReadingFrexDocIntent(Intent intent) {
+        if (intent != null) {
+            Uri data = intent.getData();
+            if (data != null) {
+                try {
+                    readFrexDoc(data);
+                    return true;
+                } finally {
+                    intent.setData(null);
+                }
+            }
+        }
+        return false;
+    }
+
+    private void readFrexDoc(final Uri frexDocUri) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    InputStream stream;
+                    try {
+                        stream = openLocalContentStream(frexDocUri);
+                    } catch (IOException e) {
+                        try {
+                            stream = openHttpContentStream(frexDocUri);
+                        } catch (IOException e1) {
+                            throw e;
+                        }
+                    }
+                    if (stream != null) {
+                        try {
+                            readFrexDoc(stream, Long.toHexString(new Random().nextLong()));
+                        } finally {
+                            stream.close();
+                        }
+                    }
+                } catch (IOException e) {
+                    Toast.makeText(FrexActivity.this, getString(R.string.error_msg, e.getLocalizedMessage()), Toast.LENGTH_SHORT).show();
+                } catch (Throwable t) {
+                    Toast.makeText(FrexActivity.this, t.getClass().getSimpleName() + ": " + t.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }
+        }).start();
+    }
+
+    private InputStream openLocalContentStream(Uri frexDocUri) throws FileNotFoundException {
+        ContentResolver cr = getContentResolver();
+        return cr.openInputStream(frexDocUri);
+    }
+
+    private InputStream openHttpContentStream(Uri frexDocUri) throws IOException {
+        HttpClient client = new DefaultHttpClient();
+        HttpGet request = new HttpGet(frexDocUri.toString());
+        HttpResponse response = client.execute(request);
+        response.getStatusLine().getStatusCode();
+        return response.getEntity().getContent();
+    }
+
+    private void readFrexDoc(InputStream stream, String configName) throws IOException {
+        Properties properties = new Properties();
+        properties.load(stream);
+
+        view.setConfigName(configName);
+        view.restoreInstanceState(new DefaultPropertySet(properties));
+        view.getRegionHistory().clear();
+        view.getRegionHistory().add(view.getGeneratorConfig().getRegion().clone());
+        view.recomputeAll();
+
+        Registry<ColorScheme> colorSchemes = getColorSchemes();
+        colorSchemes.add(view.getGeneratorConfig().getColorSchemeId(), view.getGeneratorConfig().getColorScheme());
+    }
+
+    private void saveFractal() {
+        FrexIO frexIO = new FrexIO(this);
+
+        File paramFile = frexIO.getUniqueParamFile(view.getFractalId().toLowerCase());
+        if (!writeFrexDoc(paramFile)) {
+            return;
+        }
+
+        File imageFile = new File(paramFile.getParent(), FrexIO.getFilenameWithoutExt(paramFile) + FrexIO.IMAGE_FILE_EXT);
+        writeFrexImage(imageFile);
+
+        updateMediaContentProvider(imageFile);
+
+        view.setConfigName(FrexIO.getFilenameWithoutExt(paramFile));
+        Toast.makeText(this, getString(R.string.fractal_saved), Toast.LENGTH_SHORT).show();
+    }
+
+    private boolean writeFrexDoc(File paramFile) {
+        try {
+            FileOutputStream stream = new FileOutputStream(paramFile);
+            try {
+                writeFrexDoc(stream);
+            } finally {
+                stream.close();
+            }
+            return true;
+        } catch (IOException e) {
+            Toast.makeText(this, getString(R.string.error_msg, e.getLocalizedMessage()), Toast.LENGTH_SHORT).show();
+            return false;
+        }
+    }
+
+    private void writeFrexDoc(OutputStream stream) {
+        Properties properties = new Properties();
+        view.saveInstanceState(new DefaultPropertySet(properties));
+        properties.save(stream, "Generated by Frex on " + new Date());
+    }
+
+    private boolean writeFrexImage(File imageFile) {
+        try {
+            FileOutputStream out = new FileOutputStream(imageFile);
+            try {
+                view.createBitmap().compress(FrexIO.IMAGE_FILE_FORMAT, 100, out);
+            } finally {
+                out.close();
+            }
+            return true;
+        } catch (IOException e) {
+            Toast.makeText(this, getString(R.string.error_msg, e.getLocalizedMessage()), Toast.LENGTH_SHORT).show();
+            return false;
+        }
+    }
+
+    private void updateMediaContentProvider(File imageFile) {
+        MediaScannerConnection.scanFile(this,
+                                        new String[]{imageFile.getPath()},
+                                        new String[]{"image/*"},
+                                        new MediaScannerConnection.OnScanCompletedListener() {
+                                            @Override
+                                            public void onScanCompleted(String path, Uri uri) {
+
+                                            }
+                                        });
+    }
+
 
     public static void showYesNoDialog(Context context, int titleId, String message,
                                        DialogInterface.OnClickListener yesListener,
