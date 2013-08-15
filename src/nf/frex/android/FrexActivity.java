@@ -177,16 +177,13 @@ public class FrexActivity extends Activity {
             case R.id.set_wallpaper:
                 setWallpaper();
                 return true;
-            case R.id.settings:
-                startActivityForResult(new Intent(this, SettingsActivity.class), R.id.settings);
-                return true;
             case R.id.examples:
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse(EXAMPLES_URL));
                 startActivity(intent);
                 return true;
-            case R.id.exit:
-                finish();
+            case R.id.settings:
+                startActivityForResult(new Intent(this, SettingsActivity.class), R.id.settings);
                 return true;
         }
 
