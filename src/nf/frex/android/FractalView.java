@@ -593,7 +593,7 @@ public class FractalView extends View {
         return regionRecordingDisabled;
     }
 
-    private class ScaleGestureListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
+    private class ScaleGestureListener implements ScaleGestureDetector.OnScaleGestureListener {
 
         @Override
         public boolean onScaleBegin(ScaleGestureDetector detector) {
@@ -604,19 +604,21 @@ public class FractalView extends View {
         }
 
         @Override
-        public void onScaleEnd(ScaleGestureDetector detector) {
+        public boolean onScale(ScaleGestureDetector detector) {
             zoomFactor = getZoomFactor(detector);
-            postInvalidate();
-            bitmap = null;
-//            Log.d(TAG, "onScaleEnd: " + ", scaleFactor=" + detector.getScaleFactor() + ", zoomFactor=" + zoomFactor);
-            zoomRegionWithFocus(focusX, focusY, zoomFactor);
+            //postInvalidate();
+            invalidate();
+            return false;
         }
 
         @Override
-        public boolean onScale(ScaleGestureDetector detector) {
+        public void onScaleEnd(ScaleGestureDetector detector) {
             zoomFactor = getZoomFactor(detector);
-            postInvalidate();
-            return super.onScale(detector);
+            //postInvalidate();
+            invalidate();
+            bitmap = null;
+//            Log.d(TAG, "onScaleEnd: " + ", scaleFactor=" + detector.getScaleFactor() + ", zoomFactor=" + zoomFactor);
+            zoomRegionWithFocus(focusX, focusY, zoomFactor);
         }
 
         private float getZoomFactor(ScaleGestureDetector detector) {
@@ -662,7 +664,8 @@ public class FractalView extends View {
                 bitmap = image.createBitmap();
             }
             incrementScrollDistance(distanceX, distanceY);
-            postInvalidate();
+            //postInvalidate();
+            invalidate();
             //Log.d(TAG, "onScroll: " + distanceX + "," + distanceY);
             return true;
         }

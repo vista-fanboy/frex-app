@@ -2,6 +2,7 @@ v1.2 (in development)
     - Issue 12: Add user-defined color gradients (create palette from picture)
     - Issue 13: Add example fractals from which users can start from
     - Issue 15:	Back button shall navigate back
+    - Issue 16: Zooming does not animate on some devices.
     - Issue 17:	Open files with extension ".frex"
 
 v1.1.1 (28.07.2013)
