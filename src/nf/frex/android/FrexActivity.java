@@ -295,7 +295,7 @@ public class FrexActivity extends Activity {
                                 final int imageWidth = image.getWidth();
                                 final int imageHeight = image.getHeight();
 
-                                if (imageWidth != minimumWidth || imageHeight != minimumHeight) {
+                                if ((minimumWidth > imageWidth || minimumHeight > imageHeight)) {
 
                                     final Image wallpaperImage;
                                     try {

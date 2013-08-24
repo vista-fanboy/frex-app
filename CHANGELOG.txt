@@ -5,6 +5,7 @@ v1.2 (in development)
     - Issue 15:	Back button shall navigate back
     - Issue 16: Zooming does not animate on some devices.
     - Issue 17:	Open files with extension ".frex"
+    - Issue 18: Frex crash when setting wallpaper
 
 v1.1.1 (28.07.2013)
     - Fixed problem that prevented Frex from sharing images (https://code.google.com/p/frex-app/issues/detail?id=10)
