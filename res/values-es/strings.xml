@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Frex - a fractal image generator for Android mobile devices
+  ~
+  ~ Copyright (C) 2013 by Norman Fomferra
+  ~
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<resources>
+    <string name="app_name">Frex</string>
+    <string name="random">Aleatorio</string>
+    <string name="decorations">Decoraciónes</string>
+    <string name="properties">Propiedades</string>
+    <string name="distance_function">Función de distancia</string>
+    <string name="dilation">Extensión</string>
+    <string name="translation_x">Traslación horizontal</string>
+    <string name="translation_y">Traslación vertical</string>
+    <string name="colors">Colores</string>
+    <string name="color_scheme">Esquema de color</string>
+    <string name="color_gain">Amplificación</string>
+    <string name="color_offset">Traslación</string>
+    <string name="color_repeat">Repetir esquema de color</string>
+    <string name="num_iterations">Grado de pormenorización</string>
+    <string name="safe_fractal">Almacenar Fractal</string>
+    <string name="manage_fractals">Administrar Fractales</string>
+    <string name="delete_saved_fractals">Apagar Fractales</string>
+    <string name="select_fractal">Seleccionar Fractal</string>
+    <string name="fractal_name">Nombre de fraktal</string>
+    <string name="fractal_type">Tipo de fractal</string>
+    <string name="zoom_all">Toda Región</string>
+    <string name="zoom_in">Aumentar</string>
+    <string name="zoom_out">Reducir</string>
+    <string name="decorated_fractal">Fractal decorado</string>
+    <string name="julia_mode_fractal">Modo \'Conjunto Julia\'</string>
+    <string name="fractal_saved">Fractal almacenado.</string>
+    <string name="error_msg">Error: %s</string>
+    <string name="no_fractals_found">No encondrado fractales almacenados.</string>
+    <string name="set_wallpaper">Imagen de Fondo</string>
+    <string name="out_of_memory">Sin memoria.</string>
+    <string name="wallpaper_msg">Una nueva imagen de fondo  (%1$dx%2$d px) se calcula para su dispositivo. Dependiendo del dispositivo puede durar entre unos segundos o minutos.\n¿Desea reemplazar el fondo ahora?
+    </string>
+    <string name="wallpaper_set_msg">Imagen de fondo establecido.</string>
+    <string name="save_image">Almacenar Imagen</string>
+    <string name="share_image">Enviar Imagen</string>
+    <string name="email_subject">Una imagen para que</string>
+    <string name="image_saved_msg">Imagen se almacena en\n%s</string>
+    <string name="image_save_failed_msg">Imagen no puede ser almacenan.</string>
+    <string name="parameters_not_found_msg">El parámetro no se encuentra.</string>
+    <string name="open">Abrier</string>
+    <string name="delete">Apagar</string>
+    <string name="delete_fractal">Apagar Fractal</string>
+    <string name="really_delete_fractal">¿Quieres eliminar este fractal de forma permanente?</string>
+    <string name="fractal_deleted">Fractal apagado.</string>
+    <string name="delete_all">Apagar todos</string>
+    <string name="settings">Configuración</string>
+    <string name="exit">Salida</string>
+    <string name="calculation">Cálculo</string>
+    <string name="num_tasks">Número de tareas</string>
+    <string name="storage">Memoria</string>
+    <string name="about_frex">Acerca de Frex</string>
+    <string name="version">Versión</string>
+    <string name="version_summary">Frex versión %s\nCopyright © 2013 by Norman Fomferra.</string>
+    <string name="license">Licencia</string>
+    <string name="license_summary">GNU General Public License v3.0\nFrex es software libre.</string>
+    <string name="project">Proyecto</string>
+    <string name="status">Estado</string>
+    <string name="delete_all_summary">Elimina todos los archivos almacenados por Frex.</string>
+    <string name="delete_all_warning">¡Atención!\n\nEstá a punto de borrar todos sus fractales almacenados.\nEsto no se puede deshacer.</string>
+    <string name="behaviour">Conducta</string>
+    <string name="navigate_on_back">Botón Atrás para navegar</string>
+    <string name="navigate_on_back_summary_on">Botón Atrás para navegar de vuelta a las regiones anteriores.</string>
+    <string name="navigate_on_back_summary_off">Botón Atrás dejó Frex (comportamiento por defecto).</string>
+    <string name="empty_region_history_msg">La historia de regiones está vacía.</string>
+    <string name="first_region_msg">Conseguido región inicial.</string>
+    <string name="get_pal_from_img_button_text">De imagen</string>
+    <string name="get_pal_from_img_title">Extraiga la paleta de la imagen</string>
+    <string name="examples">Ejemplos</string>
+    <plurals name="storage_summary">
+        <item quantity="one">%1$d fichero, %2$s memoria ocupada.\nRuta de archivo: %3$s</item>
+        <item quantity="other">%1$d ficheros, %2$s memoria ocupada.\nRuta de archivo: %3$s</item>
+    </plurals>
+    <plurals name="all_deleted_msg">
+        <item quantity="one">%d fichero eliminado.</item>
+        <item quantity="other">%d ficheros eliminados.</item>
+    </plurals>
+    <plurals name="num_tasks_summary">
+        <item quantity="one">La CPU de este dispositivo tiene %1$d núcleo.\nEl número de tareas simultáneas es %2$d.</item>
+        <item quantity="other">La CPU de este dispositivo tiene %1$d núcleos.\nEl número de tareas simultáneas es %2$d.</item>
+    </plurals>
+</resources>

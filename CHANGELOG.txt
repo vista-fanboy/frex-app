@@ -1,4 +1,5 @@
 v1.2 (in development)
+    - Issue 7: Add spanish translation
     - Issue 12: Add user-defined color gradients (create palette from picture)
     - Issue 13: Add example fractals from which users can start from
     - Issue 15:	Back button shall navigate back
