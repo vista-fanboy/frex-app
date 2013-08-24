@@ -21,7 +21,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="nf.frex.android"
           android:versionCode="8"
-          android:versionName="1.2-alpha_01">
+          android:versionName="1.2">
 
     <uses-sdk android:minSdkVersion="10" android:targetSdkVersion="15"/>
 

@@ -3,7 +3,7 @@ About Frex
 
 Frex is a fractal image generator for Android mobile devices.
 
-With Frex you can use your mobile or tablet to easily create wonderful fractal images.
+With Frex you can use your mobile or tablet to easily create beautiful fractal images.
 Generating fractals is a compelling and relaxing exercise!
 You can select from various fractal types and then discover the beauty of their inner details.
 You can change their colors and further enrich the images by various options.
