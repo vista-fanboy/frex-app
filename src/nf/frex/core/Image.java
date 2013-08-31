@@ -56,7 +56,14 @@ public class Image {
     }
 
     public Bitmap createBitmap() {
-        return Bitmap.createBitmap(getColours(), getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
+        //return Bitmap.createBitmap(getColours(), getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
+        Bitmap bitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
+        getPixels(bitmap);
+        return bitmap;
+    }
+
+    public void getPixels(Bitmap bitmap) {
+        bitmap.setPixels(getColours(), 0, getWidth(), 0, 0, getWidth(), getHeight());
     }
 
     public void resize(int width, int height) {

@@ -49,7 +49,10 @@
     <string name="no_fractals_found">No encondrado fractales almacenados.</string>
     <string name="set_wallpaper">Imagen de Fondo</string>
     <string name="out_of_memory">Sin memoria.</string>
-    <string name="wallpaper_msg">Una nueva imagen de fondo  (%1$dx%2$d px) se calcula para su dispositivo. Dependiendo del dispositivo puede durar entre unos segundos o minutos.\n¿Desea reemplazar el fondo ahora?
+    <string name="wallpaper_compute_msg">Una nueva imagen de fondo  (%1$dx%2$d px) se calcula para su dispositivo. Dependiendo del dispositivo puede durar entre unos segundos o minutos.\n¿Desea reemplazar el fondo ahora?
+    </string>
+    <string name="wallpaper_replace_msg">
+        ¿Desea reemplazar el fondo ahora?
     </string>
     <string name="wallpaper_set_msg">Imagen de fondo establecido.</string>
     <string name="save_image">Almacenar Imagen</string>

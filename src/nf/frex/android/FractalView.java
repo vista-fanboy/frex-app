@@ -42,6 +42,12 @@ import java.util.LinkedList;
 public class FractalView extends View {
     public static final String TAG = "FrexActivity";
     public static final String PACKAGE_NAME = "nf.frex.android";
+    private final Matrix matrix;
+
+    private enum Operation {
+        TRANSLATION,
+        SCALING,
+    }
 
     private final GestureDetector gestureDetector;
     private final ScaleGestureDetector scaleGestureDetector;
@@ -49,15 +55,15 @@ public class FractalView extends View {
     private final LinkedList<Region> regionHistory;
     private final Generator generator;
 
-    private Bitmap bitmap;
     private Image image;
     private Image imageCopy;
-    private float scrollDistanceX;
-    private float scrollDistanceY;
+    private Bitmap capturedBitmap;
+    private Operation operation;
+    private float translateX;
+    private float translateY;
     private float focusX;
     private float focusY;
-    private float zoomFactor;
-
+    private float scalingFactor;
     private final GeneratorConfig generatorConfig;
     private boolean regionRecordingDisabled;
 
@@ -65,6 +71,8 @@ public class FractalView extends View {
         super(activity);
 
         this.activity = activity;
+
+        matrix = new Matrix();
 
         scaleGestureDetector = new ScaleGestureDetector(activity, new ScaleGestureListener());
         gestureDetector = new GestureDetector(activity, new GestureListener());
@@ -279,24 +287,42 @@ public class FractalView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        if (bitmap != null) {
-            Matrix matrix = new Matrix();
-            if (hasScrollDistance()) {
-                matrix.setTranslate(-scrollDistanceX, -scrollDistanceY);
+        if (operation != null) {
+            matrix.reset();
+            if (operation == Operation.TRANSLATION && hasTranslation()) {
                 //Log.d(TAG, "Scrolling");
-            } else {
-                matrix.setScale(zoomFactor, zoomFactor, focusX, focusY);
+                matrix.setTranslate(-translateX, -translateY);
+                canvas.drawBitmap(capturedBitmap, matrix, null);
+                return;
+            } else if (operation == Operation.SCALING && hasScaling()) {
                 //Log.d(TAG, "Zooming!");
+                matrix.setScale(scalingFactor, scalingFactor, focusX, focusY);
+                canvas.drawBitmap(capturedBitmap, matrix, null);
+                return;
             }
-            canvas.drawBitmap(bitmap, matrix, null);
+        }
+
+        canvas.drawBitmap(image.getColours(), 0, image.getWidth(), 0F, 0F, image.getWidth(), image.getHeight(), false, null);
+        //Log.d(TAG, "No operation!");
+    }
+
+    public Bitmap getBitmap() {
+        if (capturedBitmap == null) {
+            captureBitmap();
+        }
+        return capturedBitmap;
+    }
+
+    public void captureBitmap() {
+        if (capturedBitmap == null) {
+            capturedBitmap = image.createBitmap();
         } else {
-            canvas.drawBitmap(image.getColours(), 0, image.getWidth(), 0F, 0F, image.getWidth(), image.getHeight(), false, null);
-            //Log.d(TAG, "No interaction!");
+            image.getPixels(capturedBitmap);
         }
     }
 
-    public Bitmap createBitmap() {
-        return image.createBitmap();
+    public void clearBitmap() {
+        capturedBitmap = null;
     }
 
     @Override
@@ -306,6 +332,8 @@ public class FractalView extends View {
         generator.cancel();
         image.resize(w, h);
         imageCopy.resize(w, h);
+        clearBitmap();
+        clearOperation();
         recomputeAll();
     }
 
@@ -325,13 +353,13 @@ public class FractalView extends View {
     public boolean onTouchEvent(MotionEvent event) {
         boolean handled;
         handled = scaleGestureDetector.onTouchEvent(event);
-        if (!scaling) {
+        if (operation != Operation.SCALING) {
             handled = gestureDetector.onTouchEvent(event);
             // up to SDK 4.0.3,  ACTION_UP after scrolling is not handled by GestureDetector
             if (event.getActionMasked() == MotionEvent.ACTION_UP) {
-                if (hasScrollDistance()) {
-                    moveRegion(scrollDistanceX, scrollDistanceY);
-                    clearScrollDistance();
+                if (hasTranslation()) {
+                    moveRegion(translateX, translateY);
+                    clearOperation();
                     return true;
                 }
             }
@@ -339,20 +367,24 @@ public class FractalView extends View {
         return handled;
     }
 
-    private boolean hasScrollDistance() {
-        return scrollDistanceX != 0 || scrollDistanceY != 0;
+    private boolean hasTranslation() {
+        return translateX != 0 || translateY != 0;
     }
 
-    private void clearScrollDistance() {
-        scrollDistanceX = scrollDistanceY = 0;
-        zoomFactor = 1;
-        bitmap = null;
+    private boolean hasScaling() {
+        return scalingFactor != 1;
     }
 
-    private void incrementScrollDistance(float distanceX, float distanceY) {
-        this.scrollDistanceX += distanceX;
-        this.scrollDistanceY += distanceY;
-        zoomFactor = 1;
+    private void clearOperation() {
+        operation = null;
+        translateX = translateY = 0F;
+        scalingFactor = 1F;
+    }
+
+    private void appendTranslation(float distanceX, float distanceY) {
+        this.translateX += distanceX;
+        this.translateY += distanceY;
+        scalingFactor = 1;
     }
 
     public void restoreInstanceState(PropertySet propertySet) {
@@ -596,15 +628,13 @@ public class FractalView extends View {
         return regionRecordingDisabled;
     }
 
-    boolean scaling;
-
     private class ScaleGestureListener implements ScaleGestureDetector.OnScaleGestureListener {
 
         @Override
         public boolean onScale(ScaleGestureDetector detector) {
-            scrollDistanceX = scrollDistanceY = 0;
-            zoomFactor = getZoomFactor(detector);
-            scaling = true;
+            operation = Operation.SCALING;
+            translateX = translateY = 0;
+            scalingFactor = getScalingFactor(detector);
             invalidate();
             //Log.d(TAG, "onScale: " + ", scaleFactor=" + detector.getScaleFactor() + ", zoomFactor=" + zoomFactor);
             return false;
@@ -612,27 +642,26 @@ public class FractalView extends View {
 
         @Override
         public boolean onScaleBegin(ScaleGestureDetector detector) {
-            scrollDistanceX = scrollDistanceY = 0;
-            scaling = true;
-            bitmap = image.createBitmap();
+            operation = Operation.SCALING;
+            translateX = translateY = 0;
+            scalingFactor = getScalingFactor(detector);
             focusX = detector.getFocusX();
             focusY = detector.getFocusY();
-            zoomFactor = getZoomFactor(detector);
+            captureBitmap();
             //Log.d(TAG, "onScaleBegin: " + ", scaleFactor=" + detector.getScaleFactor() + ", zoomFactor=" + zoomFactor);
             return true;
         }
 
         @Override
         public void onScaleEnd(ScaleGestureDetector detector) {
-            scaling = false;
-            zoomFactor = getZoomFactor(detector);
+            scalingFactor = getScalingFactor(detector);
             invalidate();
-            bitmap = null;
             //Log.d(TAG, "onScaleEnd: " + ", scaleFactor=" + detector.getScaleFactor() + ", zoomFactor=" + zoomFactor);
-            zoomRegionWithFocus(focusX, focusY, zoomFactor);
+            zoomRegionWithFocus(focusX, focusY, scalingFactor);
+            clearOperation();
         }
 
-        private float getZoomFactor(ScaleGestureDetector detector) {
+        private float getScalingFactor(ScaleGestureDetector detector) {
             float scaleFactor = detector.getScaleFactor();
             final float stepSize = 0.25F;
             float zoomFactor = stepSize * Math.round((scaleFactor < 1 ? 1 / scaleFactor : scaleFactor) / stepSize);
@@ -654,7 +683,7 @@ public class FractalView extends View {
 
         @Override
         public boolean onDown(MotionEvent e) {
-            clearScrollDistance();
+            clearOperation();
             //Log.d(TAG, "onDown");
             return true;
         }
@@ -671,10 +700,11 @@ public class FractalView extends View {
 
         @Override
         public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-            if (bitmap == null) {
-                bitmap = image.createBitmap();
+            if (operation == null) {
+                captureBitmap();
             }
-            incrementScrollDistance(distanceX, distanceY);
+            operation = Operation.TRANSLATION;
+            appendTranslation(distanceX, distanceY);
             //postInvalidate();
             invalidate();
             //Log.d(TAG, "onScroll: " + distanceX + "," + distanceY);

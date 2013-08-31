@@ -49,7 +49,10 @@
     <string name="no_fractals_found">Keine gespeicherten Fraktale gefunden.</string>
     <string name="set_wallpaper">Als Hintergrundbild einrichten</string>
     <string name="out_of_memory">Speicher voll.</string>
-    <string name="wallpaper_msg">Ein neues Hintergrundbild (%1$dx%2$d px) wird für dein Gerät berechnet. Je nach Gerät kann das zwischen Sekunden oder Minuten dauern.\nMöchtest du den Hintergrund jetzt austauschen?
+    <string name="wallpaper_compute_msg">Ein neues Hintergrundbild (%1$dx%2$d px) wird für dein Gerät berechnet. Je nach Gerät kann das zwischen Sekunden oder Minuten dauern.\nMöchtest du den Hintergrund jetzt austauschen?
+    </string>
+    <string name="wallpaper_replace_msg">
+        Möchtest du den Hintergrund jetzt austauschen?
     </string>
     <string name="wallpaper_set_msg">Hintergrundbild gesetzt.</string>
     <string name="save_image">Bild speichern</string>

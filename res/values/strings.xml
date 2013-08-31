@@ -49,8 +49,11 @@
     <string name="no_fractals_found">No saved fractals found</string>
     <string name="set_wallpaper">Set Wallpaper</string>
     <string name="out_of_memory">Out of memory</string>
-    <string name="wallpaper_msg">
+    <string name="wallpaper_compute_msg">
         A new wallpaper (%1$dx%2$d px) will be computed for your device. This may take a few seconds to minutes depending on your hardware.\nDo you want to exchange the existing wallpaper?
+    </string>
+    <string name="wallpaper_replace_msg">
+        Do you want to exchange the existing wallpaper?
     </string>
     <string name="wallpaper_set_msg">Wallpaper set</string>
     <string name="save_image">Save Image</string>
