@@ -63,7 +63,8 @@ public class ManagerActivity extends Activity {
         final FrexIO frexIO = new FrexIO(this);
         imageFiles = frexIO.getFiles(FrexIO.IMAGE_FILE_EXT);
         final Bitmap[] thumbnails = new Bitmap[imageFiles.length];
-        final Bitmap proxyBitmap = Bitmap.createBitmap(new int[thumbnailWidth * thumbnailHeight], thumbnailWidth, thumbnailHeight, Bitmap.Config.ARGB_8888);
+
+        final Bitmap proxyBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.frex_logo);
         Arrays.fill(thumbnails, proxyBitmap);
 
         final View view = getLayoutInflater().inflate(R.layout.manage_fractals, null);
@@ -99,11 +100,13 @@ public class ManagerActivity extends Activity {
                     int thumbnailWidth = (w * thumbnailHeight) / h;
                     Bitmap thumbnail = Bitmap.createScaledBitmap(bitmap, thumbnailWidth, thumbnailHeight, true);
                     galleryAdapter.setThumbnail(i, thumbnail);
+                } catch (OutOfMemoryError e) {
+                    // todo - set special "Error" bitmap, try reloading later
                 } finally {
                     stream.close();
                 }
             } catch (IOException e) {
-                // ?
+                // todo - set special "Error" bitmap, try reloading later
             }
             runOnUiThread(new Runnable() {
                 @Override
