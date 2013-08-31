@@ -33,7 +33,7 @@
     <string name="color_offset">Traslación</string>
     <string name="color_repeat">Repetir esquema de color</string>
     <string name="num_iterations">Grado de pormenorización</string>
-    <string name="safe_fractal">Almacenar Fractal</string>
+    <string name="save_fractal">Almacenar Fractal</string>
     <string name="manage_fractals">Administrar Fractales</string>
     <string name="delete_saved_fractals">Apagar Fractales</string>
     <string name="select_fractal">Seleccionar Fractal</string>

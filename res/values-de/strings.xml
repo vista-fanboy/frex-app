@@ -33,7 +33,7 @@
     <string name="color_offset">Farbverschiebung</string>
     <string name="color_repeat">Farben wiederholen</string>
     <string name="num_iterations">Detaillierungsgrad</string>
-    <string name="safe_fractal">Fraktal speichern</string>
+    <string name="save_fractal">Fraktal speichern</string>
     <string name="manage_fractals">Fraktale verwalten</string>
     <string name="delete_saved_fractals">Fraktale löschen</string>
     <string name="select_fractal">Fraktal auswählen</string>

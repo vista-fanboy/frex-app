@@ -48,7 +48,7 @@
           android:title="@string/manage_fractals"/>
     <item android:id="@+id/save_fractal"
           android:showAsAction="never"
-          android:title="@string/safe_fractal"/>
+          android:title="@string/save_fractal"/>
     <item android:id="@+id/set_wallpaper"
           android:showAsAction="never"
           android:title="@string/set_wallpaper"/>

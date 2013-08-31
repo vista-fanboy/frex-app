@@ -33,7 +33,7 @@
     <string name="color_offset">Color offset</string>
     <string name="color_repeat">Repeat colors</string>
     <string name="num_iterations">Level of detail</string>
-    <string name="safe_fractal">Safe Fractal</string>
+    <string name="save_fractal">Save Fractal</string>
     <string name="manage_fractals">Manage Fractals</string>
     <string name="delete_saved_fractals">Delete Fractals</string>
     <string name="select_fractal">Select fractal</string>
