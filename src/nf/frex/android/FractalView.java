@@ -323,14 +323,17 @@ public class FractalView extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        scaleGestureDetector.onTouchEvent(event);
-        boolean handled = gestureDetector.onTouchEvent(event);
-        // up to SDK 4.0.3,  ACTION_UP after scrolling is not handled by GestureDetector
-        if (event.getActionMasked() == MotionEvent.ACTION_UP) {
-            if (hasScrollDistance()) {
-                moveRegion(scrollDistanceX, scrollDistanceY);
-                clearScrollDistance();
-                return true;
+        boolean handled;
+        handled = scaleGestureDetector.onTouchEvent(event);
+        if (!scaling) {
+            handled = gestureDetector.onTouchEvent(event);
+            // up to SDK 4.0.3,  ACTION_UP after scrolling is not handled by GestureDetector
+            if (event.getActionMasked() == MotionEvent.ACTION_UP) {
+                if (hasScrollDistance()) {
+                    moveRegion(scrollDistanceX, scrollDistanceY);
+                    clearScrollDistance();
+                    return true;
+                }
             }
         }
         return handled;
@@ -593,31 +596,39 @@ public class FractalView extends View {
         return regionRecordingDisabled;
     }
 
+    boolean scaling;
+
     private class ScaleGestureListener implements ScaleGestureDetector.OnScaleGestureListener {
 
         @Override
-        public boolean onScaleBegin(ScaleGestureDetector detector) {
-            bitmap = image.createBitmap();
-            focusX = detector.getFocusX();
-            focusY = detector.getFocusY();
-            return true;
-        }
-
-        @Override
         public boolean onScale(ScaleGestureDetector detector) {
+            scrollDistanceX = scrollDistanceY = 0;
             zoomFactor = getZoomFactor(detector);
-            //postInvalidate();
+            scaling = true;
             invalidate();
+            //Log.d(TAG, "onScale: " + ", scaleFactor=" + detector.getScaleFactor() + ", zoomFactor=" + zoomFactor);
             return false;
         }
 
         @Override
-        public void onScaleEnd(ScaleGestureDetector detector) {
+        public boolean onScaleBegin(ScaleGestureDetector detector) {
+            scrollDistanceX = scrollDistanceY = 0;
+            scaling = true;
+            bitmap = image.createBitmap();
+            focusX = detector.getFocusX();
+            focusY = detector.getFocusY();
             zoomFactor = getZoomFactor(detector);
-            //postInvalidate();
+            //Log.d(TAG, "onScaleBegin: " + ", scaleFactor=" + detector.getScaleFactor() + ", zoomFactor=" + zoomFactor);
+            return true;
+        }
+
+        @Override
+        public void onScaleEnd(ScaleGestureDetector detector) {
+            scaling = false;
+            zoomFactor = getZoomFactor(detector);
             invalidate();
             bitmap = null;
-//            Log.d(TAG, "onScaleEnd: " + ", scaleFactor=" + detector.getScaleFactor() + ", zoomFactor=" + zoomFactor);
+            //Log.d(TAG, "onScaleEnd: " + ", scaleFactor=" + detector.getScaleFactor() + ", zoomFactor=" + zoomFactor);
             zoomRegionWithFocus(focusX, focusY, zoomFactor);
         }
 
