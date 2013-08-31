@@ -283,25 +283,35 @@ public class FrexActivity extends Activity {
 
     private void setWallpaper() {
         final WallpaperManager wallpaperManager = WallpaperManager.getInstance(FrexActivity.this);
-        final int minimumWidth = wallpaperManager.getDesiredMinimumWidth();
-        final int minimumHeight = wallpaperManager.getDesiredMinimumHeight();
+        final int desiredWidth = wallpaperManager.getDesiredMinimumWidth();
+        final int desiredHeight = wallpaperManager.getDesiredMinimumHeight();
 
-        showYesNoDialog(this, R.string.set_wallpaper,
-                        getString(R.string.wallpaper_msg, minimumWidth, minimumHeight),
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                final Image image = view.getImage();
-                                final int imageWidth = image.getWidth();
-                                final int imageHeight = image.getHeight();
+        final Image image = view.getImage();
+        final int imageWidth = image.getWidth();
+        final int imageHeight = image.getHeight();
 
-                                if ((minimumWidth > imageWidth || minimumHeight > imageHeight)) {
+        final boolean useDesiredSize = desiredWidth > imageWidth || desiredHeight > imageHeight;
+
+        DialogInterface.OnClickListener noListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // ok
+            }
+        };
+
+        if (useDesiredSize) {
+            showYesNoDialog(this,
+                            R.string.set_wallpaper,
+                            getString(R.string.wallpaper_compute_msg, desiredWidth, desiredHeight),
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
 
                                     final Image wallpaperImage;
                                     try {
-                                        wallpaperImage = new Image(minimumWidth, minimumHeight);
+                                        wallpaperImage = new Image(desiredWidth, desiredHeight);
                                     } catch (OutOfMemoryError e) {
-                                        Toast.makeText(FrexActivity.this, getString(R.string.out_of_memory), Toast.LENGTH_LONG).show();
+                                        alert(getString(R.string.out_of_memory));
                                         return;
                                     }
 
@@ -343,30 +353,38 @@ public class FrexActivity extends Activity {
                                     };
                                     progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
                                     progressDialog.setCancelable(true);
-                                    progressDialog.setMax(minimumHeight);
+                                    progressDialog.setMax(desiredHeight);
                                     progressDialog.setOnCancelListener(cancelListener);
                                     progressDialog.show();
 
                                     wallpaperGenerator.start(wallpaperImage, false);
-                                } else {
+                                }
+                            },
+                            noListener,
+                            null
+            );
+        } else {
+            showYesNoDialog(this,
+                            R.string.set_wallpaper,
+                            getString(R.string.wallpaper_replace_msg),
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
                                     setWallpaper(wallpaperManager, image);
                                 }
-                            }
-                        },
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                // ok
-                            }
-                        },
-                        null
-        );
+                            },
+                            noListener,
+                            null
+            );
+        }
     }
 
     private void setWallpaper(WallpaperManager wallpaperManager, Image image) {
         try {
             wallpaperManager.setBitmap(image.createBitmap());
             alert(R.string.wallpaper_set_msg);
+        } catch (OutOfMemoryError e) {
+            alert(getString(R.string.out_of_memory));
         } catch (IOException e) {
             alert(e.getLocalizedMessage());
         }
@@ -416,11 +434,11 @@ public class FrexActivity extends Activity {
 
     private void prepareColorsDialog(final Dialog dialog) {
 
-        Log.d(TAG, "prepareColorsDialog() entered");
+        //Log.d(TAG, "prepareColorsDialog() entered");
 
         getColorSchemes();
 
-        Log.d(TAG, "prepareColorsDialog: new bitmaps are being created");
+        //Log.d(TAG, "prepareColorsDialog: new bitmaps are being created");
         Bitmap[] colorSchemeIcons = new Bitmap[colorSchemes.getSize()];
         for (int i = 0; i < colorSchemeIcons.length; i++) {
             ColorScheme colorScheme = colorSchemes.getValue(i);
@@ -428,7 +446,7 @@ public class FrexActivity extends Activity {
         }
 
         int checkedIndex = Registries.colorSchemes.getIndex(view.getColorSchemeId());
-        Log.d(TAG, "prepareColorsDialog: checkedIndex = " + checkedIndex);
+        //Log.d(TAG, "prepareColorsDialog: checkedIndex = " + checkedIndex);
         final Spinner colorTableSpinner = (Spinner) dialog.findViewById(R.id.color_table_spinner);
         colorTableSpinner.setAdapter(new ImageArrayAdapter(this, 0, colorSchemeIcons));
         colorTableSpinner.setSelection(checkedIndex, false);
@@ -444,8 +462,6 @@ public class FrexActivity extends Activity {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
-
-        Log.d(TAG, "prepareColorsDialog: WRAW!");
 
         final SeekBar colorFactorSeekBar = (SeekBar) dialog.findViewById(R.id.color_gain_seek_bar);
         final double colorFactorMin = -3.0;
@@ -521,7 +537,7 @@ public class FrexActivity extends Activity {
             }
         });
 
-        Log.d(TAG, "prepareColorsDialog() exited");
+        //Log.d(TAG, "prepareColorsDialog() exited");
     }
 
     private Registry<ColorScheme> getColorSchemes() {
@@ -903,7 +919,7 @@ public class FrexActivity extends Activity {
         try {
             FileOutputStream out = new FileOutputStream(imageFile);
             try {
-                view.createBitmap().compress(FrexIO.IMAGE_FILE_FORMAT, 100, out);
+                view.getBitmap().compress(FrexIO.IMAGE_FILE_FORMAT, 100, out);
             } finally {
                 out.close();
             }
