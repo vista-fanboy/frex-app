@@ -919,7 +919,7 @@ public class FrexActivity extends Activity {
         try {
             FileOutputStream out = new FileOutputStream(imageFile);
             try {
-                view.getBitmap().compress(FrexIO.IMAGE_FILE_FORMAT, 100, out);
+                view.captureBitmap().compress(FrexIO.IMAGE_FILE_FORMAT, 100, out);
             } finally {
                 out.close();
             }

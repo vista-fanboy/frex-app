@@ -1,3 +1,6 @@
+v1.2.2
+    - Quickfix: Save fractal saved corrupted image.
+
 v1.2.1
     - Issue 16: Zooming does not animate on some devices (issue reopened and finally fixed).
     - Issue 19:	'Manage Fractals' causes Frex crash

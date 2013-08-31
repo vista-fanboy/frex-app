@@ -306,19 +306,13 @@ public class FractalView extends View {
         //Log.d(TAG, "No operation!");
     }
 
-    public Bitmap getBitmap() {
-        if (capturedBitmap == null) {
-            captureBitmap();
-        }
-        return capturedBitmap;
-    }
-
-    public void captureBitmap() {
+    public Bitmap captureBitmap() {
         if (capturedBitmap == null) {
             capturedBitmap = image.createBitmap();
         } else {
             image.getPixels(capturedBitmap);
         }
+        return capturedBitmap;
     }
 
     public void clearBitmap() {
