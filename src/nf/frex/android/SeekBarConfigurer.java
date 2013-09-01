@@ -37,6 +37,12 @@ public class SeekBarConfigurer {
         this.log10Scaled = log10Scaled;
     }
 
+    public static SeekBarConfigurer create(SeekBar seekBar, double minValue, double maxValue, boolean log10Scaled, double initValue) {
+        final SeekBarConfigurer configurer = new SeekBarConfigurer(seekBar, minValue, maxValue, log10Scaled);
+        configurer.setValue(initValue);
+        return configurer;
+    }
+
     public double getValue() {
         return log10Scaled ? Math.pow(10, getRawValue()) : getRawValue();
     }

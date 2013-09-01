@@ -7,3 +7,6 @@ todo - Generate uk-english, italian, french and spanish versions
 todo - introduce function that auto-creates images (e.g. shake mobile using varying intensities)
 todo - add better/nicer color bars
 todo - undo/redo
+
+
+see http://developer.android.com/guide/topics/renderscript/index.html

@@ -116,8 +116,10 @@ public class Generator {
             final OrbitFunction orbitFunction = new OrbitFunction(Registries.distanceFunctions.getValue(config.getDistanceFunctionId(), DistanceFunction.STINGS),
                                                                   config.getDistanceDilation(),
                                                                   config.getDistanceTranslateX(),
-                                                                  config.getDistanceTranslateY()
-            );
+                                                                  config.getDistanceTranslateY(),
+                                                                  config.isTurbulenceEnabled(),
+                                                                  config.getTurbulenceIntensity(),
+                                                                  config.getTurbulenceScale());
             final boolean regenColors = this.regenColors;
 
             final Region region = config.getRegion();

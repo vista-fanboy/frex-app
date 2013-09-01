@@ -1,3 +1,6 @@
+v1.3.0 (Ongoing)
+    - Added turbulence to orbit function.
+
 v1.2.2
     - Quickfix: Save fractal saved corrupted image.
 

@@ -94,6 +94,9 @@
     <string name="get_pal_from_img_button_text">From Pic…</string>
     <string name="get_pal_from_img_title">Extracting Palette from Picture</string>
     <string name="examples">Examples</string>
+    <string name="turbulence">Turbulence (very compute-intensive!)</string>
+    <string name="turb_scale">Smoothing of turbulence</string>
+    <string name="turb_intens">Intensity of turbulence</string>
     <plurals name="storage_summary">
         <item quantity="one">%1$d file, %2$s storage used.\nPath: %3$s</item>
         <item quantity="other">%1$d files, %2$s storage used.\nPath: %3$s</item>

@@ -70,12 +70,40 @@
              android:layout_height="wrap_content"
             />
 
+    <CheckBox android:id="@+id/turbulence"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:layout_gravity="fill_horizontal"
+              android:text="@string/turbulence"
+            />
+
+    <TextView android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:text="@string/turb_intens"
+            />
+
+    <SeekBar android:id="@+id/turb_intens_seek_bar"
+             android:layout_width="fill_parent"
+             android:layout_height="wrap_content"
+            />
+
+    <TextView android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:text="@string/turb_scale"
+            />
+
+    <SeekBar android:id="@+id/turb_scale_seek_bar"
+             android:layout_width="fill_parent"
+             android:layout_height="wrap_content"
+            />
+
     <LinearLayout android:orientation="horizontal"
                   android:layout_width="fill_parent"
                   android:layout_height="wrap_content"
                   android:layout_gravity="fill_horizontal"
                   android:padding="5dp"
             >
+
         <Button android:id="@+id/random_button"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"

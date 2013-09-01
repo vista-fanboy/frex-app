@@ -46,6 +46,9 @@ public class GeneratorConfig {
     private double colorGain;
     private double colorOffset;
     private boolean colorRepeat;
+    private double turbulenceIntensity;
+    private double turbulenceScale;
+    private boolean turbulenceEnabled;
 
     public void restoreInstanceState(PropertySet propertySet) {
         setFractalId(propertySet.getString("fractalId", getFractalId()));
@@ -63,6 +66,9 @@ public class GeneratorConfig {
         setDistanceDilation(propertySet.getDouble("distanceDilation", getDistanceDilation()));
         setDistanceTranslateX(propertySet.getDouble("distanceTranslateX", getDistanceTranslateX()));
         setDistanceTranslateY(propertySet.getDouble("distanceTranslateY", getDistanceTranslateY()));
+        setTurbulenceEnabled(propertySet.getBoolean("turbulenceEnabled", isTurbulenceEnabled()));
+        setTurbulenceIntensity(propertySet.getDouble("turbulenceIntensity", getTurbulenceIntensity()));
+        setTurbulenceIntensity(propertySet.getDouble("turbulenceScale", getTurbulenceScale()));
 
         setColorSchemeId(propertySet.getString("colorSchemeId", getColorSchemeId()));
         ColorScheme colorScheme = Registries.colorSchemes.getValue(getColorSchemeId());
@@ -100,6 +106,9 @@ public class GeneratorConfig {
         propertySet.setDouble("distanceDilation", getDistanceDilation());
         propertySet.setDouble("distanceTranslateX", getDistanceTranslateX());
         propertySet.setDouble("distanceTranslateY", getDistanceTranslateY());
+        propertySet.setBoolean("turbulenceEnabled", isTurbulenceEnabled());
+        propertySet.setDouble("turbulenceIntensity", getTurbulenceIntensity());
+        propertySet.setDouble("turbulenceScale", getTurbulenceScale());
 
         propertySet.setString("colorSchemeId", getColorSchemeId());
         propertySet.setString("colorScheme", getColorScheme().asText());
@@ -259,5 +268,30 @@ public class GeneratorConfig {
 
     public void setRegion(Region region) {
         this.region = region;
+    }
+
+    public double getTurbulenceIntensity() {
+        return turbulenceIntensity;
+    }
+
+    public void setTurbulenceIntensity(double turbulenceIntensity) {
+        this.turbulenceIntensity = turbulenceIntensity;
+    }
+
+
+    public double getTurbulenceScale() {
+        return turbulenceScale;
+    }
+
+    public void setTurbulenceScale(double turbulenceScale) {
+        this.turbulenceScale = turbulenceScale;
+    }
+
+    public void setTurbulenceEnabled(boolean turbulenceEnabled) {
+        this.turbulenceEnabled = turbulenceEnabled;
+    }
+
+    public boolean isTurbulenceEnabled() {
+        return turbulenceEnabled;
     }
 }

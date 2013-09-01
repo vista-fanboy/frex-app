@@ -90,6 +90,9 @@
     <string name="get_pal_from_img_button_text">De imagen</string>
     <string name="get_pal_from_img_title">Extraiga la paleta de la imagen</string>
     <string name="examples">Ejemplos</string>
+    <string name="turbulence">Turbulencia (¡Cálculo intensivo!)</string>
+    <string name="turb_scale">Alisado de turbulencia</string>
+    <string name="turb_intens">Amplificación de turbulencia</string>
     <plurals name="storage_summary">
         <item quantity="one">%1$d fichero, %2$s memoria ocupada.\nRuta de archivo: %3$s</item>
         <item quantity="other">%1$d ficheros, %2$s memoria ocupada.\nRuta de archivo: %3$s</item>

@@ -466,8 +466,7 @@ public class FrexActivity extends Activity {
         final SeekBar colorFactorSeekBar = (SeekBar) dialog.findViewById(R.id.color_gain_seek_bar);
         final double colorFactorMin = -3.0;
         final double colorFactorMax = 2.0;
-        final SeekBarConfigurer colorFactorSeekBarConfigurer = new SeekBarConfigurer(colorFactorSeekBar, colorFactorMin, colorFactorMax, true);
-        colorFactorSeekBarConfigurer.setValue(view.getColorGain());
+        final SeekBarConfigurer colorFactorSeekBarConfigurer = SeekBarConfigurer.create(colorFactorSeekBar, colorFactorMin, colorFactorMax, true, view.getColorGain());
         colorFactorSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -487,8 +486,7 @@ public class FrexActivity extends Activity {
         final SeekBar colorBiasSeekBar = (SeekBar) dialog.findViewById(R.id.color_offset_seek_bar);
         final double colorBiasMin = 0;
         final double colorBiasMax = 1024;
-        final SeekBarConfigurer colorBiasSeekBarConfigurer = new SeekBarConfigurer(colorBiasSeekBar, colorBiasMin, colorBiasMax, false);
-        colorBiasSeekBarConfigurer.setValue(view.getColorOffset());
+        final SeekBarConfigurer colorBiasSeekBarConfigurer = SeekBarConfigurer.create(colorBiasSeekBar, colorBiasMin, colorBiasMax, false, view.getColorOffset());
         colorBiasSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -602,8 +600,7 @@ public class FrexActivity extends Activity {
 
         final double iterationsMin = 1;
         final double iterationsMax = 3;
-        final SeekBarConfigurer iterationsSeekBarConfigurer = new SeekBarConfigurer(iterationsSeekBar, iterationsMin, iterationsMax, true);
-        iterationsSeekBarConfigurer.setValue(view.getIterMax());
+        final SeekBarConfigurer iterationsSeekBarConfigurer = SeekBarConfigurer.create(iterationsSeekBar, iterationsMin, iterationsMax, true, view.getIterMax());
         iterationsSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -695,32 +692,33 @@ public class FrexActivity extends Activity {
         distanceFunctionSpinner.setAdapter(arrayAdapter);
         distanceFunctionSpinner.setSelection(checkedIndex, false);
 
-        final SeekBar dilationSeekBar = (SeekBar) dialog.findViewById(R.id.dilation_seek_bar);
-        final double dilationMin = -3.0;
-        final double dilationMax = 1.0;
-        final SeekBarConfigurer dilationSeekBarConfigurer = new SeekBarConfigurer(dilationSeekBar, dilationMin, dilationMax, true);
-        dilationSeekBarConfigurer.setValue(view.getDistanceDilation());
+        final SeekBarConfigurer dilationSeekBarConfigurer = SeekBarConfigurer.create((SeekBar) dialog.findViewById(R.id.dilation_seek_bar),
+                                                                                     -3.0, 1.0, true, view.getDistanceDilation());
+        final SeekBarConfigurer translateXSeekBarConfigurer = SeekBarConfigurer.create((SeekBar) dialog.findViewById(R.id.transl_x_seek_bar),
+                                                                                       -2.5, 2.5, false, view.getDistanceTranslateX());
+        final SeekBarConfigurer translateYSeekBarConfigurer = SeekBarConfigurer.create((SeekBar) dialog.findViewById(R.id.transl_y_seek_bar),
+                                                                                       -2.5, 2.5, false, view.getDistanceTranslateY());
 
-        final SeekBar translXSeekBar = (SeekBar) dialog.findViewById(R.id.transl_x_seek_bar);
-        final double translXMin = -2.5;
-        final double translXMax = 2.5;
-        final SeekBarConfigurer translateXSeekBarConfigurer = new SeekBarConfigurer(translXSeekBar, translXMin, translXMax, false);
-        translateXSeekBarConfigurer.setValue(view.getDistanceTranslateX());
+        final CheckBox turbulenceCheckBox = (CheckBox) dialog.findViewById(R.id.turbulence);
+        turbulenceCheckBox.setChecked(view.getGeneratorConfig().isTurbulenceEnabled());
 
-        final SeekBar translYSeekBar = (SeekBar) dialog.findViewById(R.id.transl_y_seek_bar);
-        final double translYMin = -2.5;
-        final double translYMax = 2.5;
-        final SeekBarConfigurer translateYSeekBarConfigurer = new SeekBarConfigurer(translYSeekBar, translYMin, translYMax, false);
-        translateYSeekBarConfigurer.setValue(view.getDistanceTranslateY());
+        final SeekBarConfigurer turbIntensSeekBarConfigurer = SeekBarConfigurer.create((SeekBar) dialog.findViewById(R.id.turb_intens_seek_bar),
+                                                                                       -1.0, 1.0, true, view.getGeneratorConfig().getTurbulenceIntensity());
+        final SeekBarConfigurer turbScaleSeekBarConfigurer = SeekBarConfigurer.create((SeekBar) dialog.findViewById(R.id.turb_scale_seek_bar),
+                                                                                      -1.0, 1.0, true, view.getGeneratorConfig().getTurbulenceScale());
 
         Button randomButton = (Button) dialog.findViewById(R.id.random_button);
         randomButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                distanceFunctionSpinner.setSelection((int) (Math.random() * distanceFunctions.getSize()));
                 dilationSeekBarConfigurer.setRandomValue();
                 translateXSeekBarConfigurer.setRandomValue();
                 translateYSeekBarConfigurer.setRandomValue();
-                distanceFunctionSpinner.setSelection((int) (Math.random() * distanceFunctions.getSize()));
+                if (Math.random() < 0.5) {
+                    turbIntensSeekBarConfigurer.setRandomValue();
+                    turbScaleSeekBarConfigurer.setRandomValue();
+                }
             }
         });
 
@@ -731,10 +729,13 @@ public class FrexActivity extends Activity {
                 int index = distanceFunctionSpinner.getSelectedItemPosition();
                 dialog.dismiss();
                 view.setDecoratedFractal(true);
+                view.setDistanceFunctionId(distanceFunctions.getId(index));
                 view.setDistanceDilation(dilationSeekBarConfigurer.getValue());
                 view.setDistanceTranslateX(translateXSeekBarConfigurer.getValue());
                 view.setDistanceTranslateY(translateYSeekBarConfigurer.getValue());
-                view.setDistanceFunctionId(distanceFunctions.getId(index));
+                view.getGeneratorConfig().setTurbulenceEnabled(turbulenceCheckBox.isChecked());
+                view.getGeneratorConfig().setTurbulenceIntensity(turbIntensSeekBarConfigurer.getValue());
+                view.getGeneratorConfig().setTurbulenceScale(turbScaleSeekBarConfigurer.getValue());
                 view.recomputeAll();
             }
         });

@@ -24,77 +24,54 @@ package nf.frex.core;
  */
 public final class OrbitFunction {
 
+    private final DistanceFunction distanceFunction;
     private final double dilation;
     private final double translateX;
     private final double translateY;
-    private final DistanceFunction distanceFunction;
+    private final boolean turbulence;
+    private final double turbulenceIntensity;
+    private final double turbulenceScale;
 
-    public OrbitFunction(DistanceFunction distanceFunction, double dilation, double translateX, double translateY) {
+    public OrbitFunction(DistanceFunction distanceFunction, double dilation, double translateX, double translateY, boolean turbulence, double turbulenceIntensity, double turbulenceScale) {
         this.dilation = dilation;
         this.translateX = translateX;
         this.translateY = translateY;
         this.distanceFunction = distanceFunction;
-    }
-
-    public double getDilation() {
-        return dilation;
-    }
-
-    public DistanceFunction getDistanceFunction() {
-        return distanceFunction;
-    }
-
-    public double getTranslateX() {
-        return translateX;
-    }
-
-    public double getTranslateY() {
-        return translateY;
+        this.turbulence = turbulence;
+        this.turbulenceIntensity = turbulenceIntensity;
+        this.turbulenceScale = turbulenceScale;
     }
 
     /**
-     * @param numPoints
-     * @param orbitX
-     * @param orbitY
-     * @return a number x, with 0 <= x <= n
-     */
-    public float processOrbitNew(int numPoints, double[] orbitX, double[] orbitY) {
-        double vicinitySum = 0.0;
-        if (numPoints > 0) {
-            final double a = dilation;
-            final double aa = a * a;
-            final double tx = this.translateX;
-            final double ty = this.translateY;
-            final DistanceFunction f = this.distanceFunction;
-            double distance;
-            for (int i = 0; i < numPoints; i++) {
-                distance = f.evaluate(orbitX[i] - tx, orbitY[i] - ty);
-                distance = distance * distance;
-                if (distance < aa) {
-                    vicinitySum += Math.sqrt(aa - distance) / a;
-                }
-            }
-        }
-        return (float) vicinitySum;
-    }
-
-    /**
-     * @param numPoints
-     * @param orbitX
-     * @param orbitY
-     * @return a number x, with 0 <= x <= n
+     * @param numPoints The orbit's number of points
+     * @param orbitX The orbit's X-values
+     * @param orbitY The orbit's Y-values
+     * @return a number x, with 0 <= x <= numPoints
      */
     public float processOrbit(int numPoints, double[] orbitX, double[] orbitY) {
         double vicinitySum = 0.0;
         if (numPoints > 0) {
+            final DistanceFunction f = this.distanceFunction;
             final double a = 1.0 / dilation;
             final double tx = this.translateX;
             final double ty = this.translateY;
-            final DistanceFunction f = this.distanceFunction;
             double distance;
-            for (int i = 0; i < numPoints; i++) {
-                distance = a * f.evaluate(orbitX[i] - tx, orbitY[i] - ty);
-                vicinitySum += 1.0 / (1.0 + distance * distance);
+            if (turbulence) {
+                final double ti =  turbulenceIntensity;
+                final double ts =  turbulenceScale;
+                double x, y, t;
+                for (int i = 0; i < numPoints; i++) {
+                    x = orbitX[i];
+                    y = orbitY[i];
+                    t = ti * Turbulence.computeTurbulence(x, y, ts, 3);
+                    distance = a * f.evaluate(x  - tx + t, y - ty + t);
+                    vicinitySum += 1.0 / (1.0 + distance * distance);
+                }
+            }  else {
+                for (int i = 0; i < numPoints; i++) {
+                    distance = a * f.evaluate(orbitX[i] - tx, orbitY[i] - ty);
+                    vicinitySum += 1.0 / (1.0 + distance * distance);
+                }
             }
         }
         return (float) vicinitySum;

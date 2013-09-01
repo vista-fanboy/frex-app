@@ -98,6 +98,9 @@ public class FractalView extends View {
         generatorConfig.setDistanceDilation(0.2);
         generatorConfig.setDistanceTranslateX(0.0);
         generatorConfig.setDistanceTranslateY(0.0);
+        generatorConfig.setTurbulenceEnabled(false);
+        generatorConfig.setTurbulenceIntensity(2.0);
+        generatorConfig.setTurbulenceScale(1.0);
 
         generatorConfig.setColorSchemeId("SUNSET");
         generatorConfig.setColorScheme(Registries.colorSchemes.getValue(generatorConfig.getColorSchemeId()));
