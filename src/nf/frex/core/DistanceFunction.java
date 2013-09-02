@@ -128,7 +128,7 @@ public interface DistanceFunction {
             x += 1;
             y += 1;
             double r = log(x * x + y * y);
-            return x * sin(r) + y * cos(r);
+            return x * sin(r) - y * cos(r);
         }
     };
 
