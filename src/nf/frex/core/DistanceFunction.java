@@ -115,7 +115,6 @@ public interface DistanceFunction {
         }
     };
 
-
     DistanceFunction BUBBLES = new DistanceFunction() {
         @Override
         public double evaluate(double x, double y) {
@@ -123,7 +122,15 @@ public interface DistanceFunction {
         }
     };
 
-
+    DistanceFunction SWIRLS = new DistanceFunction() {
+        @Override
+        public double evaluate(double x, double y) {
+            x += 1;
+            y += 1;
+            double r = log(x * x + y * y);
+            return x * sin(r) + y * cos(r);
+        }
+    };
 
 
     DistanceFunction _X = new DistanceFunction() {
