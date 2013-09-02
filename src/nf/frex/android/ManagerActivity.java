@@ -128,9 +128,6 @@ public class ManagerActivity extends Activity {
         super.onCreateOptionsMenu(menu);
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.manager, menu);
-        if (FrexActivity.PRE_SDK14) {
-            FrexActivity.setMenuBackground(this);
-        }
         return true;
     }
 

@@ -54,7 +54,6 @@ import java.util.*;
 public class FrexActivity extends Activity {
 
     public static final int SELECT_PICTURE_REQUEST_CODE = 4711;
-    public static final boolean PRE_SDK14 = Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH;
     public static final String TAG = "Frex";
     public static final String EXAMPLES_URL = "https://code.google.com/p/frex-app/wiki/FrexExamples";
 
@@ -99,17 +98,7 @@ public class FrexActivity extends Activity {
         requestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
         requestWindowFeature(Window.FEATURE_ACTION_MODE_OVERLAY);
 
-        if (PRE_SDK14) {
-            requestWindowFeature(Window.FEATURE_NO_TITLE);
-            // Fix: Frex to stop working on screen orientation changes (Android 2.3.x only)
-            if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-            } else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-            }
-        } else {
-            getActionBar().setBackgroundDrawable(new PaintDrawable(Color.argb(128, 0, 0, 0)));
-        }
+        getActionBar().setBackgroundDrawable(new PaintDrawable(Color.argb(128, 0, 0, 0)));
 
         view = new FractalView(this);
         setContentView(view);
@@ -137,9 +126,6 @@ public class FrexActivity extends Activity {
         super.onCreateOptionsMenu(menu);
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main, menu);
-        if (PRE_SDK14) {
-            setMenuBackground(this);
-        }
         return true;
     }
 
@@ -968,34 +954,5 @@ public class FrexActivity extends Activity {
             b.setOnCancelListener(cancelListener);
         }
         b.show();
-    }
-
-    // On some Android 2.3 devices the options menu has a white background, but Frex uses white icons...
-    //
-    // This is a solution from http://stackoverflow.com/questions/6990524/white-background-on-optionsmenu-android
-    //
-    static void setMenuBackground(final Activity activity) {
-        activity.getLayoutInflater().setFactory(new LayoutInflater.Factory() {
-            @Override
-            public View onCreateView(String name, Context context, AttributeSet attrs) {
-                if (name.equalsIgnoreCase("com.android.internal.view.menu.IconMenuItemView")) {
-                    try {
-                        LayoutInflater inflater = activity.getLayoutInflater();
-                        final View view = inflater.createView(name, null, attrs);
-                        new Handler().post(new Runnable() {
-                            public void run() {
-                                view.setBackgroundColor(Color.argb(127, 0, 0, 0));
-                            }
-                        });
-                        return view;
-                    } catch (InflateException e) {
-                        // :(
-                    } catch (ClassNotFoundException e) {
-                        // :(
-                    }
-                }
-                return null;
-            }
-        });
     }
 }

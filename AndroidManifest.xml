@@ -23,7 +23,7 @@
           android:versionCode="20"
           android:versionName="2.0">
 
-    <uses-sdk android:minSdkVersion="10" android:targetSdkVersion="15"/>
+    <uses-sdk android:minSdkVersion="14" android:targetSdkVersion="15"/>
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
