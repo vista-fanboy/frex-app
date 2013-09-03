@@ -21,19 +21,14 @@ package nf.frex.android;
 
 import android.app.*;
 import android.content.*;
-import android.content.pm.ActivityInfo;
-import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.PaintDrawable;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.preference.PreferenceManager;
-import android.util.AttributeSet;
 import android.util.Log;
 import android.view.*;
 import android.widget.*;
@@ -199,7 +194,11 @@ public class FrexActivity extends Activity {
                 }
             }
         } else if (requestCode == R.id.settings) {
-            view.getGenerator().setNumTasks(SettingsActivity.getNumTasks(this));
+            Generator generator = view.getGenerator();
+            if (generator instanceof DefaultGenerator) {
+                DefaultGenerator defaultGenerator = (DefaultGenerator) generator;
+                defaultGenerator.setNumTasks(SettingsActivity.getNumTasks(this));
+            }
         } else if (requestCode == SELECT_PICTURE_REQUEST_CODE) {
             final Uri imageUri = data.getData();
             final ColorQuantizer colorQuantizer = new ColorQuantizer();
@@ -324,9 +323,9 @@ public class FrexActivity extends Activity {
                                             }
                                         }
                                     };
-                                    final Generator wallpaperGenerator = new Generator(view.getGeneratorConfig(),
-                                                                                       SettingsActivity.NUM_CORES,
-                                                                                       progressListener);
+                                    final Generator wallpaperGenerator = new DefaultGenerator(view.getGeneratorConfig(),
+                                                                                              SettingsActivity.NUM_CORES,
+                                                                                              progressListener);
 
                                     DialogInterface.OnCancelListener cancelListener = new DialogInterface.OnCancelListener() {
                                         @Override
@@ -343,6 +342,7 @@ public class FrexActivity extends Activity {
                                     progressDialog.setOnCancelListener(cancelListener);
                                     progressDialog.show();
 
+                                    Arrays.fill(wallpaperImage.getValues(), FractalView.MISSING_VALUE);
                                     wallpaperGenerator.start(wallpaperImage, false);
                                 }
                             },

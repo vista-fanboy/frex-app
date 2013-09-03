@@ -26,6 +26,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.os.Build;
+import android.renderscript.RenderScript;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -42,6 +43,7 @@ import java.util.LinkedList;
 public class FractalView extends View {
     public static final String TAG = "FrexActivity";
     public static final String PACKAGE_NAME = "nf.frex.android";
+    public static final float MISSING_VALUE = -1.0F;
     private final Matrix matrix;
 
     private enum Operation {
@@ -112,8 +114,13 @@ public class FractalView extends View {
 
         regionHistory.add(generatorConfig.getRegion().clone());
 
+        RenderScript renderScript = RenderScript.create(getContext());
+        ScriptC_fractal_value fractalValueScriptC = new ScriptC_fractal_value(renderScript, getResources(), R.raw.fractal_value);
+        ScriptC_fractal_color fractalColorScriptC = new ScriptC_fractal_color(renderScript, getResources(), R.raw.fractal_color);
+
         int numTasks = SettingsActivity.getNumTasks(getContext());
-        generator = new Generator(generatorConfig, numTasks, new GeneratorProgressListener());
+        generator = new DefaultGenerator(generatorConfig, numTasks, new GeneratorProgressListener());
+        //generator = new RenderScriptGenerator(generatorConfig, renderScript, fractalValueScriptC, fractalColorScriptC, new GeneratorProgressListener());
     }
 
     public LinkedList<Region> getRegionHistory() {
@@ -335,8 +342,8 @@ public class FractalView extends View {
     }
 
     public void recomputeAll() {
-        Arrays.fill(image.getComputed(), false);
-        Arrays.fill(imageCopy.getComputed(), false);
+        Arrays.fill(image.getValues(), MISSING_VALUE);
+        Arrays.fill(imageCopy.getValues(), MISSING_VALUE);
         generator.cancel();
         generator.start(image, false);
     }
@@ -506,16 +513,13 @@ public class FractalView extends View {
         final int h = image1.getHeight();
 
         final int[] colors1 = image1.getColours();
-        final boolean[] computed1 = image1.getComputed();
         final float[] values1 = image1.getValues();
 
         final int[] colors2 = image2.getColours();
-        final boolean[] computed2 = image2.getComputed();
         final float[] values2 = image2.getValues();
 
-        Arrays.fill(computed2, false);
         Arrays.fill(colors2, 0);
-        Arrays.fill(values2, 0.0F);
+        Arrays.fill(values2, MISSING_VALUE);
 
         final double s1x = reg1.getPixelSize(w, h);
         final double s1y = -s1x;
@@ -532,12 +536,11 @@ public class FractalView extends View {
             for (int p1y = 0; p1y < h; p1y++) {
                 for (int p1x = 0; p1x < w; p1x++) {
                     final int i1 = p1y * w + p1x;
-                    if (computed1[i1]) {
+                    if (values1[i1] != MISSING_VALUE) {
                         final int p2x = round(p0x + sx * (p1x - pcx));
                         final int p2y = round(p0y + sy * (p1y - pcy));
                         if (p2x >= 0 && p2x < w && p2y >= 0 && p2y < h) {
                             final int i2 = p2y * w + p2x;
-                            computed2[i2] = true;
                             colors2[i2] = colors1[i1];
                             values2[i2] = values1[i1];
                         }
@@ -556,10 +559,7 @@ public class FractalView extends View {
                     if (p1x >= 0 && p1x < w && p1y >= 0 && p1y < h) {
                         final int i1 = p1y * w + p1x;
                         final int i2 = p2y * w + p2x;
-                        if (computed1[i1]) {
-                            computed2[i2] = true;
-                            values2[i2] = values1[i1];
-                        }
+                        values2[i2] = values1[i1];
                         colors2[i2] = colors1[i1];
                     }
                 }
@@ -575,16 +575,13 @@ public class FractalView extends View {
         final int h = image1.getHeight();
 
         final int[] colors1 = image1.getColours();
-        final boolean[] computed1 = image1.getComputed();
         final float[] values1 = image1.getValues();
 
         final int[] colors2 = image2.getColours();
-        final boolean[] computed2 = image2.getComputed();
         final float[] values2 = image2.getValues();
 
-        Arrays.fill(computed2, false);
         Arrays.fill(colors2, 0);
-        Arrays.fill(values2, 0.0F);
+        Arrays.fill(values2, MISSING_VALUE);
 
         for (int p2y = 0; p2y < h; p2y++) {
             for (int p2x = 0; p2x < w; p2x++) {
@@ -593,10 +590,7 @@ public class FractalView extends View {
                 if (p1x >= 0 && p1x < w && p1y >= 0 && p1y < h) {
                     final int i1 = p1y * w + p1x;
                     final int i2 = p2y * w + p2x;
-                    if (computed1[i1]) {
-                        computed2[i2] = true;
-                        values2[i2] = values1[i1];
-                    }
+                    values2[i2] = values1[i1];
                     colors2[i2] = colors1[i1];
                 }
             }
