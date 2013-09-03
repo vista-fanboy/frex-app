@@ -357,6 +357,7 @@ public class FrexActivity extends Activity {
                                     progressDialog.setOnCancelListener(cancelListener);
                                     progressDialog.show();
 
+                                    Arrays.fill(wallpaperImage.getValues(), FractalView.MISSING_VALUE);
                                     wallpaperGenerator.start(wallpaperImage, false);
                                 }
                             },

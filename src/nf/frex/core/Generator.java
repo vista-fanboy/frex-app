@@ -110,7 +110,6 @@ public class Generator {
             final int iterMax = config.getIterMax();
             final int[] colours = image.getColours();
             final float[] values = image.getValues();
-            final boolean[] computed = image.getComputed();
             final double[] orbitX = new double[iterMax];
             final double[] orbitY = new double[iterMax];
             final OrbitFunction orbitFunction = new OrbitFunction(Registries.distanceFunctions.getValue(config.getDistanceFunctionId(), DistanceFunction.STINGS),
@@ -149,7 +148,7 @@ public class Generator {
             for (iy = startY; iy <= endY && !cancelled; iy++) {
                 for (ix = 0; ix < width; ix++) {
                     i = iy * width + ix;
-                    if (!computed[i]) {
+                    if (values[i] < 0.0f) {
                         zx = z0x + ix * ps;
                         zy = z0y - iy * ps;
                         if (juliaMode) {
@@ -175,24 +174,27 @@ public class Generator {
                         colours[i] = colorPalette[colorIndex];
                         //>>> Code duplication
 
-                        computed[i] = true;
                     } else if (regenColors) {
                         value = values[i];
 
-                        //<<< Code duplication
-                        colorIndex = (int) (colorA * value + colorB);
-                        if (repeatColors) {
-                            colorIndex = colorIndex % numColors2;
-                            if (colorIndex >= numColors) {
-                                colorIndex = numColors2 - colorIndex - 1;
-                            }
+                        if (value < 0.0F) {
+                            colours[i] = 0;
                         } else {
-                            if (colorIndex >= numColors) {
-                                colorIndex = numColors - 1;
+                            //<<< Code duplication
+                            colorIndex = (int) (colorA * value + colorB);
+                            if (repeatColors) {
+                                colorIndex = colorIndex % numColors2;
+                                if (colorIndex >= numColors) {
+                                    colorIndex = numColors2 - colorIndex - 1;
+                                }
+                            } else {
+                                if (colorIndex >= numColors) {
+                                    colorIndex = numColors - 1;
+                                }
                             }
+                            colours[i] = colorPalette[colorIndex];
+                            //>>> Code duplication
                         }
-                        colours[i] = colorPalette[colorIndex];
-                        //>>> Code duplication
                     }
                 }
                 if (iy % 16 == 0) {

@@ -29,14 +29,9 @@ public class Image {
     private int height;
     private int[] colours;
     private float[] values;
-    private boolean[] computed;
 
     public Image(int width, int height) {
         resize(width, height);
-    }
-
-    public boolean[] getComputed() {
-        return computed;
     }
 
     public float[] getValues() {
@@ -71,6 +66,5 @@ public class Image {
         this.height = height;
         this.colours = new int[width * height];
         this.values = new float[width * height];
-        this.computed = new boolean[width * height];
     }
 }

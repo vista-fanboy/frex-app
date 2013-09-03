@@ -1,5 +1,7 @@
 v1.3.0 (Ongoing)
     - Added turbulence to orbit function.
+    - Added SWIRLS distance function.
+    - Reduced memory usage.
 
 v1.2.2
     - Quickfix: Save fractal saved corrupted image.
