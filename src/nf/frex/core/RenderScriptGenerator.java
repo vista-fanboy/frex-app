@@ -63,17 +63,17 @@ public class RenderScriptGenerator extends Generator {
 
             fractalValueScriptC.set_iterMax(config.getIterMax());
             fractalValueScriptC.set_bailOut(config.getBailOut());
-            fractalValueScriptC.set_juliaMode((short) (config.isJuliaModeFractal() ? 1 : 0));
+            fractalValueScriptC.set_juliaMode(config.isJuliaModeFractal());
             fractalValueScriptC.set_juliaX(config.getJuliaX());
             fractalValueScriptC.set_juliaY(config.getJuliaY());
 
-            fractalValueScriptC.set_decorated((short) (config.isDecoratedFractal() ? 1 : 0));
-            fractalValueScriptC.set_orbitDilation(config.getDistanceDilation());
-            fractalValueScriptC.set_orbitTranslateX(config.getDistanceTranslateX());
-            fractalValueScriptC.set_orbitTranslateY(config.getDistanceTranslateY());
-            fractalValueScriptC.set_orbitTurbulence((short) (config.isTurbulenceEnabled() ? 1 : 0));
-            fractalValueScriptC.set_orbitTurbulenceIntensity(config.getTurbulenceIntensity());
-            fractalValueScriptC.set_orbitTurbulenceScale(config.getTurbulenceScale());
+            fractalValueScriptC.set_decorated(config.isDecoratedFractal());
+            fractalValueScriptC.set_orbitDilation((float) config.getDistanceDilation());
+            fractalValueScriptC.set_orbitTranslateX((float) config.getDistanceTranslateX());
+            fractalValueScriptC.set_orbitTranslateY((float) config.getDistanceTranslateY());
+            fractalValueScriptC.set_orbitTurbulence(config.isTurbulenceEnabled());
+            fractalValueScriptC.set_orbitTurbulenceIntensity((float) config.getTurbulenceIntensity());
+            fractalValueScriptC.set_orbitTurbulenceScale((float) config.getTurbulenceScale());
 
             if (valueAllocation == null) {
                 valueAllocation = Allocation.createSized(renderScript, Element.F32(renderScript), count);
@@ -98,7 +98,7 @@ public class RenderScriptGenerator extends Generator {
         fractalColorScriptC.set_colorGain((float) config.getColorGain());
         fractalColorScriptC.set_colorOffset((float) config.getColorOffset());
         fractalColorScriptC.set_numColors(colorPalette.length);
-        fractalColorScriptC.set_repeatColors((short) (config.isColorRepeat() ? 1 : 0));
+        fractalColorScriptC.set_repeatColors(config.isColorRepeat());
 
         if (colorAllocation == null) {
             colorAllocation = Allocation.createSized(renderScript, Element.I32(renderScript), count);

@@ -1,7 +1,7 @@
 /*___Generated_by_IDEA___*/
 
 C:\Users\Norman\JavaProjects\android\frex-app\res\raw\fractal_value.bc \
-  C:\Users\Norman\AppData\Local\Temp\android_renderscript_autogeneration1191742706550010777tmp\nf\frex\core\ScriptC_fractal_value.java: \
+  C:\Users\Norman\AppData\Local\Temp\android_renderscript_autogeneration814645209549709005tmp\nf\frex\core\ScriptC_fractal_value.java: \
   C:\Users\Norman\JavaProjects\android\frex-app\src\nf\frex\core\fractal_value.rs \
   C:\Users\Norman\android_sdk\build-tools\18.0.1\renderscript\include\rs_core.rsh \
   C:\Users\Norman\android_sdk\build-tools\18.0.1\renderscript\include/rs_types.rsh \

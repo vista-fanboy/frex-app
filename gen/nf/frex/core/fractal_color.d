@@ -1,7 +1,7 @@
 /*___Generated_by_IDEA___*/
 
 C:\Users\Norman\JavaProjects\android\frex-app\res\raw\fractal_color.bc \
-  C:\Users\Norman\AppData\Local\Temp\android_renderscript_autogeneration1279893640182634251tmp\nf\frex\core\ScriptC_fractal_color.java: \
+  C:\Users\Norman\AppData\Local\Temp\android_renderscript_autogeneration5251779354163863726tmp\nf\frex\core\ScriptC_fractal_color.java: \
   C:\Users\Norman\JavaProjects\android\frex-app\src\nf\frex\core\fractal_color.rs \
   C:\Users\Norman\android_sdk\build-tools\18.0.1\renderscript\include\rs_core.rsh \
   C:\Users\Norman\android_sdk\build-tools\18.0.1\renderscript\include/rs_types.rsh \

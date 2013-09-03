@@ -50,9 +50,9 @@ public class ScriptC_fractal_color extends ScriptC {
 
     private Element __F32;
     private Element __I32;
+    private FieldPacker __rs_fp_BOOLEAN;
     private FieldPacker __rs_fp_F32;
     private FieldPacker __rs_fp_I32;
-    private FieldPacker __rs_fp_U8;
     private final static int mExportVarIdx_colorPalette = 0;
     private Allocation mExportVar_colorPalette;
     public void bind_colorPalette(Allocation v) {
@@ -99,19 +99,19 @@ public class ScriptC_fractal_color extends ScriptC {
     }
 
     private final static int mExportVarIdx_repeatColors = 4;
-    private short mExportVar_repeatColors;
-    public synchronized void set_repeatColors(short v) {
-        if (__rs_fp_U8!= null) {
-            __rs_fp_U8.reset();
+    private boolean mExportVar_repeatColors;
+    public synchronized void set_repeatColors(boolean v) {
+        if (__rs_fp_BOOLEAN!= null) {
+            __rs_fp_BOOLEAN.reset();
         } else {
-            __rs_fp_U8 = new FieldPacker(1);
+            __rs_fp_BOOLEAN = new FieldPacker(1);
         }
-        __rs_fp_U8.addU8(v);
-        setVar(mExportVarIdx_repeatColors, __rs_fp_U8);
+        __rs_fp_BOOLEAN.addBoolean(v);
+        setVar(mExportVarIdx_repeatColors, __rs_fp_BOOLEAN);
         mExportVar_repeatColors = v;
     }
 
-    public short get_repeatColors() {
+    public boolean get_repeatColors() {
         return mExportVar_repeatColors;
     }
 

@@ -48,9 +48,10 @@ public class ScriptC_fractal_value extends ScriptC {
     }
 
     private Element __F32;
+    private FieldPacker __rs_fp_BOOLEAN;
+    private FieldPacker __rs_fp_F32;
     private FieldPacker __rs_fp_F64;
     private FieldPacker __rs_fp_I32;
-    private FieldPacker __rs_fp_U8;
     private final static int mExportVarIdx_width = 0;
     private int mExportVar_width;
     public synchronized void set_width(int v) {
@@ -62,18 +63,7 @@ public class ScriptC_fractal_value extends ScriptC {
         return mExportVar_width;
     }
 
-    private final static int mExportVarIdx_iterMax = 1;
-    private int mExportVar_iterMax;
-    public synchronized void set_iterMax(int v) {
-        setVar(mExportVarIdx_iterMax, v);
-        mExportVar_iterMax = v;
-    }
-
-    public int get_iterMax() {
-        return mExportVar_iterMax;
-    }
-
-    private final static int mExportVarIdx_ps = 2;
+    private final static int mExportVarIdx_ps = 1;
     private double mExportVar_ps;
     public synchronized void set_ps(double v) {
         setVar(mExportVarIdx_ps, v);
@@ -84,7 +74,7 @@ public class ScriptC_fractal_value extends ScriptC {
         return mExportVar_ps;
     }
 
-    private final static int mExportVarIdx_z0x = 3;
+    private final static int mExportVarIdx_z0x = 2;
     private double mExportVar_z0x;
     public synchronized void set_z0x(double v) {
         setVar(mExportVarIdx_z0x, v);
@@ -95,7 +85,7 @@ public class ScriptC_fractal_value extends ScriptC {
         return mExportVar_z0x;
     }
 
-    private final static int mExportVarIdx_z0y = 4;
+    private final static int mExportVarIdx_z0y = 3;
     private double mExportVar_z0y;
     public synchronized void set_z0y(double v) {
         setVar(mExportVarIdx_z0y, v);
@@ -104,6 +94,17 @@ public class ScriptC_fractal_value extends ScriptC {
 
     public double get_z0y() {
         return mExportVar_z0y;
+    }
+
+    private final static int mExportVarIdx_iterMax = 4;
+    private int mExportVar_iterMax;
+    public synchronized void set_iterMax(int v) {
+        setVar(mExportVarIdx_iterMax, v);
+        mExportVar_iterMax = v;
+    }
+
+    public int get_iterMax() {
+        return mExportVar_iterMax;
     }
 
     private final static int mExportVarIdx_bailOut = 5;
@@ -118,36 +119,36 @@ public class ScriptC_fractal_value extends ScriptC {
     }
 
     private final static int mExportVarIdx_decorated = 6;
-    private short mExportVar_decorated;
-    public synchronized void set_decorated(short v) {
-        if (__rs_fp_U8!= null) {
-            __rs_fp_U8.reset();
+    private boolean mExportVar_decorated;
+    public synchronized void set_decorated(boolean v) {
+        if (__rs_fp_BOOLEAN!= null) {
+            __rs_fp_BOOLEAN.reset();
         } else {
-            __rs_fp_U8 = new FieldPacker(1);
+            __rs_fp_BOOLEAN = new FieldPacker(1);
         }
-        __rs_fp_U8.addU8(v);
-        setVar(mExportVarIdx_decorated, __rs_fp_U8);
+        __rs_fp_BOOLEAN.addBoolean(v);
+        setVar(mExportVarIdx_decorated, __rs_fp_BOOLEAN);
         mExportVar_decorated = v;
     }
 
-    public short get_decorated() {
+    public boolean get_decorated() {
         return mExportVar_decorated;
     }
 
     private final static int mExportVarIdx_juliaMode = 7;
-    private short mExportVar_juliaMode;
-    public synchronized void set_juliaMode(short v) {
-        if (__rs_fp_U8!= null) {
-            __rs_fp_U8.reset();
+    private boolean mExportVar_juliaMode;
+    public synchronized void set_juliaMode(boolean v) {
+        if (__rs_fp_BOOLEAN!= null) {
+            __rs_fp_BOOLEAN.reset();
         } else {
-            __rs_fp_U8 = new FieldPacker(1);
+            __rs_fp_BOOLEAN = new FieldPacker(1);
         }
-        __rs_fp_U8.addU8(v);
-        setVar(mExportVarIdx_juliaMode, __rs_fp_U8);
+        __rs_fp_BOOLEAN.addBoolean(v);
+        setVar(mExportVarIdx_juliaMode, __rs_fp_BOOLEAN);
         mExportVar_juliaMode = v;
     }
 
-    public short get_juliaMode() {
+    public boolean get_juliaMode() {
         return mExportVar_juliaMode;
     }
 
@@ -174,74 +175,74 @@ public class ScriptC_fractal_value extends ScriptC {
     }
 
     private final static int mExportVarIdx_orbitDilation = 10;
-    private double mExportVar_orbitDilation;
-    public synchronized void set_orbitDilation(double v) {
+    private float mExportVar_orbitDilation;
+    public synchronized void set_orbitDilation(float v) {
         setVar(mExportVarIdx_orbitDilation, v);
         mExportVar_orbitDilation = v;
     }
 
-    public double get_orbitDilation() {
+    public float get_orbitDilation() {
         return mExportVar_orbitDilation;
     }
 
     private final static int mExportVarIdx_orbitTranslateX = 11;
-    private double mExportVar_orbitTranslateX;
-    public synchronized void set_orbitTranslateX(double v) {
+    private float mExportVar_orbitTranslateX;
+    public synchronized void set_orbitTranslateX(float v) {
         setVar(mExportVarIdx_orbitTranslateX, v);
         mExportVar_orbitTranslateX = v;
     }
 
-    public double get_orbitTranslateX() {
+    public float get_orbitTranslateX() {
         return mExportVar_orbitTranslateX;
     }
 
     private final static int mExportVarIdx_orbitTranslateY = 12;
-    private double mExportVar_orbitTranslateY;
-    public synchronized void set_orbitTranslateY(double v) {
+    private float mExportVar_orbitTranslateY;
+    public synchronized void set_orbitTranslateY(float v) {
         setVar(mExportVarIdx_orbitTranslateY, v);
         mExportVar_orbitTranslateY = v;
     }
 
-    public double get_orbitTranslateY() {
+    public float get_orbitTranslateY() {
         return mExportVar_orbitTranslateY;
     }
 
     private final static int mExportVarIdx_orbitTurbulence = 13;
-    private short mExportVar_orbitTurbulence;
-    public synchronized void set_orbitTurbulence(short v) {
-        if (__rs_fp_U8!= null) {
-            __rs_fp_U8.reset();
+    private boolean mExportVar_orbitTurbulence;
+    public synchronized void set_orbitTurbulence(boolean v) {
+        if (__rs_fp_BOOLEAN!= null) {
+            __rs_fp_BOOLEAN.reset();
         } else {
-            __rs_fp_U8 = new FieldPacker(1);
+            __rs_fp_BOOLEAN = new FieldPacker(1);
         }
-        __rs_fp_U8.addU8(v);
-        setVar(mExportVarIdx_orbitTurbulence, __rs_fp_U8);
+        __rs_fp_BOOLEAN.addBoolean(v);
+        setVar(mExportVarIdx_orbitTurbulence, __rs_fp_BOOLEAN);
         mExportVar_orbitTurbulence = v;
     }
 
-    public short get_orbitTurbulence() {
+    public boolean get_orbitTurbulence() {
         return mExportVar_orbitTurbulence;
     }
 
     private final static int mExportVarIdx_orbitTurbulenceIntensity = 14;
-    private double mExportVar_orbitTurbulenceIntensity;
-    public synchronized void set_orbitTurbulenceIntensity(double v) {
+    private float mExportVar_orbitTurbulenceIntensity;
+    public synchronized void set_orbitTurbulenceIntensity(float v) {
         setVar(mExportVarIdx_orbitTurbulenceIntensity, v);
         mExportVar_orbitTurbulenceIntensity = v;
     }
 
-    public double get_orbitTurbulenceIntensity() {
+    public float get_orbitTurbulenceIntensity() {
         return mExportVar_orbitTurbulenceIntensity;
     }
 
     private final static int mExportVarIdx_orbitTurbulenceScale = 15;
-    private double mExportVar_orbitTurbulenceScale;
-    public synchronized void set_orbitTurbulenceScale(double v) {
+    private float mExportVar_orbitTurbulenceScale;
+    public synchronized void set_orbitTurbulenceScale(float v) {
         setVar(mExportVarIdx_orbitTurbulenceScale, v);
         mExportVar_orbitTurbulenceScale = v;
     }
 
-    public double get_orbitTurbulenceScale() {
+    public float get_orbitTurbulenceScale() {
         return mExportVar_orbitTurbulenceScale;
     }
 

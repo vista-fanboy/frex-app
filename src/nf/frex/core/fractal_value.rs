@@ -3,45 +3,58 @@
 
 int width;
 
+double ps;
+double z0x;
+double z0y;
+
 int iterMax;
-
-double ps;  // region.getPixelSize(width, height);
-double z0x; // region.getUpperLeftX(width, ps);
-double z0y; // region.getUpperLeftY(height, ps);
-
 double bailOut;
-uchar decorated;
-uchar juliaMode;
+bool decorated;
+bool juliaMode;
 double juliaX;
 double juliaY;
 
-double orbitDilation;
-double orbitTranslateX;
-double orbitTranslateY;
-uchar orbitTurbulence;
-double orbitTurbulenceIntensity;
-double orbitTurbulenceScale;
+float orbitDilation;
+float orbitTranslateX;
+float orbitTranslateY;
+bool orbitTurbulence;
+float orbitTurbulenceIntensity;
+float orbitTurbulenceScale;
 
-static float STINGS_evaluate(float x, float y);
-static int MANDELBROT_computeOrbit(double initX, double initY,
+typedef int (*FrexFractalFunction)(const double initX,
+                                   const double initY,
+                                   const double constX,
+                                   const double constY,
+                                   float* orbitX,
+                                   float* orbitY);
+
+typedef float (*FrexDistanceFunction)(float x, float y);
+
+__inline__ static float STINGS_evaluate(float x, float y);
+__inline__ static int MANDELBROT_computeOrbit(double initX, double initY,
                                    double constX, double constY,
                                    float* orbitX, float* orbitY);
 
-static float processOrbit(int numPoints, float* orbitX, float* orbitY);
+__inline__ static float processOrbit(int numPoints, float* orbitX, float* orbitY);
+
 
 void root(float *v_out, uint32_t x)
 {
     if (*v_out < 0.0f) {
+
         float orbitX[iterMax];
         float orbitY[iterMax];
+
         double zx = z0x + (x % width) * ps;
         double zy = z0y - (x / width) * ps;
+
         int iter;
         if (juliaMode) {
             iter = MANDELBROT_computeOrbit(zx, zy, juliaX, juliaY, orbitX, orbitY);
         } else {
             iter = MANDELBROT_computeOrbit(0.0, 0.0, zx, zy, orbitX, orbitY);
         }
+
         if (decorated) {
             *v_out = processOrbit(iter, orbitX, orbitY);
         }else {
@@ -51,12 +64,13 @@ void root(float *v_out, uint32_t x)
 }
 
 
-//public static final Fractal MANDELBROT = new Fractal(new Region(-0.5, 0.0, 1.2), 100, 100.0) {
 
-
-static int MANDELBROT_computeOrbit(double initX, double initY,
-                                   double constX, double constY,
-                                   float* orbitX, float* orbitY)
+__inline__ static int MANDELBROT_computeOrbit(const double initX,
+                                              const double initY,
+                                              const double constX,
+                                              const double constY,
+                                              float* orbitX,
+                                              float* orbitY)
 {
     double zx = initX;
     double zy = initY;
@@ -75,17 +89,16 @@ static int MANDELBROT_computeOrbit(double initX, double initY,
         orbitX++;
         *orbitY = (float) zy;
         orbitY++;
-
     }
     return iterMax;
 }
 
-static float STINGS_evaluate(float x, float y)
+__inline__ static float STINGS_evaluate(float x, float y)
 {
     return fmin(fabs(x), fabs(y));
 }
 
-static float processOrbit(int numPoints, float* orbitX, float* orbitY)
+__inline__ static float processOrbit(int numPoints, float* orbitX, float* orbitY)
 {
     if (numPoints == 0) {
         return 0.0f;

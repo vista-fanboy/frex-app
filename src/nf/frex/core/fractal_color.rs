@@ -5,17 +5,16 @@ int* colorPalette;
 int numColors;
 float colorGain;
 float colorOffset;
-uchar repeatColors;
+bool repeatColors;
 
 void root(const float *v_in, int *v_out)
 {
     if (*v_in >= 0.0f) {
-        const int numColors2 = 2 * numColors;
         int colorIndex = (int) ((numColors * colorGain) * (*v_in) + colorOffset);
         if (repeatColors) {
-            colorIndex = colorIndex % numColors2;
+            colorIndex = colorIndex % (2 * numColors);
             if (colorIndex >= numColors) {
-                colorIndex = numColors2 - colorIndex - 1;
+                colorIndex = 2 * numColors - colorIndex - 1;
             }
         } else {
             if (colorIndex >= numColors) {
