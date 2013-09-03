@@ -66,7 +66,7 @@ public class GeneratorConfig {
         setDistanceDilation(propertySet.getDouble("distanceDilation", getDistanceDilation()));
         setDistanceTranslateX(propertySet.getDouble("distanceTranslateX", getDistanceTranslateX()));
         setDistanceTranslateY(propertySet.getDouble("distanceTranslateY", getDistanceTranslateY()));
-        setTurbulenceEnabled(propertySet.getBoolean("turbulenceEnabled", isTurbulenceEnabled()));
+        setTurbulenceEnabled(propertySet.getBoolean("turbulenceEnabled", false));  // false, because turbulence is extremely compute intensive
         setTurbulenceIntensity(propertySet.getDouble("turbulenceIntensity", getTurbulenceIntensity()));
         setTurbulenceIntensity(propertySet.getDouble("turbulenceScale", getTurbulenceScale()));
 
