@@ -37,6 +37,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 
 import static nf.frex.android.FrexActivity.showYesNoDialog;
 
@@ -62,6 +63,7 @@ public class ManagerActivity extends Activity {
 
         final FrexIO frexIO = new FrexIO(this);
         imageFiles = frexIO.getFiles(FrexIO.IMAGE_FILE_EXT);
+        Arrays.sort(imageFiles, new FrexFileComparator());
         final Bitmap[] thumbnails = new Bitmap[imageFiles.length];
 
         final Bitmap proxyBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.frex_logo);
@@ -244,4 +246,15 @@ public class ManagerActivity extends Activity {
     }
 
 
+    private static class FrexFileComparator implements Comparator<File> {
+        @Override
+        public int compare(File f1, File f2) {
+            long lm1 = f1.lastModified();
+            long lm2 = f2.lastModified();
+            if (lm1 != lm2) {
+                return lm2 - lm1 < 0 ? -1 : 1;
+            }
+            return f2.compareTo(f1);
+        }
+    }
 }
